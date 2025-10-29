@@ -1,0 +1,74 @@
+site_name: MkDocs Bifrost Template
+site_description: A template repository for MkDocs with Bifrost styling - Material theme with custom branding
+site_author: Your Organization
+site_url: https://intility.github.io/mkdocs-template
+
+repo_name: intility/mkdocs-template
+repo_url: https://github.com/intility/mkdocs-template
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  language: en
+  custom_dir: theme
+  palette:
+    # Palette toggle for light mode
+    - scheme: light
+      primary: &bifrost_theme teal # Bifrost theme: teal, purple, pink, or yellow
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Palette toggle for dark mode
+    - scheme: dark
+      primary: *bifrost_theme # Reuses the theme defined above
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.tracking
+    - navigation.instant
+    - navigation.instant.progress
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+
+plugins:
+  - search:
+      lang: en
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+nav:
+  - Home: index.md

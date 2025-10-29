@@ -1,0 +1,25 @@
+# MkDocs build output
+site/
+
+# Python virtual environment
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# IDE
+.vscode/
+.vs/
+*.suo
+*.user
+.idea/
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*~

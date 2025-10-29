@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{#
+  Bifrost MkDocs Theme
+
+  A custom theme that extends Material for MkDocs while implementing
+  Intility's Bifrost design system.
+#}
+
+{% block htmltitle %}
+  <title>{% if page.title and not page.is_homepage %}{{ page.title | striptags }} - {% endif %}{{ config.site_name }}</title>
+{% endblock %}
+
+{% block styles %}
+  {{ super() }}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/bifrost.css' | url }}">
+{% endblock %}
+
+{% block extrahead %}
+  {# Apply Bifrost classes based on Material's palette configuration #}
+  <script>
+    (function() {
+      var html = document.documentElement;
+      var bifrostThemes = ['teal', 'purple', 'pink', 'yellow'];
+
+      // Function to sync Bifrost classes with Material's palette
+      function syncBifrostTheme() {
+        var body = document.body;
+        if (!body) return; // Body might not be ready yet
+
+        // Get scheme (light/dark) from data-md-color-scheme
+        var scheme = body.getAttribute('data-md-color-scheme');
+
+        // Get Bifrost theme from data-md-color-primary
+        var primary = body.getAttribute('data-md-color-primary');
+
+        // Apply light/dark mode
+        // Material now uses 'light' and 'dark' instead of 'default' and 'slate'
+        if (scheme === 'dark') {
+          html.classList.add('bf-darkmode');
+          html.classList.remove('bf-lightmode');
+        } else {
+          html.classList.add('bf-lightmode');
+          html.classList.remove('bf-darkmode');
+        }
+
+        // Apply Bifrost theme color
+        // Remove all existing theme classes
+        bifrostThemes.forEach(function(theme) {
+          html.classList.remove('bf-theme-' + theme);
+        });
+
+        // Add the appropriate theme class if valid
+        if (primary && bifrostThemes.indexOf(primary) !== -1) {
+          html.classList.add('bf-theme-' + primary);
+        } else {
+          // Default to teal if not specified or invalid
+          html.classList.add('bf-theme-teal');
+        }
+      }
+
+      // Apply when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          syncBifrostTheme();
+
+          // Watch for changes to palette attributes on body
+          var observer = new MutationObserver(syncBifrostTheme);
+          observer.observe(document.body, {
+            attributes: true,
+            attributeFilter: ['data-md-color-scheme', 'data-md-color-primary']
+          });
+        });
+      } else {
+        syncBifrostTheme();
+
+        // Watch for changes to palette attributes on body
+        var observer = new MutationObserver(syncBifrostTheme);
+        observer.observe(document.body, {
+          attributes: true,
+          attributeFilter: ['data-md-color-scheme', 'data-md-color-primary']
+        });
+      }
+    })();
+  </script>
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+{% endblock %}

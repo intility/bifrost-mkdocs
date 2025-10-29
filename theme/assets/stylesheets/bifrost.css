@@ -1,0 +1,766 @@
+/**
+ * Bifrost MkDocs Theme Stylesheet
+ *
+ * A custom theme implementation using Intility's Bifrost design system.
+ * This theme extends Material for MkDocs while fully implementing Bifrost design principles.
+ *
+ * @see https://bifrost.intility.com
+ */
+
+/* ============================================================================
+   1. IMPORT BIFROST CSS FRAMEWORK (for fonts and utilities)
+   ============================================================================ */
+
+@import url("https://unpkg.com/@intility/bifrost-css@latest/dist/bifrost-all.css");
+
+/* ============================================================================
+   2. BIFROST COLOR VARIABLES
+   ============================================================================ */
+
+/*
+ * Note: All Bifrost color variables (--bfc-*) are defined by the Bifrost CSS
+ * framework loaded from CDN. They automatically switch between light and dark
+ * mode based on the .bf-lightmode and .bf-darkmode classes applied to <html>.
+ * The theme colors change based on .bf-theme-* classes (teal, purple, pink, yellow).
+ *
+ * We don't need to redefine them here - just use them directly!
+ */
+
+/* ============================================================================
+   3. MATERIAL THEME VARIABLE MAPPING
+   ============================================================================ */
+
+:root {
+    /* Background colors */
+    --md-default-bg-color: var(--bfc-base);
+    --md-default-fg-color: var(--bfc-base-c);
+
+    /* Primary color (header, links) */
+    --md-primary-fg-color: var(--bfc-theme);
+    --md-primary-bg-color: var(--bfc-base);
+
+    /* Accent color (buttons, highlights) */
+    --md-accent-fg-color: var(--bfc-theme);
+    --md-accent-bg-color: var(--bfc-theme-fade);
+
+    /* Code blocks */
+    --md-code-bg-color: var(--bfc-base-2);
+    --md-code-fg-color: var(--bfc-base-c);
+
+    /* Links */
+    --md-typeset-a-color: var(--bfc-theme);
+
+    /* Borders and dividers */
+    --md-default-fg-color--light: var(--bfc-base-c-2);
+    --md-default-fg-color--lighter: var(--bfc-base-dimmed);
+    --md-default-fg-color--lightest: var(--bfc-base-dimmed-2);
+
+    /* Footer */
+    --md-footer-bg-color: var(--bfc-base-2);
+    --md-footer-fg-color: var(--bfc-base-c);
+
+    /* Shadows */
+    --md-shadow-z1: var(--bf-shadow);
+    --md-shadow-z2: 0 0 12px var(--bfc-shadow);
+    --md-shadow-z3: 0 0 16px var(--bfc-shadow);
+}
+
+/* ============================================================================
+   4. BIFROST TYPOGRAPHY
+   ============================================================================ */
+
+body {
+    font-family: "Open Sans", sans-serif;
+    font-size: var(--bf-font-size-m); /* 14px - Bifrost default */
+    color: var(--bfc-base-c);
+    background-color: var(--bfc-base);
+    line-height: 1.6;
+}
+
+/* Headings use Satoshi font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+    font-family: "Satoshi", sans-serif;
+    font-weight: 700; /* Bifrost uses 700 for headings */
+    color: var(--bfc-base-c);
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.md-typeset h1 {
+    font-size: var(--bf-font-size-h1); /* 32px */
+    line-height: 1.2;
+    margin-top: 0;
+}
+
+.md-typeset h2 {
+    font-size: var(--bf-font-size-h2); /* 29px */
+    line-height: 1.3;
+}
+
+.md-typeset h3 {
+    font-size: var(--bf-font-size-h3); /* 24px */
+    line-height: 1.4;
+}
+
+.md-typeset h4 {
+    font-size: var(--bf-font-size-h4); /* 20px */
+    line-height: 1.4;
+}
+
+.md-typeset h5 {
+    font-size: var(--bf-font-size-h5); /* 18px */
+    line-height: 1.5;
+}
+
+.md-typeset h6 {
+    font-size: var(--bf-font-size-m); /* 14px - same as body */
+    line-height: 1.5;
+}
+
+.md-typeset p,
+.md-typeset ul,
+.md-typeset ol,
+.md-typeset li {
+    font-size: var(--bf-font-size-m); /* 14px */
+    line-height: 1.6;
+    color: var(--bfc-base-c);
+}
+
+/* ============================================================================
+   5. HEADER
+   ============================================================================ */
+
+.md-header {
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+    box-shadow: var(--bf-shadow);
+}
+
+.md-header__button {
+    color: var(--bfc-base-c);
+}
+
+.md-header__button:hover {
+    color: var(--bfc-theme);
+}
+
+.md-header__title {
+    color: var(--bfc-base-c);
+    font-family: "Satoshi", sans-serif;
+    font-weight: 700;
+}
+
+.md-header__source {
+    color: var(--bfc-base-c);
+}
+
+/* ============================================================================
+   6. NAVIGATION TABS
+   ============================================================================ */
+
+.md-tabs {
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+}
+
+.md-tabs__link {
+    color: var(--bfc-base-c-2);
+    font-weight: 500;
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover,
+.md-tabs__link:focus {
+    color: var(--bfc-theme);
+    outline: none;
+    border: none;
+}
+
+.md-tabs__link:focus-visible {
+    outline: 2px solid var(--bfc-theme);
+    outline-offset: 2px;
+}
+
+/* ============================================================================
+   7. SIDEBAR NAVIGATION
+   ============================================================================ */
+
+.md-sidebar {
+    background-color: var(--bfc-base);
+}
+
+.md-sidebar__scrollwrap {
+    background-color: var(--bfc-base);
+}
+
+.md-sidebar--primary {
+    background-color: var(--bfc-base);
+}
+
+.md-sidebar--secondary {
+    background-color: var(--bfc-base);
+}
+
+.md-nav {
+    font-size: var(--bf-font-size-m);
+    color: var(--bfc-base-c);
+}
+
+.md-nav__title {
+    color: var(--bfc-base-c) !important;
+    font-weight: 700;
+}
+
+/* Remove background and shadow from all navigation titles */
+.md-nav__title,
+.md-nav--primary .md-nav__title,
+.md-nav--secondary .md-nav__title,
+.md-nav__title[for] {
+    background: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+    position: relative !important;
+}
+
+/* Remove pseudo-element shadows/fades */
+.md-nav__title::before,
+.md-nav__title::after,
+.md-nav--secondary .md-nav__title::before,
+.md-nav--secondary .md-nav__title::after,
+.md-nav--primary .md-nav__title::before,
+.md-nav--primary .md-nav__title::after {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+    box-shadow: none !important;
+}
+
+/* Remove fade from lifted navigation active links */
+.md-nav--lifted > .md-nav__list > .md-nav__item--active > .md-nav__link {
+    background: none !important;
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Ensure labels in active nav items use default text color */
+.md-nav--lifted > .md-nav__list > .md-nav__item--active > .md-nav__link[for] {
+    color: var(--bfc-base-c) !important;
+}
+
+.md-nav__link {
+    color: var(--bfc-base-c) !important;
+}
+
+.md-nav__link--active {
+    color: var(--bfc-theme) !important;
+    font-weight: 600;
+}
+
+.md-nav__link:hover,
+.md-nav__link:focus {
+    color: var(--bfc-theme) !important;
+}
+
+/* Primary navigation (left sidebar) */
+.md-nav--primary .md-nav__title {
+    color: var(--bfc-base-c) !important;
+}
+
+.md-nav--primary .md-nav__link {
+    color: var(--bfc-base-c) !important;
+}
+
+.md-nav--primary .md-nav__link--active {
+    color: var(--bfc-theme) !important;
+}
+
+.md-nav--primary .md-nav__link:hover {
+    color: var(--bfc-theme) !important;
+}
+
+/* Table of Contents (right sidebar) */
+.md-nav--secondary .md-nav__link {
+    color: var(--bfc-base-c) !important;
+}
+
+.md-nav--secondary .md-nav__link:hover {
+    color: var(--bfc-theme) !important;
+}
+
+.md-nav--secondary .md-nav__link--active {
+    color: var(--bfc-theme) !important;
+    font-weight: 600;
+}
+
+/* Navigation items */
+.md-nav__item {
+    color: var(--bfc-base-c);
+}
+
+.md-nav__item--active > .md-nav__link {
+    color: var(--bfc-theme) !important;
+}
+
+/* ============================================================================
+   8. MAIN CONTENT
+   ============================================================================ */
+
+.md-content {
+    background-color: var(--bfc-base);
+}
+
+.md-content__inner {
+    color: var(--bfc-base-c);
+}
+
+.md-typeset {
+    color: var(--bfc-base-c);
+}
+
+/* Links */
+.md-typeset a {
+    color: var(--bfc-theme);
+    text-decoration: none;
+}
+
+.md-typeset a:hover,
+.md-typeset a:focus {
+    text-decoration: underline;
+    color: var(--bfc-theme);
+}
+
+/* Permalink icons (¶ after headings) */
+.md-typeset .headerlink {
+    color: var(--bfc-base-dimmed) !important;
+}
+
+.md-typeset .headerlink:hover,
+.md-typeset .headerlink:focus,
+.md-typeset .headerlink:target,
+.md-typeset h1:target .headerlink,
+.md-typeset h2:target .headerlink,
+.md-typeset h3:target .headerlink,
+.md-typeset h4:target .headerlink,
+.md-typeset h5:target .headerlink,
+.md-typeset h6:target .headerlink {
+    color: var(--bfc-theme) !important;
+}
+
+/* ============================================================================
+   9. CODE BLOCKS
+   ============================================================================ */
+
+.md-typeset pre,
+.md-typeset code {
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+}
+
+.md-typeset code {
+    padding: 0.1em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+    font-family: "Monaco", "Courier New", Consolas, monospace;
+}
+
+.md-typeset pre > code {
+    background-color: transparent;
+}
+
+.highlight {
+    background-color: var(--bfc-base-2);
+}
+
+.md-typeset .highlight code {
+    background-color: transparent;
+    color: var(--bfc-base-c);
+}
+
+/* Code copy button */
+.md-clipboard {
+    color: var(--bfc-base-c-2);
+}
+
+.md-clipboard:hover {
+    color: var(--bfc-theme);
+}
+
+/* ============================================================================
+   10. ADMONITIONS
+   ============================================================================ */
+
+.md-typeset .admonition {
+    border-left: 4px solid var(--bfc-theme);
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+    border-radius: 4px;
+}
+
+.md-typeset .admonition-title {
+    background-color: transparent;
+    color: var(--bfc-base-c);
+    font-weight: 600;
+    font-family: "Satoshi", sans-serif;
+}
+
+.md-typeset .admonition.note {
+    border-left-color: var(--bfc-theme);
+}
+
+.md-typeset .admonition.abstract,
+.md-typeset .admonition.info {
+    border-left-color: var(--bfc-chill);
+}
+
+.md-typeset .admonition.tip,
+.md-typeset .admonition.success {
+    border-left-color: var(--bfc-success);
+}
+
+.md-typeset .admonition.warning,
+.md-typeset .admonition.attention,
+.md-typeset .admonition.caution {
+    border-left-color: var(--bfc-warning);
+}
+
+.md-typeset .admonition.failure,
+.md-typeset .admonition.danger,
+.md-typeset .admonition.error {
+    border-left-color: var(--bfc-alert);
+}
+
+/* ============================================================================
+   11. TABLES
+   ============================================================================ */
+
+.md-typeset table:not([class]) {
+    border: 1px solid var(--bfc-base-dimmed);
+    background-color: var(--bfc-base-3);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.md-typeset table:not([class]) th {
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+    font-weight: 600;
+    border-bottom: 2px solid var(--bfc-base-dimmed);
+    font-family: "Satoshi", sans-serif;
+}
+
+.md-typeset table:not([class]) td {
+    border-top: 1px solid var(--bfc-base-dimmed);
+    color: var(--bfc-base-c);
+}
+
+.md-typeset table:not([class]) tr:hover {
+    background-color: var(--bfc-base-2);
+}
+
+/* ============================================================================
+   12. BUTTONS
+   ============================================================================ */
+
+.md-button {
+    background-color: var(--bfc-theme);
+    color: var(--bfc-theme-c);
+    border: none;
+    padding: 0.625em 1.25em;
+    border-radius: 4px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 500;
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.md-button:hover,
+.md-button:focus {
+    background-color: var(--bfc-theme-2);
+    color: var(--bfc-theme-c);
+    transform: translateY(-1px);
+}
+
+.md-button--primary {
+    background-color: var(--bfc-theme);
+    color: var(--bfc-theme-c);
+}
+
+/* ============================================================================
+   13. FOOTER
+   ============================================================================ */
+
+/* Sticky footer - ensure footer stays at bottom even with minimal content */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.md-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+}
+
+.md-main {
+    flex: 1 0 auto;
+}
+
+.md-footer {
+    flex-shrink: 0;
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+}
+
+.md-footer__inner {
+    padding: 0.4rem;
+}
+
+.md-footer__title {
+    background-color: var(--bfc-base-3);
+    color: var(--bfc-base-c);
+}
+
+.md-footer__link {
+    color: var(--bfc-base-c);
+}
+
+.md-footer__link:hover,
+.md-footer__link:focus {
+    color: var(--bfc-theme);
+}
+
+.md-footer-meta {
+    background-color: var(--bfc-base-3);
+}
+
+/* Override Material's default footer link color with more specific selector */
+html .md-footer-meta.md-typeset a {
+    color: var(--bfc-theme) !important;
+}
+
+html .md-footer-meta.md-typeset a:hover,
+html .md-footer-meta.md-typeset a:focus {
+    color: var(--bfc-theme-2) !important;
+    text-decoration: underline;
+}
+
+.md-footer-meta__inner {
+    color: var(--bfc-base-c);
+}
+
+.md-footer__direction {
+    color: var(--bfc-base-c-2);
+    font-size: var(--bf-font-size-s);
+}
+
+.md-copyright {
+    color: var(--bfc-base-c);
+}
+
+/* ============================================================================
+   14. SEARCH
+   ============================================================================ */
+
+.md-search__form {
+    background-color: var(--bfc-base-3);
+}
+
+.md-search__input {
+    background-color: var(--bfc-base-3);
+    color: var(--bfc-base-c);
+    border: 1px solid var(--bfc-base-dimmed);
+    border-radius: 4px;
+}
+
+/* Search icon */
+.md-search__icon {
+    color: var(--bfc-base-c) !important;
+}
+
+.md-search__input::placeholder {
+    color: var(--bfc-base-c-2);
+}
+
+.md-search__input:focus {
+    border-color: var(--bfc-theme);
+}
+
+.md-search__output {
+    background-color: var(--bfc-base);
+    border-radius: 4px;
+    box-shadow: var(--bf-shadow);
+}
+
+.md-search-result__article {
+    background-color: var(--bfc-base);
+    border-bottom: 1px solid var(--bfc-base-dimmed);
+}
+
+.md-search-result__article:hover {
+    background-color: var(--bfc-base-2);
+}
+
+.md-search-result__title {
+    color: var(--bfc-base-c);
+}
+
+.md-search-result__teaser {
+    color: var(--bfc-base-c-2);
+}
+
+.md-search-result mark {
+    background-color: var(--bfc-theme-fade);
+    color: var(--bfc-theme);
+}
+
+/* ============================================================================
+   15. TABS AND TABBED CONTENT
+   ============================================================================ */
+
+.md-typeset .tabbed-set > input:checked + label {
+    color: var(--bfc-theme);
+    border-color: var(--bfc-theme);
+}
+
+.md-typeset .tabbed-set > label {
+    color: var(--bfc-base-c-2);
+    font-weight: 500;
+}
+
+.md-typeset .tabbed-set > label:hover {
+    color: var(--bfc-theme);
+}
+
+/* ============================================================================
+   16. PAGINATION
+   ============================================================================ */
+
+.md-footer__link {
+    transition: background-color 0.2s ease;
+}
+
+.md-footer__link:hover {
+    background-color: var(--bfc-base-2);
+}
+
+/* ============================================================================
+   17. ANNOUNCEMENT BAR
+   ============================================================================ */
+
+.md-announce {
+    background-color: var(--bfc-theme-fade);
+    color: var(--bfc-theme-fade-c);
+}
+
+/* ============================================================================
+   18. RESPONSIVE DESIGN
+   ============================================================================ */
+
+@media screen and (max-width: 76.1875em) {
+    /* Mobile adjustments */
+    .md-nav--primary .md-nav__title {
+        background-color: var(--bfc-base-2);
+        color: var(--bfc-base-c);
+    }
+
+    .md-nav--primary .md-nav__item {
+        border-top: 1px solid var(--bfc-base-dimmed);
+    }
+}
+
+/* ============================================================================
+   19. ACCESSIBILITY
+   ============================================================================ */
+
+a:focus,
+button:focus,
+input:focus {
+    outline: 2px solid var(--bfc-theme);
+    outline-offset: 2px;
+}
+
+.md-skip {
+    background-color: var(--bfc-theme);
+    color: var(--bfc-theme-c);
+}
+
+/* Focus visible (keyboard navigation) */
+a:focus-visible,
+button:focus-visible {
+    outline: 2px solid var(--bfc-theme);
+    outline-offset: 2px;
+}
+
+/* ============================================================================
+   20. SCROLLBAR STYLING
+   ============================================================================ */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bfc-base);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bfc-base-dimmed);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bfc-base-c-2);
+}
+
+/* ============================================================================
+   21. MISCELLANEOUS
+   ============================================================================ */
+
+/* Horizontal rules */
+.md-typeset hr {
+    border-bottom: 1px solid var(--bfc-base-dimmed);
+}
+
+/* Blockquotes */
+.md-typeset blockquote {
+    border-left: 4px solid var(--bfc-base-dimmed);
+    color: var(--bfc-base-c-2);
+}
+
+/* Keyboard keys */
+.md-typeset kbd {
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+    border: 1px solid var(--bfc-base-dimmed);
+    border-radius: 3px;
+    box-shadow: 0 1px 0 var(--bfc-base-dimmed);
+}
+
+/* Tags/badges */
+.md-tag {
+    background-color: var(--bfc-theme-fade);
+    color: var(--bfc-theme-fade-c);
+    border-radius: 3px;
+}
+
+/* Print styles */
+@media print {
+    body {
+        background-color: white;
+        color: black;
+    }
+}
