@@ -2,6 +2,8 @@
 
 A template repository for creating beautiful documentation sites using MkDocs with Bifrost-themed Material design.
 
+Take a look at the [documentation](https://intility.github.io/mkdocs-template) for a preview.
+
 ## Overview
 
 This template provides a ready-to-use setup for MkDocs documentation with:
@@ -17,7 +19,7 @@ This template provides a ready-to-use setup for MkDocs documentation with:
 
 ## Documentation
 
-Once deployed, your documentation will be available at https://intility.github.io/<your-project>
+Once deployed, your documentation will be available at https://intility.github.io/your-project
 
 ## Local Development
 
