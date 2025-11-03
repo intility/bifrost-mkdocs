@@ -46,7 +46,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # Serve locally 
-mkdocs serve
+mkdocs serve --livereload --watch docs/ --watch mkdocs.yaml
 ```
 
 The documentation will be available at http://127.0.0.1:8000
