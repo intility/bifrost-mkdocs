@@ -38,9 +38,9 @@ python3 -m venv .venv
 
 # Activate the virtual environment
 # On macOS/Linux:
-source venv/bin/activate
+source .venv/bin/activate
 # On Windows:
-# venv\Scripts\activate
+# .venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -53,7 +53,7 @@ The documentation will be available at http://127.0.0.1:8000
 
 Visit the site and make changes to your documentation - the browser will automatically reload!
 
-**Note:** Remember to activate the virtual environment (`source venv/bin/activate`) each time you work on the documentation.
+**Note:** Remember to activate the virtual environment (`source .venv/bin/activate`) each time you work on the documentation.
 
 ### Building
 

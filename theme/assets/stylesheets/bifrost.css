@@ -1953,4 +1953,24 @@ html body .md-content .tabbed-alternate {
     outline: none;
 }
 
+/* Remove borders and outlines from all links on hover/focus */
+a,
+a:hover,
+a:focus,
+a:active {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+/* Specifically target Material's content links */
+.md-typeset a,
+.md-typeset a:hover,
+.md-typeset a:focus,
+.md-typeset a:active {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
 
