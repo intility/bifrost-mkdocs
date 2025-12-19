@@ -111,7 +111,7 @@ Push to GitHub and enable GitHub Pages in your repository settings (deploy from 
 
 ### Changing the Theme Color
 
-In `mkdocs.yaml`, modify the `primary` color (line 17):
+In `mkdocs.yaml`, modify the `primary` color (line 21):
 
 ```yaml
 primary: &bifrost_theme teal  # Options: teal, purple, pink, yellow

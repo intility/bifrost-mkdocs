@@ -1,0 +1,1230 @@
+/* Custom styles for Developer Platform Docs */
+
+/* Font imports */
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap");
+
+/* Base font size for better readability */
+html {
+  font-size: 18px;
+}
+
+body {
+  font-size: 18px;
+}
+
+/* Satoshi Variable - Self-hosted from Fontshare */
+@font-face {
+  font-family: 'Satoshi';
+  src: url('../fonts/satoshi-variable.woff2') format('woff2-variations');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Satoshi';
+  src: url('../fonts/satoshi-variable-italic.woff2') format('woff2-variations');
+  font-weight: 300 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Fonts - Bifrost standard: Satoshi Variable for headings, Open Sans for everything else */
+
+/* Headings use Satoshi Variable with OpenType features */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Satoshi', 'Open Sans', Arial, sans-serif;
+  font-feature-settings: "ss02", "ss03", "ss04", "liga" 0;
+}
+
+/* H1 uses base-c color and Bifrost h1 font size */
+.md-typeset h1 {
+  color: var(--md-base-c);
+  font-size: 32px;
+  font-weight: 600;
+}
+
+/* Header uses Satoshi Variable */
+.md-header, .md-header__title {
+  font-family: 'Satoshi', 'Open Sans', Arial, sans-serif;
+  font-feature-settings: "ss02", "ss03", "ss04", "liga" 0;
+}
+
+/* Body content uses Open Sans */
+.md-content {
+  font-family: 'Open Sans', Arial, sans-serif;
+}
+
+/* Code uses JetBrains Mono */
+.md-code {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Content width constraints */
+.md-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.md-content__inner {
+  margin: 0 1.5rem;
+  padding: 1rem 0;
+}
+
+/* Main content area */
+.md-main__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 40px;
+}
+
+/* Grid layout adjustments */
+.md-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Work with Material theme - keep default footer behavior */
+/* Just adjust the footer styling, not the layout */
+
+.md-footer-meta__inner {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 77.9px;
+}
+
+/* Typeset content width */
+.md-typeset {
+  max-width: 1200px;
+}
+
+/* Colors */
+/* Light mode overrides */
+[data-md-color-scheme="light"] {
+  /* Bifrost semantic color names */
+  --md-base-c: #071627;
+  --md-base-c-theme: #071627;
+  --md-base-3: #F9F9FA;
+  --md-chill: #631CCF;
+  --md-base-c-dimmed: #565776;
+  --md-success: #007A4B;
+  --md-base-1: #F3F3F6;
+  --md-base-3-bg: #FFFFFF;
+  
+  /* Material theme compatibility - use theme color for primary and accent */
+  --md-primary-fg-color: var(--md-brand);
+  --md-accent-fg-color: var(--md-brand);
+  --md-accent2-fg-color: var(--md-brand);
+  --md-accent3-fg-color: var(--md-base-3);
+  --md-accent4-fg-color: var(--md-chill);
+  --md-accent5-fg-color: var(--md-brand);
+  --md-dimmed-fg-color: var(--md-base-c-dimmed);
+  --md-success-fg-color: var(--md-success);
+  --md-scheme-fg-color: var(--md-base-1);
+  --md-default-bg-color: var(--md-base-1);
+  --md-secondary-bg-color: var(--md-base-3-bg);
+  
+  /* Override Material theme's code block background to match header */
+  --md-code-bg-color: var(--md-base-3-bg);
+  --md-code-hl-color: var(--md-base-3-bg);
+  --md-code-bg: var(--md-base-3-bg);
+  /* Override Material theme's code block border radius */
+  --md-code-border-radius: 0.5rem;
+}
+
+/* Dark mode overrides */
+[data-md-color-scheme="dark"] {
+  /* Bifrost semantic color names */
+  --md-base-c: #F3F3F6;
+  --md-base-c-theme: #F3F3F6;
+  --md-attn: #0DF2D7;
+  --md-brand: #0DF2D7;
+  --md-base-3: #0A1C2E;
+  --md-chill: #AD8AFF;
+  --md-theme-fade: #0DF2D7;
+  --md-base-c-dimmed: #8A98A8;
+  --md-success: #00F597;
+  --md-base-1: #071627;
+  --md-base-2: #0F2133;
+  
+  /* Material theme compatibility - use theme color for primary and accent */
+  --md-primary-fg-color: var(--md-brand);
+  --md-accent-fg-color: var(--md-brand);
+  --md-accent2-fg-color: var(--md-brand);
+  --md-accent3-fg-color: var(--md-base-3);
+  --md-accent4-fg-color: var(--md-chill);
+  --md-accent5-fg-color: var(--md-brand);
+  --md-dimmed-fg-color: var(--md-base-c-dimmed);
+  --md-success-fg-color: var(--md-success);
+  --md-scheme-fg-color: var(--md-base-1);
+  --md-default-bg-color: var(--md-base-1);
+  --md-secondary-bg-color: var(--md-base-2);
+  
+  /* Override Material theme's code block background to match header */
+  --md-code-bg-color: var(--md-base-2);
+  --md-code-hl-color: var(--md-base-2);
+  --md-code-bg: var(--md-base-2);
+  /* Override Material theme's code block border radius */
+  --md-code-border-radius: 0.5rem;
+}
+
+/* Grid cards for homepage */
+.md-typeset .grid.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.md-typeset .grid.cards > * {
+  background: var(--md-code-bg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.md-typeset .grid.cards > *:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: var(--md-primary-fg-color);
+}
+
+/* Card header styling - Bifrost h5 */
+.md-typeset .grid.cards strong {
+  font-family: 'Satoshi', 'Open Sans', Arial, sans-serif;
+  font-feature-settings: "ss02", "ss03", "ss04", "liga" 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--md-base-c);
+}
+
+/* Card paragraph text - base-c color and Bifrost large size */
+.md-typeset .grid.cards p {
+  color: var(--md-base-c);
+  font-size: 16px;
+}
+
+/* Arrow link in top right corner - CSS arrow */
+.md-typeset .grid.cards .card-arrow-link {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  z-index: 10;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* Create arrow using CSS borders */
+.md-typeset .grid.cards .card-arrow-link::before {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid var(--md-base-c-dimmed);
+  border-right: 2px solid var(--md-base-c-dimmed);
+  transform: rotate(45deg);
+  transition: border-color 0.2s ease;
+}
+
+.md-typeset .grid.cards .card-arrow-link:hover {
+  transform: translateX(4px);
+}
+
+.md-typeset .grid.cards .card-arrow-link:hover::before,
+.md-typeset .grid.cards li:hover .card-arrow-link::before {
+  border-top-color: var(--md-base-c);
+  border-right-color: var(--md-base-c);
+}
+
+/* Custom admonition styling */
+
+/* Tip */
+.md-typeset .admonition.tip,
+.md-typeset details.tip, .md-typeset .admonition-title::before {
+  border-color: var(--md-brand);
+}
+
+.md-typeset .tip > .admonition-title::before, .md-typeset .tip > summary::before {
+  background-color: var(--md-brand);
+}
+
+.md-typeset .tip > .admonition-title::before, .md-typeset .tip > summary::after {
+  background-color: var(--md-brand);
+}
+
+.md-typeset .tip > .admonition-title, .md-typeset .tip > summary {
+  background-color: var(--md-base-3);
+}
+
+/* Info */
+.md-typeset .admonition.info,
+.md-typeset details.info {
+  border-color: var(--md-attn);
+
+}
+
+.md-typeset .info > .admonition-title::before, .md-typeset .info > summary::before {
+  background-color: var(--md-attn);
+}
+
+.md-typeset .info > .admonition-title::before, .md-typeset .info > summary::after {
+  background-color: var(--md-attn);
+}
+
+.md-typeset .info > .admonition-title, .md-typeset .info > summary {
+  background-color: var(--md-base-3);
+}
+
+/* Abstract */
+.md-typeset .admonition.abstract,
+.md-typeset details.abstract {
+  border-color: var(--md-chill);
+}
+
+.md-typeset .abstract > .admonition-title::before, .md-typeset .abstract > summary::before {
+  background-color: var(--md-chill);
+}
+
+.md-typeset .abstract > .admonition-title::before, .md-typeset .abstract > summary::after {
+  background-color: var(--md-chill);
+}
+
+.md-typeset .abstract > .admonition-title, .md-typeset .abstract > summary {
+  background-color: var(--md-base-3);
+}
+
+/* Note */
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  border-color: var(--md-theme-fade);
+}
+
+.md-typeset .note > .admonition-title::before, .md-typeset .note > summary::before {
+  background-color: var(--md-theme-fade);
+}
+
+.md-typeset .note > .admonition-title::before, .md-typeset .note > summary::after {
+  background-color: var(--md-theme-fade);
+}
+
+.md-typeset .note > .admonition-title, .md-typeset .note > summary {
+  background-color: var(--md-base-3);
+}
+
+/* Example */
+.md-typeset .admonition.example,
+.md-typeset details.example {
+  border-color: var(--md-base-c-dimmed);
+}
+
+.md-typeset .example > .admonition-title::before, .md-typeset .example > summary::before {
+  background-color: var(--md-base-c-dimmed);
+}
+
+.md-typeset .example > .admonition-title::before, .md-typeset .example > summary::after {
+  background-color: var(--md-base-c-dimmed);
+}
+
+.md-typeset .example > .admonition-title, .md-typeset .example > summary {
+  background-color: var(--md-base-3);
+}
+
+/* Success */
+.md-typeset .admonition.success,
+.md-typeset details.success {
+  border-color: var(--md-success);
+}
+
+.md-typeset .success > .admonition-title::before, .md-typeset .success > summary::before {
+  background-color: var(--md-success);
+}
+
+.md-typeset .success > .admonition-title::before, .md-typeset .success > summary::after {
+  background-color: var(--md-success);
+}
+
+.md-typeset .success > .admonition-title, .md-typeset .success > summary {
+  background-color: var(--md-base-3);
+}
+
+/* Header styling */
+.md-header {
+  color: var(--md-base-c-theme) !important;
+}
+
+/* Light mode header background */
+[data-md-color-scheme="light"] .md-header {
+  background-color: var(--md-base-3-bg) !important;
+}
+
+/* Dark mode header background */
+[data-md-color-scheme="slate"] .md-header {
+  background-color: var(--md-base-2) !important;
+}
+
+[data-md-component="tabs"] {
+  font-family: 'Satoshi', 'Open Sans', Arial, sans-serif;
+  font-feature-settings: "ss02", "ss03", "ss04", "liga" 0;
+  color: var(--md-base-c-theme) !important;
+}
+
+/* Tab labels - set font size to 16px with higher specificity */
+.md-header .md-tabs .md-tabs__list .md-tabs__item .md-tabs__link {
+  font-size: 16px;
+  font-family: 'Open Sans', Arial, sans-serif;
+  color: var(--md-base-c-theme);
+}
+
+/* Tab content within tabbed sections - high specificity selector */
+.md-content .md-typeset .tabbed-set > .tabbed-content {
+  font-size: 16px;
+  font-family: 'Open Sans', Arial, sans-serif;
+}
+
+/* Tab button labels in pymdownx.tabbed content - high specificity */
+.md-content .md-typeset .tabbed-set .tabbed-labels > label {
+  font-size: 16px;
+  font-family: 'Open Sans', Arial, sans-serif;
+  color: var(--md-base-c);
+}
+
+/* Active tab button styling */
+.md-content .md-typeset .tabbed-set .tabbed-labels > label:hover,
+.md-content .md-typeset .tabbed-set .tabbed-labels > label[for]:hover {
+  color: var(--md-attn);
+}
+
+/* Content inside tabbed panels - very specific selectors */
+.md-content .md-typeset .tabbed-set .tabbed-content p,
+.md-content .md-typeset .tabbed-set .tabbed-content li,
+.md-content .md-typeset .tabbed-set .tabbed-content ul,
+.md-content .md-typeset .tabbed-set .tabbed-content ol {
+  font-size: 16px;
+  font-family: 'Open Sans', Arial, sans-serif;
+}
+
+.md-content .md-typeset .tabbed-set .tabbed-content h1,
+.md-content .md-typeset .tabbed-set .tabbed-content h2,
+.md-content .md-typeset .tabbed-set .tabbed-content h3,
+.md-content .md-typeset .tabbed-set .tabbed-content h4,
+.md-content .md-typeset .tabbed-set .tabbed-content h5,
+.md-content .md-typeset .tabbed-set .tabbed-content h6 {
+  font-size: inherit;
+  font-family: 'Satoshi', 'Open Sans', Arial, sans-serif;
+}
+
+/* Light mode tabs background */
+[data-md-color-scheme="light"] [data-md-component="tabs"] {
+  background-color: var(--md-base-3-bg) !important;
+}
+
+/* Dark mode tabs background */
+[data-md-color-scheme="slate"] [data-md-component="tabs"] {
+  background-color: var(--md-base-2) !important;
+}
+
+.md-header__title {
+  color: var(--md-base-c-theme);
+  font-weight: 640;
+  font-size: 16px;
+}
+
+.md-header__topic:first-child {
+  font-weight: 740;
+}
+
+.md-header__topic {
+  font-weight: 740;
+}
+
+/* Header navigation items */
+.md-header__option {
+  color: var(--md-base-c-theme) !important;
+}
+
+.md-header__button {
+  color: var(--md-base-c-theme) !important;
+}
+
+.md-header__button:hover {
+  color: var(--md-brand) !important;
+}
+
+/* Hamburger menu (mobile navigation toggle) styling */
+.md-header__button.md-icon {
+  color: var(--md-base-c-theme) !important;
+}
+
+.md-header__button.md-icon:hover {
+  color: var(--md-attn) !important;
+}
+
+/* Theme toggle button positioning */
+.md-header__option[data-md-component="palette"] {
+  order: 999;
+  margin-left: auto;
+}
+
+/* Ensure header has flex layout */
+.md-header__inner {
+  display: flex;
+  align-items: center;
+}
+
+/* Search and other header elements */
+.md-search__input {
+  color: var(--md-base-c-theme) !important;
+}
+
+.md-search__input::placeholder {
+  color: var(--md-base-c-dimmed) !important;
+}
+
+/* Navigation styling */
+.md-nav__item--active > .md-nav__link {
+  color: var(--md-attn);
+}
+
+/* Table of contents header */
+.md-nav--secondary .md-nav__title {
+    color: var(--md-base-c);
+}
+
+/* Highlight active ToC link*/
+.md-nav__link--active,
+.md-nav__item--active > .md-nav__link {
+    color: var(--md-attn) !important;
+}
+
+/* Make navigation section titles more prominent */
+.md-nav--primary .md-nav__item--section > .md-nav__link,
+.md-nav--secondary .md-nav__item--section > .md-nav__link {
+    font-weight: 740;
+    letter-spacing: 0.01em;
+}
+
+/* Light mode section titles - use base-c color */
+[data-md-color-scheme="light"] .md-nav--primary .md-nav__item--section > .md-nav__link,
+[data-md-color-scheme="light"] .md-nav--secondary .md-nav__item--section > .md-nav__link {
+    color: var(--md-base-c);
+}
+
+/* Dark mode section titles - use base-c color */
+[data-md-color-scheme="slate"] .md-nav--primary .md-nav__item--section > .md-nav__link,
+[data-md-color-scheme="slate"] .md-nav--secondary .md-nav__item--section > .md-nav__link {
+    color: var(--md-base-c);
+}
+
+/*Custom link styling */
+.md-typeset a {
+    color: var(--md-attn);
+    font-weight: normal;
+}
+
+.md-typeset a:hover {
+    color: var(--md-attn);
+    text-decoration: underline;
+}
+
+/* Code block styling */
+.md-typeset pre > code {
+  font-size: 0.85rem;
+}
+
+/* Code syntax highlighting using Bifrost colors */
+/* Light mode code highlighting */
+[data-md-color-scheme="light"] {
+  /* Keywords - use strong theme color for high contrast */
+  .highlight .k,
+  .highlight .kn,
+  .highlight .kp,
+  .highlight .kr,
+  .highlight .kt { 
+    color: var(--bfc-theme-3, var(--md-base-c-theme)); /* Fallback to existing color */
+  }
+  
+  /* Strings - use brand color */
+  .highlight .s,
+  .highlight .s1,
+  .highlight .s2,
+  .highlight .sb,
+  .highlight .sc,
+  .highlight .sd,
+  .highlight .se,
+  .highlight .sh,
+  .highlight .si,
+  .highlight .sx,
+  .highlight .sr,
+  .highlight .ss {
+    color: var(--bfc-brand, var(--md-brand)); /* Fallback to existing brand color */
+  }
+  
+  /* Comments - use base-2 for subtle but readable text */
+  .highlight .c,
+  .highlight .c1,
+  .highlight .cm,
+  .highlight .cp,
+  .highlight .cs {
+    color: var(--bfc-base-2, var(--md-base-c-dimmed)); /* Fallback to existing dimmed */
+    font-style: italic;
+  }
+  
+  /* Numbers - use success color */
+  .highlight .m,
+  .highlight .mf,
+  .highlight .mh,
+  .highlight .mi,
+  .highlight .mo {
+    color: var(--bfc-success, var(--md-success)); /* Fallback to existing success */
+  }
+  
+  /* Functions - use attention color */
+  .highlight .nf,
+  .highlight .fm {
+    color: var(--bfc-attn, var(--md-attn)); /* Fallback to existing attention */
+  }
+  
+  /* Classes - use chill color */
+  .highlight .nc {
+    color: var(--bfc-chill, var(--md-chill)); /* Fallback to existing chill */
+  }
+  
+  /* Variables - use theme-2 */
+  .highlight .na,
+  .highlight .nv,
+  .highlight .vc,
+  .highlight .vg,
+  .highlight .vi {
+    color: var(--bfc-theme-2, var(--md-base-c-theme)); /* Fallback to theme color */
+  }
+  
+  /* Operators - use theme-1 */
+  .highlight .o,
+  .highlight .ow {
+    color: var(--bfc-theme-1, var(--md-brand)); /* Fallback to brand */
+  }
+  
+  /* Built-ins and exceptions - use warning color */
+  .highlight .nb,
+  .highlight .ne {
+    color: var(--bfc-warning, var(--md-attn)); /* Fallback to attention */
+  }
+  
+  /* Decorators and annotations - use alert */
+  .highlight .nd,
+  .highlight .ni {
+    color: var(--bfc-alert, var(--md-theme-fade)); /* Fallback to theme-fade */
+  }
+}
+
+/* Dark mode code highlighting */
+[data-md-color-scheme="dark"] {
+  /* Keywords */
+  .highlight .k,
+  .highlight .kn,
+  .highlight .kp,
+  .highlight .kr,
+  .highlight .kt { 
+    color: var(--bfc-theme, var(--md-base-c-theme)); /* Fallback to existing theme */
+  }
+  
+  /* Strings */
+  .highlight .s,
+  .highlight .s1,
+  .highlight .s2,
+  .highlight .sb,
+  .highlight .sc,
+  .highlight .sd,
+  .highlight .se,
+  .highlight .sh,
+  .highlight .si,
+  .highlight .sx,
+  .highlight .sr,
+  .highlight .ss {
+    color: var(--bfc-brand, var(--md-brand)); /* Fallback to existing brand */
+  }
+  
+  /* Comments */
+  .highlight .c,
+  .highlight .c1,
+  .highlight .cm,
+  .highlight .cp,
+  .highlight .cs {
+    color: var(--bfc-base-2, var(--md-base-c-dimmed)); /* Fallback to existing dimmed */
+    font-style: italic;
+  }
+  
+  /* Numbers */
+  .highlight .m,
+  .highlight .mf,
+  .highlight .mh,
+  .highlight .mi,
+  .highlight .mo {
+    color: var(--bfc-success, var(--md-success)); /* Fallback to existing success */
+  }
+  
+  /* Functions */
+  .highlight .nf,
+  .highlight .fm {
+    color: var(--bfc-attn, var(--md-attn)); /* Fallback to existing attention */
+  }
+  
+  /* Classes */
+  .highlight .nc {
+    color: var(--bfc-chill, var(--md-chill)); /* Fallback to existing chill */
+  }
+  
+  /* Variables */
+  .highlight .na,
+  .highlight .nv,
+  .highlight .vc,
+  .highlight .vg,
+  .highlight .vi {
+    color: var(--bfc-theme-2, var(--md-base-c-theme)); /* Fallback to theme color */
+  }
+  
+  /* Operators */
+  .highlight .o,
+  .highlight .ow {
+    color: var(--bfc-theme-1, var(--md-brand)); /* Fallback to brand */
+  }
+  
+  /* Built-ins and exceptions */
+  .highlight .nb,
+  .highlight .ne {
+    color: var(--bfc-warning, var(--md-attn)); /* Fallback to attention */
+  }
+  
+  /* Decorators and annotations */
+  .highlight .nd,
+  .highlight .ni {
+    color: var(--bfc-alert, var(--md-theme-fade)); /* Fallback to theme-fade */
+  }
+}
+
+/* Enhanced inline code styling with Bifrost colors */
+.md-typeset code {
+  color: var(--bfc-brand, var(--md-brand));
+  background-color: var(--bfc-base-3-bg, var(--md-code-bg-color));
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.25rem;
+  border: 1px solid var(--bfc-base-2, var(--md-default-fg-color--lightest));
+}
+
+/* Remove all borders and backgrounds from code block containers */
+.md-typeset .highlight,
+.md-typeset .codehilite,
+.md-typeset pre {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Apply background and styling only to the code element itself */
+.md-typeset .highlight pre code,
+.md-typeset .codehilite pre code,
+.md-typeset pre code {
+  background-color: var(--md-code-bg-color);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  display: block;
+  margin: 0;
+}
+
+/* Table styling */
+.md-typeset table {
+  margin: 1.5rem 0;
+}
+
+.md-typeset table th {
+  background-color: var(--md-default-fg-color--lightest);
+  font-weight: 600;
+}
+
+/* Grid cards styling */
+.md-typeset .grid.cards > ol > li,
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid > .card {
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.md-typeset .grid.cards > ol > li:focus-within,
+.md-typeset .grid.cards > ol > li:hover,
+.md-typeset .grid.cards > ul > li:focus-within,
+.md-typeset .grid.cards > ul > li:hover,
+.md-typeset .grid > .card:focus-within,
+.md-typeset .grid > .card:hover {
+  border: .05rem solid var(--md-default-fg-color--lightest);
+  box-shadow: none;
+  }
+
+/* Footer styling with Bifrost colors */
+.md-footer {
+  margin-top: 4rem;
+  background-color: var(--bfc-base-1, var(--md-base-1)) !important;
+  color: var(--bfc-base, var(--md-base-c-theme)) !important;
+}
+
+.md-footer__inner {
+  background-color: var(--bfc-base-3, var(--md-base-3)) !important;
+}
+
+/* Footer navigation links */
+.md-footer__link {
+  color: var(--bfc-base, var(--md-base-c-theme)) !important;
+  transition: color 0.2s ease;
+}
+
+.md-footer__link:hover {
+  color: var(--bfc-attn, var(--md-attn)) !important;
+}
+
+/* Footer navigation titles */
+.md-footer__title {
+  color: var(--bfc-base-2, var(--md-base-c-dimmed)) !important;
+  font-weight: 500;
+}
+
+/* Footer direction text (Previous/Next) */
+.md-footer__direction {
+  color: var(--bfc-base-2, var(--md-base-c-dimmed)) !important;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Style social links in footer - position on the right */
+.md-footer__social {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.md-footer__social a {
+  color: var(--md-base-c-theme);
+  font-size: 18px;
+  margin-left: 12px;
+}
+
+.md-footer__social a:hover {
+  color: var(--md-attn);
+}
+
+/* Footer meta section - show but hide generator text */
+.md-footer-meta {
+  background-color: var(--md-base-3) !important;
+  color: var(--md-base-c-theme) !important;
+}
+
+.md-footer-meta__inner {
+  background-color: var(--md-base-3) !important;
+  color: var(--md-base-c-theme) !important;
+}
+
+/* Hide "Made with Material for MkDocs" generator text */
+.md-footer-meta .md-footer-copyright__highlight {
+  display: none !important;
+}
+
+/* Footer copyright text - more specific selectors */
+.md-footer-meta .md-footer-copyright {
+  color: var(--md-base-c-theme) !important;
+}
+
+.md-footer-meta .md-footer-copyright__highlight {
+  color: var(--md-base-c-theme) !important;
+}
+
+.md-footer-meta .md-footer-copyright a {
+  color: var(--md-attn) !important;
+}
+
+.md-footer-meta .md-footer-copyright a:hover {
+  color: var(--md-attn) !important;
+}
+
+/* Override all text in footer meta */
+.md-footer-meta * {
+  color: var(--md-base-c-theme) !important;
+}
+
+.md-footer-meta a {
+  color: var(--md-attn) !important;
+}
+
+.md-footer-meta a:hover {
+  color: var(--md-attn) !important;
+}
+
+/* Coming soon tags */
+.md-typeset em:contains("coming soon") {
+  background: var(--md-code-bg-color);
+  border-radius: 0.2rem;
+  padding: 0.1rem 0.3rem;
+  font-size: 0.85em;
+  font-style: normal;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Reduce spacing between heading and metadata */
+.md-typeset h1 + .article-meta {
+  margin-top: -0.7rem;
+}
+
+/* Article metadata styling */
+.article-meta {
+  background-color: transparent;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+  padding: 0.5rem 0;
+  margin: 0 0 1.5rem 0;
+  font-size: 0.75rem;
+  color: var(--md-default-fg-color--light);
+  line-height: 1.4;
+}
+
+.article-meta .meta-item {
+  display: inline-block;
+  margin-right: 1rem;
+}
+
+.article-meta .meta-item:last-child {
+  margin-right: 0;
+}
+
+.article-meta .meta-label {
+  font-weight: 700;
+  color: var(--md-default-fg-color--light);
+}
+
+.article-meta .meta-value {
+  color: var(--md-default-fg-color--light);
+}
+
+.article-meta .meta-author {
+  color: var(--md-default-fg-color--light);
+  font-weight: normal;
+}
+
+.article-meta .meta-date {
+  color: var(--md-default-fg-color--light);
+}
+
+/* Responsive metadata */
+@media screen and (max-width: 768px) {
+  .article-meta .meta-item {
+    display: block;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+  
+  .article-meta .meta-item:last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .md-typeset .grid.cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 76.2344em) {
+  .md-nav--primary .md-nav__title[for="__drawer"] {
+    background-color: var(--md-base-3-bg);
+    color: var(--md-base-c-theme);
+  }
+  
+  /* Show and style site title in mobile navigation drawer */
+  .md-nav--primary .md-nav__title--site {
+    display: block !important;
+    background-color: var(--md-base-1);
+    padding: 1.5rem 1rem;
+    margin: 0;
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
+    text-align: center;
+  }
+  
+  /* Style the site title link and add logo */
+  .md-nav--primary .md-nav__title--site .md-nav__button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--md-base-c-theme);
+    font-family: 'Satoshi', 'Open Sans', Arial, sans-serif;
+    font-feature-settings: "ss02", "ss03", "ss04", "liga" 0;
+    font-weight: 640;
+    font-size: 1.1rem;
+  }
+  
+  /* Add logo before site title in mobile nav */
+  .md-nav--primary .md-nav__title--site .md-nav__button::before {
+    content: "";
+    display: block;
+    width: 48px;
+    height: 48px;
+    background-image: url("../img/developer-platform-logo.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 0.25rem;
+  }
+}
+
+/* Hide site name from desktop navigation and regular mobile title */
+.md-nav__title--site {
+  display: none;
+}
+
+/* Hide the "Developer Platform Docs" section title above Home in navigation */
+.md-nav--primary .md-nav__title {
+  display: none !important;
+}
+
+/* Keep the drawer toggle title visible */
+.md-nav--primary .md-nav__title[for="__drawer"]:not(.md-nav__title--site) {
+  display: block;
+}
+
+/* Hide back buttons on desktop - they should only appear in mobile hamburger menu */
+@media screen and (min-width: 76.25em) {
+  .md-nav--primary .md-nav__back-button,
+  .md-nav--primary .md-nav__section-title {
+    display: none !important;
+  }
+}
+
+/* Mobile navigation back button and section header styling */
+@media screen and (max-width: 76.2344em) {
+  /* Back button styling - clean and minimal */
+  .md-nav--primary .md-nav__back-button {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: var(--md-base-2) !important;
+    border-bottom: none !important;
+  }
+
+  .md-nav--primary .md-nav__back-button .md-nav__link {
+    color: var(--md-base-c-theme) !important;
+    font-weight: 400 !important;
+    font-family: 'Open Sans', Arial, sans-serif !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0.75rem 1.2rem !important;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    font-size: 0.75rem !important;
+  }
+
+  .md-nav--primary .md-nav__back-button .md-nav__link:hover {
+    background-color: var(--md-default-fg-color--lightest) !important;
+    color: var(--md-base-c-theme) !important;
+  }
+
+  .md-nav--primary .md-nav__back-button .md-nav__link:focus {
+    outline: 2px solid var(--md-chill);
+    outline-offset: -2px;
+    background-color: var(--md-default-fg-color--lightest) !important;
+  }
+
+  /* Style the back arrow icon - smaller to match text */
+  .md-nav--primary .md-nav__back-button svg {
+    width: 18px !important;
+    height: 18px !important;
+    margin-right: 0 !important;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+  }
+
+  .md-nav--primary .md-nav__back-button:hover svg {
+    opacity: 0.8;
+  }
+
+  /* Section title styling - same size as navigation text */
+  .md-nav--primary .md-nav__section-title {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: var(--md-base-2) !important;
+    border-bottom: none !important;
+    border-top: none !important;
+    border: none !important;
+  }
+
+  .md-nav--primary .md-nav__section-title-text {
+    color: var(--md-base-c-theme) !important;
+    font-weight: 500 !important;
+    font-size: 0.75rem !important;
+    padding: 0 1.2rem 0.75rem 1.2rem !important;
+    margin: 0 !important;
+    font-family: 'Open Sans', Arial, sans-serif !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+  }
+
+  /* Remove spacing adjustments */
+  .md-nav--primary .md-nav__back-button + .md-nav__item,
+  .md-nav--primary .md-nav__section-title + .md-nav__item {
+    margin-top: 0 !important;
+  }
+
+  /* Ensure proper background color for header area - no gap */
+  .md-nav--primary .md-nav__back-button + .md-nav__section-title {
+    margin-top: 0 !important;
+  }
+
+  /* Remove any borders from the header area completely */
+  .md-nav--primary .md-nav__back-button *,
+  .md-nav--primary .md-nav__section-title *,
+  .md-nav--primary .md-nav__back-button::before,
+  .md-nav--primary .md-nav__back-button::after,
+  .md-nav--primary .md-nav__section-title::before,
+  .md-nav--primary .md-nav__section-title::after {
+    border: none !important;
+    border-bottom: none !important;
+    border-top: none !important;
+  }
+}
+
+/* Breadcrumb styling */
+.breadcrumb-nav {
+  margin-bottom: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.breadcrumb-home {
+  color: var(--md-attn) !important;
+  text-decoration: none;
+}
+
+.breadcrumb-home:hover {
+  color: var(--md-attn) !important;
+  text-decoration: underline;
+}
+
+/* Footer sizing and spacing - simple full width approach */
+.md-footer {
+  margin-top: 60px;
+  width: 100%;
+  max-width: none;
+}
+
+/* Override Material theme's main container to not constrain footer */
+.md-main .md-footer {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
+/* Footer navigation styling */
+.md-footer-nav {
+  background-color: var(--md-base-3);
+  width: 100%;
+  max-width: none;
+}
+
+.md-footer-nav__inner {
+  padding: 40px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.md-footer-nav__link {
+  padding: 20px 16px;
+  min-height: 60px;
+}
+
+/* Footer text sizes */
+.md-footer__link {
+  font-size: 24px;
+}
+
+.md-footer__title {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.md-footer__direction {
+  font-size: 18px;
+}
+
+/* Footer meta section - full width background */
+.md-footer-meta {
+  background-color: var(--md-base-2);
+  width: 100%;
+  max-width: none;
+}
+
+.md-footer-meta__inner {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 77.9px;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.md-footer-meta__inner .md-footer-copyright {
+  flex: 1;
+}
+
+.md-footer-meta__inner .md-footer__social {
+  margin-top: 0;
+}
+
+/* Footer copyright text */
+.md-footer-meta,
+.md-footer-meta .md-footer-copyright,
+.md-footer-meta .md-footer-copyright__highlight,
+.md-footer-copyright,
+.md-footer-copyright__highlight,
+.md-copyright,
+.md-copyright__highlight {
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 2px 0;
+}
+
+.md-footer-meta * {
+  font-size: 14px;
+}
+
+.md-footer-meta a {
+  color: var(--md-attn);
+  font-size: 14px;
+}
+
+.md-footer-meta.md-typeset {
+  font-size: 14px;
+}

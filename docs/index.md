@@ -51,7 +51,7 @@ This template provides everything you need to create professional documentation 
 
 ### Change the Color Scheme
 
-Edit `mkdocs.yaml` line 17 to change the primary color:
+Edit `mkdocs.yaml` line 25 to change the primary color:
 
 ```yaml
 primary: &bifrost_theme teal  # Options: teal, purple, pink, yellow
@@ -82,11 +82,9 @@ Create styled callout boxes:
 
 !!! tip "Pro Tip"
     Admonitions can be collapsible! Use `???` instead of `!!!`:
-
-    ```markdown
-    ??? tip "Click to expand"
-        Hidden content goes here!
-    ```
+    
+        ??? tip "Click to expand"
+            Hidden content goes here!
 
 ??? example "Click to see a collapsible example"
     This content is hidden until the user clicks to expand it.

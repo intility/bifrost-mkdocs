@@ -7,6 +7,9 @@
  * @see https://bifrost.intility.com
  */
 
+/* Use cascade layers to ensure our CSS takes precedence */
+@layer material-overrides;
+
 /* ============================================================================
    1. IMPORT BIFROST CSS FRAMEWORK (for fonts and utilities)
    ============================================================================ */
@@ -31,6 +34,34 @@
    ============================================================================ */
 
 :root {
+    /* Bifrost Font Size Variables - Define if not present from CDN */
+    --bf-font-size-xs: 12px;
+    --bf-font-size-s: 13px;
+    --bf-font-size-m: 14px;  /* Base size */
+    --bf-font-size-l: 16px;
+    --bf-font-size-xl: 18px;
+    --bf-font-size-h5: 18px;
+    --bf-font-size-h4: 20px;
+    --bf-font-size-h3: 24px;
+    --bf-font-size-h2: 29px;
+    --bf-font-size-h1: 35px;
+
+    /* Bifrost success colors */
+    --bifrost-success-light: #007a4b;
+    --bifrost-success-dark: #00f597;
+    --bifrost-success: var(--bifrost-success-light); /* Default to light */
+}
+
+/* Override success color for dark mode */
+[data-md-color-scheme="dark"] {
+    --bifrost-success: var(--bifrost-success-dark);
+}
+
+[data-md-color-scheme="slate"] {
+    --bifrost-success: var(--bifrost-success-dark);
+}
+
+:root {
     /* Background colors */
     --md-default-bg-color: var(--bfc-base);
     --md-default-fg-color: var(--bfc-base-c);
@@ -42,6 +73,23 @@
     /* Accent color (buttons, highlights) */
     --md-accent-fg-color: var(--bfc-theme);
     --md-accent-bg-color: var(--bfc-theme-fade);
+    
+    /* Override Material's default blue for various components */
+    --md-typeset-a-color: var(--bfc-theme);
+    --md-typeset-mark-color: var(--bfc-theme-fade);
+    --md-typeset-kbd-color: var(--bfc-base-c);
+    --md-typeset-kbd-accent-color: var(--bfc-theme);
+    --md-typeset-kbd-border-color: var(--bfc-base-dimmed);
+    --md-typeset-table-color: var(--bfc-base-c);
+    
+    /* Override Material's internal CSS variables that cause blue colors */
+    --md-default-fg-color--accent: var(--bfc-theme);
+    --md-typeset-color: var(--bfc-base-c);
+    --md-typeset-del-color: var(--bfc-alert);
+    --md-typeset-ins-color: var(--bfc-success);
+    --md-typeset-button-color: var(--bfc-theme);
+    --md-focus-color: var(--bfc-theme);
+    --md-selection-color: var(--bfc-theme-fade);
 
     /* Code blocks */
     --md-code-bg-color: var(--bfc-base-2);
@@ -77,6 +125,14 @@ body {
     line-height: 1.6;
 }
 
+/* Override Material's default font sizes with higher specificity */
+.md-container .md-main .md-content .md-typeset,
+.md-container .md-typeset,
+.md-typeset {
+    font-size: var(--bf-font-size-m); /* 14px */
+    line-height: 1.6;
+}
+
 /* Headings use Satoshi font */
 h1,
 h2,
@@ -97,37 +153,58 @@ h6,
     margin-bottom: 0.5em;
 }
 
+/* Use higher specificity instead of !important */
+.md-container .md-main .md-content .md-typeset h1,
+.md-content .md-typeset h1,
 .md-typeset h1 {
-    font-size: var(--bf-font-size-h1); /* 32px */
+    font-size: var(--bf-font-size-h2); /* 29px - using h2 size for h1 */
     line-height: 1.2;
     margin-top: 0;
 }
 
+.md-container .md-main .md-content .md-typeset h2,
+.md-content .md-typeset h2,
 .md-typeset h2 {
-    font-size: var(--bf-font-size-h2); /* 29px */
+    font-size: var(--bf-font-size-h3); /* 24px - using h3 size for h2 */
     line-height: 1.3;
 }
 
+.md-container .md-main .md-content .md-typeset h3,
+.md-content .md-typeset h3,
 .md-typeset h3 {
-    font-size: var(--bf-font-size-h3); /* 24px */
+    font-size: var(--bf-font-size-h4); /* 20px - using h4 size for h3 */
     line-height: 1.4;
 }
 
+.md-container .md-main .md-content .md-typeset h4,
+.md-content .md-typeset h4,
 .md-typeset h4 {
-    font-size: var(--bf-font-size-h4); /* 20px */
+    font-size: var(--bf-font-size-h5); /* 18px - using h5 size for h4 */
     line-height: 1.4;
 }
 
+.md-container .md-main .md-content .md-typeset h5,
+.md-content .md-typeset h5,
 .md-typeset h5 {
-    font-size: var(--bf-font-size-h5); /* 18px */
+    font-size: var(--bf-font-size-l); /* 16px */
     line-height: 1.5;
 }
 
+.md-container .md-main .md-content .md-typeset h6,
+.md-content .md-typeset h6,
 .md-typeset h6 {
     font-size: var(--bf-font-size-m); /* 14px - same as body */
     line-height: 1.5;
 }
 
+.md-container .md-main .md-content .md-typeset p,
+.md-container .md-main .md-content .md-typeset ul,
+.md-container .md-main .md-content .md-typeset ol,
+.md-container .md-main .md-content .md-typeset li,
+.md-content .md-typeset p,
+.md-content .md-typeset ul,
+.md-content .md-typeset ol,
+.md-content .md-typeset li,
 .md-typeset p,
 .md-typeset ul,
 .md-typeset ol,
@@ -213,13 +290,14 @@ h6,
 }
 
 .md-nav {
-    font-size: var(--bf-font-size-m);
+    font-size: var(--bf-font-size-m); /* 14px */
     color: var(--bfc-base-c);
 }
 
 .md-nav__title {
     color: var(--bfc-base-c) !important;
     font-weight: 700;
+    font-size: var(--bf-font-size-m); /* 14px */
 }
 
 /* Remove background and shadow from all navigation titles */
@@ -260,6 +338,7 @@ h6,
 
 .md-nav__link {
     color: var(--bfc-base-c) !important;
+    font-size: var(--bf-font-size-m); /* 14px */
 }
 
 .md-nav__link--active {
@@ -279,6 +358,7 @@ h6,
 
 .md-nav--primary .md-nav__link {
     color: var(--bfc-base-c) !important;
+    font-size: var(--bf-font-size-m); /* 14px */
 }
 
 .md-nav--primary .md-nav__link--active {
@@ -292,6 +372,7 @@ h6,
 /* Table of Contents (right sidebar) */
 .md-nav--secondary .md-nav__link {
     color: var(--bfc-base-c) !important;
+    font-size: var(--bf-font-size-m); /* 14px */
 }
 
 .md-nav--secondary .md-nav__link:hover {
@@ -387,57 +468,401 @@ h6,
     color: var(--bfc-base-c);
 }
 
-/* Code copy button */
-.md-clipboard {
+/* Code copy button - target all possible selectors */
+.md-clipboard,
+button[data-clipboard-text],
+.md-icon[data-clipboard-text],
+[data-clipboard],
+[data-md-component="clipboard"] {
+    color: var(--bfc-base-c-2);
+    border-color: var(--bfc-base-dimmed);
+}
+
+.md-clipboard:hover,
+.md-clipboard:focus,
+.md-clipboard:active,
+button[data-clipboard-text]:hover,
+button[data-clipboard-text]:focus,
+button[data-clipboard-text]:active,
+.md-icon[data-clipboard-text]:hover,
+.md-icon[data-clipboard-text]:focus,
+.md-icon[data-clipboard-text]:active,
+[data-clipboard]:hover,
+[data-clipboard]:focus,
+[data-clipboard]:active,
+[data-md-component="clipboard"]:hover,
+[data-md-component="clipboard"]:focus,
+[data-md-component="clipboard"]:active {
+    color: var(--bfc-theme);
+    border-color: var(--bfc-theme);
+    background-color: var(--bfc-theme-fade);
+}
+
+/* Universal override for all interactive elements - no blue anywhere */
+button,
+.md-button,
+input,
+a,
+.md-icon,
+[role="button"],
+[tabindex]:not([tabindex="-1"]) {
+    border-color: var(--bfc-base-dimmed);
+}
+
+button:hover,
+button:focus,
+button:active,
+.md-button:hover,
+.md-button:focus,
+.md-button:active,
+input:hover,
+input:focus,
+input:active,
+a:hover,
+a:focus,
+a:active,
+.md-icon:hover,
+.md-icon:focus,
+.md-icon:active,
+[role="button"]:hover,
+[role="button"]:focus,
+[role="button"]:active {
+    color: var(--bfc-theme);
+    border-color: var(--bfc-theme);
+    outline: 2px solid var(--bfc-theme);
+    outline-offset: 2px;
+}
+
+/* Override blue selection and active states universally */
+*:focus,
+*:active,
+*:hover.md-button,
+*:focus.md-button {
+    outline-color: var(--bfc-theme);
+    border-color: var(--bfc-theme);
+}
+
+/* Override browser default focus styles */
+*:focus-visible {
+    outline: 2px solid var(--bfc-theme);
+}
+
+/* Force override Material's JavaScript-applied styles */
+.highlight button,
+.codehilite button,
+pre button,
+code button {
+    border-color: var(--bfc-base-dimmed);
     color: var(--bfc-base-c-2);
 }
 
-.md-clipboard:hover {
+.highlight button:hover,
+.highlight button:focus,
+.highlight button:active,
+.codehilite button:hover,
+.codehilite button:focus,
+.codehilite button:active,
+pre button:hover,
+pre button:focus,
+pre button:active,
+code button:hover,
+code button:focus,
+code button:active {
     color: var(--bfc-theme);
+    border-color: var(--bfc-theme);
+    background-color: var(--bfc-theme-fade);
+}
+
+/* Code copy confirmation message */
+.md-clipboard__message {
+    background-color: var(--bfc-base-3);
+    color: var(--bfc-base-c);
+    border: 1px solid var(--bfc-base-dimmed);
+}
+
+/* Ensure the message text has proper contrast */
+.md-clipboard__message::after {
+    background-color: var(--bfc-base-3);
+    color: var(--bfc-base-c);
 }
 
 /* ============================================================================
    10. ADMONITIONS
    ============================================================================ */
 
-.md-typeset .admonition {
-    border-left: 4px solid var(--bfc-theme);
-    background-color: var(--bfc-base-2);
+/* Base admonition styling with full border */
+.md-typeset .admonition,
+.md-typeset details {
+    border: 1px solid;
+    border-radius: 8px;
+    background-color: var(--bfc-base);
     color: var(--bfc-base-c);
-    border-radius: 4px;
+    margin: 1.5625em 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-.md-typeset .admonition-title {
-    background-color: transparent;
+.md-typeset .admonition-title,
+.md-typeset summary {
+    background-color: var(--bfc-base-2);
     color: var(--bfc-base-c);
     font-weight: 600;
     font-family: "Satoshi", sans-serif;
+    margin: 0;
+    padding: 12px 16px 12px 44px;
+    border: none;
+    border-radius: 0;
+    position: relative;
 }
 
-.md-typeset .admonition.note {
-    border-left-color: var(--bfc-theme);
+/* Keep Material's default icon but allow coloring */
+.md-typeset .admonition-title::before,
+.md-typeset summary::before {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
 }
 
+/* Admonition content padding */
+.md-typeset .admonition > *:not(.admonition-title),
+.md-typeset details > *:not(summary) {
+    padding: 0 16px;
+    margin: 16px 0;
+}
+
+.md-typeset .admonition > *:last-child,
+.md-typeset details > *:last-child {
+    margin-bottom: 16px;
+}
+
+/* Style the expand/collapse arrow for better contrast */
+.md-typeset summary::after {
+    color: var(--bfc-base-c);
+}
+
+/* Ensure the arrow icon in collapsible admonitions has proper contrast */
+.md-typeset details[open] > summary::after {
+    color: var(--bfc-base-c);
+}
+
+/* Note - Theme color */
+.md-typeset .admonition.note,
+.md-typeset details.note {
+    border-color: var(--bfc-theme);
+}
+
+.md-container .md-typeset .note > .admonition-title::before,
+.md-container .md-typeset .note > summary::before,
+.md-typeset .note > .admonition-title::before,
+.md-typeset .note > summary::before {
+    background-color: var(--bfc-theme);
+    mask-image: var(--md-admonition-icon--note);
+    -webkit-mask-image: var(--md-admonition-icon--note);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+}
+
+/* Info - Theme color (same as note) */
+.md-typeset .admonition.info,
+.md-typeset details.info {
+    border-color: var(--bfc-theme);
+}
+
+.md-container .md-typeset .info > .admonition-title::before,
+.md-container .md-typeset .info > summary::before,
+.md-typeset .info > .admonition-title::before,
+.md-typeset .info > summary::before {
+    background-color: var(--bfc-theme);
+    mask-image: var(--md-admonition-icon--info);
+    -webkit-mask-image: var(--md-admonition-icon--info);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+}
+
+/* Abstract - Chill (purple) */
 .md-typeset .admonition.abstract,
-.md-typeset .admonition.info {
-    border-left-color: var(--bfc-chill);
+.md-typeset details.abstract {
+    border-color: var(--bfc-chill);
 }
 
+.md-container .md-typeset .abstract > .admonition-title::before,
+.md-container .md-typeset .abstract > summary::before,
+.md-typeset .abstract > .admonition-title::before,
+.md-typeset .abstract > summary::before {
+    background-color: var(--bfc-chill);
+    mask-image: var(--md-admonition-icon--abstract);
+    -webkit-mask-image: var(--md-admonition-icon--abstract);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+}
+
+/* Tip - Success (green) */
 .md-typeset .admonition.tip,
-.md-typeset .admonition.success {
-    border-left-color: var(--bfc-success);
+.md-typeset details.tip {
+    border-color: var(--bifrost-success);
 }
 
+.md-container .md-typeset .tip > .admonition-title::before,
+.md-container .md-typeset .tip > summary::before,
+.md-typeset .tip > .admonition-title::before,
+.md-typeset .tip > summary::before {
+    background-color: var(--bifrost-success);
+    mask-image: var(--md-admonition-icon--tip);
+    -webkit-mask-image: var(--md-admonition-icon--tip);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+}
+
+/* Success - Success (green) */
+.md-typeset .admonition.success,
+.md-typeset details.success {
+    border-color: var(--bifrost-success);
+}
+
+.md-container .md-typeset .success > .admonition-title::before,
+.md-container .md-typeset .success > summary::before,
+.md-typeset .success > .admonition-title::before,
+.md-typeset .success > summary::before {
+    background-color: var(--bifrost-success);
+    mask-image: var(--md-admonition-icon--success);
+    -webkit-mask-image: var(--md-admonition-icon--success);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+}
+
+/* Warning/Attention/Caution - Warning (orange) */
 .md-typeset .admonition.warning,
 .md-typeset .admonition.attention,
-.md-typeset .admonition.caution {
-    border-left-color: var(--bfc-warning);
+.md-typeset .admonition.caution,
+.md-typeset details.warning,
+.md-typeset details.attention,
+.md-typeset details.caution {
+    border-color: var(--bfc-theme-2);
 }
 
+.md-container .md-typeset .warning > .admonition-title::before,
+.md-container .md-typeset .warning > summary::before,
+.md-typeset .warning > .admonition-title::before,
+.md-typeset .warning > summary::before {
+    background-color: var(--bfc-theme-2);
+    mask-image: var(--md-admonition-icon--warning);
+    -webkit-mask-image: var(--md-admonition-icon--warning);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+}
+
+/* Failure/Danger/Error - Alert (red) */
 .md-typeset .admonition.failure,
 .md-typeset .admonition.danger,
-.md-typeset .admonition.error {
-    border-left-color: var(--bfc-alert);
+.md-typeset .admonition.error,
+.md-typeset details.failure,
+.md-typeset details.danger,
+.md-typeset details.error {
+    border-color: var(--bfc-alert);
+}
+
+.md-container .md-typeset .danger > .admonition-title::before,
+.md-container .md-typeset .danger > summary::before,
+.md-typeset .danger > .admonition-title::before,
+.md-typeset .danger > summary::before {
+    background-color: var(--bfc-alert);
+    mask-image: var(--md-admonition-icon--danger);
+    -webkit-mask-image: var(--md-admonition-icon--danger);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+}
+
+/* Example - Chill (purple) for better visibility */
+.md-typeset .admonition.example,
+.md-typeset details.example {
+    border-color: var(--bfc-chill);
+}
+
+.md-container .md-typeset .example > .admonition-title::before,
+.md-container .md-typeset .example > summary::before,
+.md-typeset .example > .admonition-title::before,
+.md-typeset .example > summary::before {
+    background-color: var(--bfc-chill);
+    mask-image: var(--md-admonition-icon--example);
+    -webkit-mask-image: var(--md-admonition-icon--example);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+}
+
+/* Question - Chill (purple) */
+.md-typeset .admonition.question,
+.md-typeset details.question {
+    border-color: var(--bfc-chill);
+}
+
+.md-container .md-typeset .question > .admonition-title::before,
+.md-container .md-typeset .question > summary::before,
+.md-typeset .question > .admonition-title::before,
+.md-typeset .question > summary::before {
+    background-color: var(--bfc-chill);
+    mask-image: var(--md-admonition-icon--question);
+    -webkit-mask-image: var(--md-admonition-icon--question);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+}
+
+/* Bug - Alert (red) */
+.md-typeset .admonition.bug,
+.md-typeset details.bug {
+    border-color: var(--bfc-alert);
+}
+
+.md-container .md-typeset .bug > .admonition-title::before,
+.md-container .md-typeset .bug > summary::before,
+.md-typeset .bug > .admonition-title::before,
+.md-typeset .bug > summary::before {
+    background-color: var(--bfc-alert);
+    mask-image: var(--md-admonition-icon--bug);
+    -webkit-mask-image: var(--md-admonition-icon--bug);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+}
+
+/* Quote - Base dimmed */
+.md-typeset .admonition.quote,
+.md-typeset details.quote {
+    border-color: var(--bfc-base-dimmed);
+}
+
+.md-container .md-typeset .quote > .admonition-title::before,
+.md-container .md-typeset .quote > summary::before,
+.md-typeset .quote > .admonition-title::before,
+.md-typeset .quote > summary::before {
+    background-color: var(--bfc-base-dimmed);
+    mask-image: var(--md-admonition-icon--quote);
+    -webkit-mask-image: var(--md-admonition-icon--quote);
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-size: contain;
 }
 
 /* ============================================================================
@@ -559,6 +984,10 @@ html .md-footer-meta.md-typeset a:focus {
 
 .md-footer-meta__inner {
     color: var(--bfc-base-c);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .md-footer__direction {
@@ -630,18 +1059,75 @@ html .md-footer-meta.md-typeset a:focus {
    15. TABS AND TABBED CONTENT
    ============================================================================ */
 
-.md-typeset .tabbed-set > input:checked + label {
-    color: var(--bfc-theme);
-    border-color: var(--bfc-theme);
-}
-
+/* Inactive tab labels */
 .md-typeset .tabbed-set > label {
     color: var(--bfc-base-c-2);
     font-weight: 500;
+    border-bottom: 2px solid transparent;
 }
 
+/* Hover state */
 .md-typeset .tabbed-set > label:hover {
     color: var(--bfc-theme);
+    border-bottom-color: var(--bfc-theme-fade);
+}
+
+/* Active/checked tab - use theme color, not blue */
+.md-typeset .tabbed-set > input:checked + label,
+.md-typeset .tabbed-set > input:focus + label,
+.md-typeset .tabbed-set > label.active {
+    color: var(--bfc-theme);
+    border-color: var(--bfc-theme);
+    border-bottom-color: var(--bfc-theme);
+}
+
+/* Override Material's default blue active indicator */
+.md-typeset .tabbed-set > input:checked + label::after {
+    background-color: var(--bfc-theme);
+}
+
+/* Focus state */
+.md-typeset .tabbed-set > label:focus {
+    outline: 2px solid var(--bfc-theme);
+    outline-offset: 2px;
+}
+
+/* Ultra-specific targeting to override Material's blue tabs */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set > input:checked + label,
+html body .md-container .md-typeset .tabbed-set > input:checked + label,
+html body .md-typeset .tabbed-set > input:checked + label,
+html .md-typeset .tabbed-set > input:checked + label,
+.md-typeset .tabbed-set > input:checked + label {
+    color: var(--bfc-theme);
+    border-color: var(--bfc-theme);
+    border-bottom-color: var(--bfc-theme);
+    border-bottom: 2px solid var(--bfc-theme);
+}
+
+/* Target the pseudo-elements with maximum specificity */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set > input:checked + label::after,
+html body .md-container .md-typeset .tabbed-set > input:checked + label::after,
+html body .md-typeset .tabbed-set > input:checked + label::after,
+html .md-typeset .tabbed-set > input:checked + label::after,
+.md-typeset .tabbed-set > input:checked + label::after {
+    background-color: var(--bfc-theme);
+    border-color: var(--bfc-theme);
+}
+
+/* Target focus states */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set > input:focus + label,
+html body .md-container .md-typeset .tabbed-set > input:focus + label,
+html body .md-typeset .tabbed-set > input:focus + label,
+html .md-typeset .tabbed-set > input:focus + label,
+.md-typeset .tabbed-set > input:focus + label {
+    color: var(--bfc-theme);
+    border-color: var(--bfc-theme);
+    border-bottom-color: var(--bfc-theme);
+}
+
+/* Ensure the tab content area uses theme colors */
+.md-typeset .tabbed-content {
+    border-color: var(--bfc-base-dimmed);
 }
 
 /* ============================================================================
@@ -764,3 +1250,707 @@ button:focus-visible {
         color: black;
     }
 }
+
+/* ============================================================================
+   FINAL OVERRIDES - Use cascade layer for higher specificity than Material
+   ============================================================================ */
+
+/* Override Material's generated styles after they load */
+.md-typeset a:focus,
+.md-typeset a:hover {
+    color: var(--bfc-theme);
+}
+
+.md-typeset a:focus code,
+.md-typeset a:hover code {
+    background-color: var(--bfc-theme-fade);
+    color: var(--bfc-theme);
+}
+
+/* Tab navigation active states */
+.md-tabs__item--active .md-tabs__link {
+    color: var(--bfc-theme);
+}
+
+.md-tabs__link:focus,
+.md-tabs__link:hover {
+    color: var(--bfc-theme);
+}
+
+/* Tabbed content active states */
+.tabbed-set > input:checked + label {
+    color: var(--bfc-theme);
+    border-color: transparent;
+    border-bottom: 2px solid var(--bfc-theme);
+    background: transparent;
+}
+
+.tabbed-set > label {
+    color: var(--bfc-base-c);
+    border: none;
+    background: transparent;
+}
+
+.tabbed-set > label:focus,
+.tabbed-set > label:hover {
+    color: var(--bfc-theme);
+    border: none;
+    background: transparent;
+}
+
+/* Button and clipboard active states */
+.md-clipboard,
+.md-clipboard:focus,
+.md-clipboard:hover {
+    color: var(--bfc-base-c);
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.md-clipboard:hover {
+    color: var(--bfc-theme);
+}
+
+.md-code__button,
+.md-code__button:focus,
+.md-code__button:hover {
+    color: var(--bfc-base-c);
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+.md-code__button:hover {
+    color: var(--bfc-theme);
+}
+
+/* Remove background from code navigation container */
+.md-code__nav {
+    background: transparent;
+}
+
+/* ============================================================================
+   15. SYNTAX HIGHLIGHTING
+   ============================================================================ */
+
+/* Pygments syntax highlighting with Bifrost colors */
+/* Use high specificity selectors to override Material defaults */
+html body .md-typeset .highlight .hll,
+html body .md-typeset div[class*="language-"].highlight .hll { 
+    background-color: var(--bfc-theme-fade); 
+}
+
+html body .md-typeset .highlight .c,
+html body .md-typeset div[class*="language-"].highlight .c { 
+    color: var(--bfc-base-c-2); 
+    font-style: italic; 
+} /* Comment */
+
+html body .md-typeset .highlight .err,
+html body .md-typeset div[class*="language-"].highlight .err { 
+    color: var(--bfc-alert); 
+} /* Error */
+
+html body .md-typeset .highlight .k,
+html body .md-typeset div[class*="language-"].highlight .k { 
+    color: var(--bfc-theme); 
+    font-weight: bold; 
+} /* Keyword */
+
+html body .md-typeset .highlight .l,
+html body .md-typeset div[class*="language-"].highlight .l { 
+    color: var(--bfc-theme); 
+} /* Literal */
+
+html body .md-typeset .highlight .n,
+html body .md-typeset div[class*="language-"].highlight .n { 
+    color: var(--bfc-base-c); 
+} /* Name */
+
+html body .md-typeset .highlight .o,
+html body .md-typeset div[class*="language-"].highlight .o { 
+    color: var(--bfc-base-c-2); 
+} /* Operator */
+
+html body .md-typeset .highlight .p,
+html body .md-typeset div[class*="language-"].highlight .p { 
+    color: var(--bfc-base-c-2); 
+} /* Punctuation */
+
+html body .md-typeset .highlight .cm,
+html body .md-typeset div[class*="language-"].highlight .cm { 
+    color: var(--bfc-base-c-2); 
+    font-style: italic; 
+} /* Comment.Multiline */
+
+html body .md-typeset .highlight .cp,
+html body .md-typeset div[class*="language-"].highlight .cp { 
+    color: var(--bfc-base-c-2); 
+    font-style: italic; 
+} /* Comment.Preproc */
+
+html body .md-typeset .highlight .c1,
+html body .md-typeset div[class*="language-"].highlight .c1 { 
+    color: var(--bfc-base-c-2); 
+    font-style: italic; 
+} /* Comment.Single */
+
+html body .md-typeset .highlight .cs,
+html body .md-typeset div[class*="language-"].highlight .cs { 
+    color: var(--bfc-base-c-2); 
+    font-style: italic; 
+} /* Comment.Special */
+
+.highlight .gd,
+div[class*="language-"].highlight .gd { color: var(--bfc-alert); } /* Generic.Deleted */
+
+.highlight .ge,
+div[class*="language-"].highlight .ge { font-style: italic; } /* Generic.Emph */
+
+.highlight .gr,
+div[class*="language-"].highlight .gr { color: var(--bfc-alert); } /* Generic.Error */
+
+.highlight .gh,
+div[class*="language-"].highlight .gh { color: var(--bfc-base-c); font-weight: bold; } /* Generic.Heading */
+
+.highlight .gi,
+div[class*="language-"].highlight .gi { color: var(--bfc-success); } /* Generic.Inserted */
+
+.highlight .go,
+div[class*="language-"].highlight .go { color: var(--bfc-base-c-2); } /* Generic.Output */
+
+.highlight .gp,
+div[class*="language-"].highlight .gp { color: var(--bfc-base-c); font-weight: bold; } /* Generic.Prompt */
+
+.highlight .gs,
+div[class*="language-"].highlight .gs { font-weight: bold; } /* Generic.Strong */
+
+.highlight .gu,
+div[class*="language-"].highlight .gu { color: var(--bfc-base-c); font-weight: bold; } /* Generic.Subheading */
+
+.highlight .gt,
+div[class*="language-"].highlight .gt { color: var(--bfc-alert); } /* Generic.Traceback */
+
+.highlight .kc,
+div[class*="language-"].highlight .kc { color: var(--bfc-theme); font-weight: bold; } /* Keyword.Constant */
+
+.highlight .kd,
+div[class*="language-"].highlight .kd { color: var(--bfc-theme); font-weight: bold; } /* Keyword.Declaration */
+
+.highlight .kn,
+div[class*="language-"].highlight .kn { color: var(--bfc-theme); font-weight: bold; } /* Keyword.Namespace */
+
+.highlight .kp,
+div[class*="language-"].highlight .kp { color: var(--bfc-theme); font-weight: bold; } /* Keyword.Pseudo */
+
+.highlight .kr,
+div[class*="language-"].highlight .kr { color: var(--bfc-theme); font-weight: bold; } /* Keyword.Reserved */
+
+.highlight .kt,
+div[class*="language-"].highlight .kt { color: var(--bfc-theme-2); font-weight: bold; } /* Keyword.Type */
+
+.highlight .ld,
+div[class*="language-"].highlight .ld { color: var(--bfc-theme); } /* Literal.Date */
+
+.highlight .m,
+div[class*="language-"].highlight .m { color: var(--bfc-theme); } /* Literal.Number */
+
+.highlight .s,
+div[class*="language-"].highlight .s { color: var(--bfc-success); } /* Literal.String */
+
+.highlight .na,
+div[class*="language-"].highlight .na { color: var(--bfc-theme-2); } /* Name.Attribute */
+
+.highlight .nb,
+div[class*="language-"].highlight .nb { color: var(--bfc-theme); } /* Name.Builtin */
+
+.highlight .nc,
+div[class*="language-"].highlight .nc { color: var(--bfc-theme-2); font-weight: bold; } /* Name.Class */
+
+.highlight .no,
+div[class*="language-"].highlight .no { color: var(--bfc-alert); } /* Name.Constant */
+
+.highlight .nd,
+div[class*="language-"].highlight .nd { color: var(--bfc-theme-2); } /* Name.Decorator */
+
+.highlight .ni,
+div[class*="language-"].highlight .ni { color: var(--bfc-theme); } /* Name.Entity */
+
+.highlight .ne,
+div[class*="language-"].highlight .ne { color: var(--bfc-alert); font-weight: bold; } /* Name.Exception */
+
+.highlight .nf,
+div[class*="language-"].highlight .nf { color: var(--bfc-theme); font-weight: bold; } /* Name.Function */
+
+.highlight .nl,
+div[class*="language-"].highlight .nl { color: var(--bfc-theme-2); } /* Name.Label */
+
+.highlight .nn,
+div[class*="language-"].highlight .nn { color: var(--bfc-base-c); } /* Name.Namespace */
+
+.highlight .nt,
+div[class*="language-"].highlight .nt { color: var(--bfc-theme); font-weight: bold; } /* Name.Tag */
+
+.highlight .nv,
+div[class*="language-"].highlight .nv { color: var(--bfc-theme); } /* Name.Variable */
+
+.highlight .ow,
+div[class*="language-"].highlight .ow { color: var(--bfc-theme); font-weight: bold; } /* Operator.Word */
+
+.highlight .w,
+div[class*="language-"].highlight .w { color: var(--bfc-base-c-2); } /* Text.Whitespace */
+
+.highlight .mf,
+div[class*="language-"].highlight .mf { color: var(--bfc-theme); } /* Literal.Number.Float */
+
+.highlight .mh,
+div[class*="language-"].highlight .mh { color: var(--bfc-theme); } /* Literal.Number.Hex */
+
+.highlight .mi,
+div[class*="language-"].highlight .mi { color: var(--bfc-theme); } /* Literal.Number.Integer */
+
+.highlight .mo,
+div[class*="language-"].highlight .mo { color: var(--bfc-theme); } /* Literal.Number.Oct */
+
+.highlight .sb,
+div[class*="language-"].highlight .sb { color: var(--bfc-success); } /* Literal.String.Backtick */
+
+.highlight .sc,
+div[class*="language-"].highlight .sc { color: var(--bfc-success); } /* Literal.String.Char */
+
+.highlight .sd,
+div[class*="language-"].highlight .sd { color: var(--bfc-base-c-2); font-style: italic; } /* Literal.String.Doc */
+
+.highlight .s2,
+div[class*="language-"].highlight .s2 { color: var(--bfc-success); } /* Literal.String.Double */
+
+.highlight .se,
+div[class*="language-"].highlight .se { color: var(--bfc-theme-2); } /* Literal.String.Escape */
+
+.highlight .sh,
+div[class*="language-"].highlight .sh { color: var(--bfc-success); } /* Literal.String.Heredoc */
+
+.highlight .si,
+div[class*="language-"].highlight .si { color: var(--bfc-theme-2); } /* Literal.String.Interpol */
+
+.highlight .sx,
+div[class*="language-"].highlight .sx { color: var(--bfc-success); } /* Literal.String.Other */
+
+.highlight .sr,
+div[class*="language-"].highlight .sr { color: var(--bfc-theme); } /* Literal.String.Regex */
+
+.highlight .s1,
+div[class*="language-"].highlight .s1 { color: var(--bfc-success); } /* Literal.String.Single */
+
+.highlight .ss,
+div[class*="language-"].highlight .ss { color: var(--bfc-theme); } /* Literal.String.Symbol */
+
+.highlight .bp,
+div[class*="language-"].highlight .bp { color: var(--bfc-theme); } /* Name.Builtin.Pseudo */
+
+.highlight .vc,
+div[class*="language-"].highlight .vc { color: var(--bfc-theme); } /* Name.Variable.Class */
+
+.highlight .vg,
+div[class*="language-"].highlight .vg { color: var(--bfc-theme); } /* Name.Variable.Global */
+
+.highlight .vi,
+div[class*="language-"].highlight .vi { color: var(--bfc-theme); } /* Name.Variable.Instance */
+
+/* YAML-specific highlighting for Scalar types */
+html body .md-typeset .highlight .l-Scalar,
+html body .md-typeset div[class*="language-"].highlight .l-Scalar { color: var(--bfc-theme); } /* YAML Scalars */
+html body .md-typeset .highlight .l-Scalar-Plain,
+html body .md-typeset div[class*="language-"].highlight .l-Scalar-Plain { color: var(--bfc-theme); } /* YAML Plain Scalars */
+html body .md-typeset .highlight .p-Indicator,
+html body .md-typeset div[class*="language-"].highlight .p-Indicator { color: var(--bfc-base-c-2); } /* YAML Indicators */
+
+/* Diverse color scheme using different Bifrost colors */
+
+/* Keywords (def, return, etc.) - Theme color, bold */
+html body .md-typeset .highlight .k,
+html body .md-typeset .highlight .kd,
+html body .md-typeset .highlight .kn,
+html body .md-typeset .highlight .kp,
+html body .md-typeset .highlight .kr,
+html body .md-typeset div[class*="language-"].highlight .k,
+html body .md-typeset div[class*="language-"].highlight .kd,
+html body .md-typeset div[class*="language-"].highlight .kn,
+html body .md-typeset div[class*="language-"].highlight .kp,
+html body .md-typeset div[class*="language-"].highlight .kr {
+    color: var(--bfc-theme);
+    font-weight: bold;
+}
+
+/* Built-in constants (True, False, None) - Alert color */
+html body .md-typeset .highlight .kc,
+html body .md-typeset .highlight .kt,
+html body .md-typeset div[class*="language-"].highlight .kc,
+html body .md-typeset div[class*="language-"].highlight .kt {
+    color: var(--bfc-alert);
+    font-weight: bold;
+}
+
+/* Strings - Bifrost success color with light/dark adaptation */
+html body .md-typeset .highlight .s,
+html body .md-typeset .highlight .s1,
+html body .md-typeset .highlight .s2,
+html body .md-typeset .highlight .sb,
+html body .md-typeset .highlight .sc,
+html body .md-typeset .highlight .sh,
+html body .md-typeset .highlight .sx,
+html body .md-typeset .highlight .sr,
+html body .md-typeset .highlight .ss,
+html body .md-typeset div[class*="language-"].highlight .s,
+html body .md-typeset div[class*="language-"].highlight .s1,
+html body .md-typeset div[class*="language-"].highlight .s2,
+html body .md-typeset div[class*="language-"].highlight .sb,
+html body .md-typeset div[class*="language-"].highlight .sc,
+html body .md-typeset div[class*="language-"].highlight .sh,
+html body .md-typeset div[class*="language-"].highlight .sx,
+html body .md-typeset div[class*="language-"].highlight .sr,
+html body .md-typeset div[class*="language-"].highlight .ss {
+    color: var(--bifrost-success);
+    font-weight: normal;
+}
+
+/* Functions and built-ins (print, hello_world) - Base color */
+html body .md-typeset .highlight .nb,
+html body .md-typeset .highlight .nf,
+html body .md-typeset div[class*="language-"].highlight .nb,
+html body .md-typeset div[class*="language-"].highlight .nf {
+    color: var(--bfc-base-c);
+    font-weight: normal;
+}
+
+/* Comments - Dimmed, italic */
+html body .md-typeset .highlight .c,
+html body .md-typeset .highlight .c1,
+html body .md-typeset .highlight .cm,
+html body .md-typeset .highlight .cp,
+html body .md-typeset .highlight .cs,
+html body .md-typeset .highlight .sd,
+html body .md-typeset div[class*="language-"].highlight .c,
+html body .md-typeset div[class*="language-"].highlight .c1,
+html body .md-typeset div[class*="language-"].highlight .cm,
+html body .md-typeset div[class*="language-"].highlight .cp,
+html body .md-typeset div[class*="language-"].highlight .cs,
+html body .md-typeset div[class*="language-"].highlight .sd {
+    color: var(--bfc-base-c-2);
+    font-style: italic;
+    font-weight: normal;
+}
+
+/* Punctuation and operators - Base color */
+html body .md-typeset .highlight .p,
+html body .md-typeset .highlight .o,
+html body .md-typeset div[class*="language-"].highlight .p,
+html body .md-typeset div[class*="language-"].highlight .o {
+    color: var(--bfc-base-c);
+    font-weight: normal;
+}
+
+/* YAML-specific syntax highlighting */
+/* YAML keys and tags - Theme color */
+html body .md-typeset .highlight .nt,
+html body .md-typeset div[class*="language-"].highlight .nt {
+    color: var(--bfc-theme);
+    font-weight: bold;
+}
+
+/* YAML anchors and labels - Base text color for better contrast */
+html body .md-typeset .highlight .nl,
+html body .md-typeset div[class*="language-"].highlight .nl {
+    color: var(--bfc-base-c);
+    font-weight: normal;
+}
+
+/* YAML scalar values - Bifrost success color with light/dark adaptation */
+html body .md-typeset .highlight .l-Scalar,
+html body .md-typeset .highlight .l-Scalar-Plain,
+html body .md-typeset div[class*="language-"].highlight .l-Scalar,
+html body .md-typeset div[class*="language-"].highlight .l-Scalar-Plain {
+    color: var(--bifrost-success);
+    font-weight: normal;
+}
+
+/* YAML indicators (-, :, etc.) - Base color */
+html body .md-typeset .highlight .p-Indicator,
+html body .md-typeset div[class*="language-"].highlight .p-Indicator {
+    color: var(--bfc-base-c);
+    font-weight: normal;
+}
+
+/* Remove borders from all Material buttons */
+html body .md-button,
+html body .md-button:focus,
+html body .md-button:hover,
+html body [data-md-component="button"]:focus,
+html body [data-md-component="button"]:hover,
+html body .md-header__button:focus,
+html body .md-header__button:hover,
+html body .md-search__icon:focus,
+html body .md-search__icon:hover,
+html body .md-source:focus,
+html body .md-source:hover,
+html body button:focus,
+html body button:hover {
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+/* Force override tab button styling with high specificity */
+html body .md-typeset .tabbed-set > label,
+html body .md-typeset .tabbed-set > label:focus,
+html body .md-typeset .tabbed-set > label:hover {
+    color: var(--bfc-base-c);
+    border: none;
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+html body .md-typeset .tabbed-set > label:hover {
+    color: var(--bfc-theme);
+}
+
+html body .md-typeset .tabbed-set > input:checked + label {
+    color: var(--bfc-theme);
+    border: none;
+    border-bottom: 2px solid var(--bfc-theme);
+    background: transparent;
+    outline: none;
+    box-shadow: none;
+}
+
+/* Target the actual tabbed labels structure from the HTML */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label:focus,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label:hover,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label:active {
+    color: var(--bfc-base-c);
+    font-weight: normal;
+    background-color: transparent;
+    background: transparent;
+    border: 0;
+    border-color: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 0;
+    text-decoration: none;
+    outline: 0;
+    box-shadow: none;
+}
+
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label:hover {
+    color: var(--bfc-base-c);
+}
+
+/* Target active tab using CSS :has() selector or fallback to specific IDs */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set:has(input#__tabbed_1_1:checked) .tabbed-labels label[for="__tabbed_1_1"],
+html body .md-container .md-main .md-content .md-typeset .tabbed-set:has(input#__tabbed_1_2:checked) .tabbed-labels label[for="__tabbed_1_2"],
+html body .md-container .md-main .md-content .md-typeset .tabbed-set:has(input#__tabbed_1_3:checked) .tabbed-labels label[for="__tabbed_1_3"],
+html body .md-container .md-main .md-content .md-typeset .tabbed-set:has(input#__tabbed_1_4:checked) .tabbed-labels label[for="__tabbed_1_4"] {
+    color: var(--bfc-base-c);
+    font-weight: 600;
+    background-color: transparent;
+    background: transparent;
+    border: 0;
+    border-color: transparent;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 2px solid var(--bfc-base-c);
+    text-decoration: none;
+    outline: 0;
+    box-shadow: none;
+}
+
+/* Remove all unwanted lines and borders from tabbed elements */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set::before,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set::after,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels::before,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels::after {
+    border: 0;
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+}
+
+/* Force override Material's theme color variables specifically for tabbed elements */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set.tabbed-alternate {
+    --md-primary-fg-color: var(--bfc-base-dimmed);
+    --md-accent-fg-color: var(--bfc-base-dimmed);
+}
+
+/* Target the tabbed-alternate variant specifically */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set.tabbed-alternate .tabbed-labels label::before,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set.tabbed-alternate .tabbed-labels label::after {
+    background: var(--bfc-base-dimmed);
+    background-color: var(--bfc-base-dimmed);
+    border-color: var(--bfc-base-dimmed);
+    color: var(--bfc-base-dimmed);
+    fill: var(--bfc-base-dimmed);
+}
+
+/* Change vertical lines to dimmed color with maximum specificity */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label::before,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label::after,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels::before {
+    background: var(--bfc-base-dimmed);
+    background-color: var(--bfc-base-dimmed);
+    border-color: var(--bfc-base-dimmed);
+    color: var(--bfc-base-dimmed);
+    fill: var(--bfc-base-dimmed);
+}
+
+/* Allow the horizontal line ::after but remove any other styling */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels::after {
+    border: 0;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Force override all possible border properties on tab labels only */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label {
+    position: relative;
+    border-left: 0;
+    border-right: 0;
+    box-shadow: none;
+    background-image: none;
+}
+
+/* Target specific label positions to remove separators */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label + label {
+    border-left: 0;
+    margin-left: 0;
+    padding-left: inherit;
+}
+
+/* Remove any inset shadows or borders from tab container only */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels {
+    box-shadow: none;
+    background-image: none;
+    border-image: none;
+    position: relative;
+}
+
+/* Add the horizontal line under all tabs */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels::after {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: var(--bfc-base-dimmed);
+    z-index: 0;
+}
+
+/* Force remove vertical borders with extreme specificity */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label[for] {
+    position: relative;
+    z-index: 1;
+}
+
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label[for]:before,
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label[for]:after {
+    background: var(--bfc-base-dimmed);
+    background-color: var(--bfc-base-dimmed);
+    border-color: var(--bfc-base-dimmed);
+    color: var(--bfc-base-dimmed);
+    fill: var(--bfc-base-dimmed);
+    border-left: 1px solid var(--bfc-base-dimmed);
+    border-right: 1px solid var(--bfc-base-dimmed);
+}
+
+/* Direct override of Material's CSS variables within tabbed context */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set {
+    --md-primary-fg-color: var(--bfc-base-dimmed);
+    --md-primary-fg-color--light: var(--bfc-base-dimmed);
+    --md-primary-fg-color--dark: var(--bfc-base-dimmed);
+    --md-accent-fg-color: var(--bfc-base-dimmed);
+    --md-accent-fg-color--transparent: var(--bfc-base-dimmed);
+}
+
+/* Override any border styles on the labels themselves */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label {
+    border-left-color: var(--bfc-base-dimmed);
+    border-right-color: var(--bfc-base-dimmed);
+}
+
+/* Force Material's default border properties to use dimmed color */
+html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label + label:before {
+    background: var(--bfc-base-dimmed);
+    border-left: 1px solid var(--bfc-base-dimmed);
+}
+
+
+/* Completely remove vertical lines from tabs by hiding pseudo-elements */
+.md-typeset .tabbed-set > input + label:before,
+.md-typeset .tabbed-set > input + label:after,
+.md-typeset .tabbed-labels > label:before,
+.md-typeset .tabbed-labels > label:after,
+.md-typeset .tabbed-alternate .tabbed-labels > label:before,
+.md-typeset .tabbed-alternate .tabbed-labels > label:after,
+.md-typeset .tabbed-alternate > input + label:before,
+.md-typeset .tabbed-alternate > input + label:after {
+    display: none;
+    content: none;
+    width: 0;
+    height: 0;
+    border: none;
+    background: none;
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Force override of any Material theme color usage in tabbed context */
+html body .md-typeset .tabbed-set,
+html body .md-typeset .tabbed-alternate,
+html body .md-content .tabbed-set,
+html body .md-content .tabbed-alternate {
+    --md-primary-fg-color: var(--bfc-base-dimmed);
+    --md-primary-fg-color--light: var(--bfc-base-dimmed);
+    --md-primary-fg-color--dark: var(--bfc-base-dimmed);
+    --md-accent-fg-color: var(--bfc-base-dimmed);
+    --md-typeset-color: var(--bfc-base-c);
+}
+
+/* Search and form elements */
+.md-search__input:focus {
+    border-color: var(--bfc-theme);
+}
+
+.md-search__output {
+    background-color: var(--bfc-base);
+}
+
+/* Navigation elements */
+.md-nav__link--active {
+    color: var(--bfc-theme);
+}
+
+.md-nav__link:focus,
+.md-nav__link:hover {
+    color: var(--bfc-theme);
+}
+
+/* Remove borders from navigation links */
+.md-nav__link,
+.md-nav__link:focus,
+.md-nav__link:hover,
+.md-nav__link--active {
+    border: none;
+    outline: none;
+}
+
+
