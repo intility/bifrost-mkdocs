@@ -51,7 +51,7 @@ This template provides everything you need to create professional documentation 
 
 ### Change the Color Scheme
 
-Edit `mkdocs.yaml` line 25 to change the primary color:
+Edit `mkdocs.yaml` line 21 to change the primary color:
 
 ```yaml
 primary: &bifrost_theme teal  # Options: teal, purple, pink, yellow
