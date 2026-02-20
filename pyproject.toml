@@ -1,0 +1,28 @@
+[project]
+name = "intility-bifrost-mkdocs"
+version = "0.1.0"
+description = "Intility Bifrost theme plugin for MkDocs Material"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+dependencies = [
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.5.0",
+]
+
+[project.entry-points."mkdocs.plugins"]
+intility-bifrost = "intility_bifrost_mkdocs.plugin:IntilityBifrostPlugin"
+
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+intility_bifrost_mkdocs = [
+    "overrides/**/*.html",
+    "overrides/**/*.css",
+    "overrides/**/*.woff2",
+    "overrides/**/*.js",
+]

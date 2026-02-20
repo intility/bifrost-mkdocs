@@ -31,9 +31,7 @@ jobs:
           cache: 'pip'
 
       - name: Install dependencies
-        run: |
-          pip install mkdocs-material
-          pip install mkdocs-git-revision-date-localized-plugin
+        run: pip install -r requirements.txt
 
       - name: Build documentation
         run: mkdocs build --strict

@@ -14,7 +14,6 @@ extra:
 theme:
   name: material
   language: en
-  custom_dir: theme
   palette:
     # Palette toggle for light mode
     - scheme: light
@@ -58,6 +57,7 @@ theme:
     - content.tabs.link
 
 plugins:
+  - intility-bifrost
   - search:
       lang: en
   - git-revision-date-localized:
