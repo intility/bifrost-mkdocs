@@ -2,12 +2,35 @@
 name = "intility-bifrost-mkdocs"
 version = "0.1.0"
 description = "Intility Bifrost theme plugin for MkDocs Material"
-requires-python = ">=3.9"
-license = { text = "MIT" }
-dependencies = [
-    "mkdocs>=1.5.0",
-    "mkdocs-material>=9.5.0",
+requires-python = ">=3.10"
+license = "MIT"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: MkDocs",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
+dependencies = [
+    "mkdocs>=1.6.0",
+    "mkdocs-material>=9.6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "mkdocs-git-revision-date-localized-plugin>=1.2.0",
+    "livereload>=2.7.0",
+    "ruff>=0.8.0",
+    "pytest>=8.0.0",
+]
+
+[project.urls]
+Homepage = "https://intility.github.io/mkdocs-template"
+Documentation = "https://intility.github.io/mkdocs-template"
+Repository = "https://github.com/intility/mkdocs-template"
+Issues = "https://github.com/intility/mkdocs-template/issues"
 
 [project.entry-points."mkdocs.plugins"]
 intility-bifrost = "intility_bifrost_mkdocs.plugin:IntilityBifrostPlugin"
@@ -26,3 +49,10 @@ intility_bifrost_mkdocs = [
     "overrides/**/*.woff2",
     "overrides/**/*.js",
 ]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

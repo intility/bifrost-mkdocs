@@ -4,7 +4,7 @@ site_author: Your Organization
 site_url: https://intility.github.io/mkdocs-template
 
 
-copyright: Copyright &copy; 2025 Intility
+copyright: Copyright &copy; 2026 Intility
 
 extra:
   social:
@@ -45,6 +45,9 @@ theme:
       example: fontawesome/solid/flask
       quote: fontawesome/solid/quote-left
   features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.instant.prefetch
     - navigation.sections
     - navigation.path
     - navigation.top

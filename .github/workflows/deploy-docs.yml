@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'src/**'
+      - 'docs/**'
+      - 'mkdocs.yaml'
+      - 'pyproject.toml'
+      - 'requirements.txt'
+      - '.github/workflows/deploy-docs.yml'
   workflow_dispatch:
 
 permissions:
@@ -24,14 +31,13 @@ jobs:
         with:
           fetch-depth: 0  # Fetch all history for git-revision-date-localized plugin
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
         with:
-          python-version: '3.x'
-          cache: 'pip'
+          python-version: '3.13'
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: uv pip install -r requirements.txt
 
       - name: Build documentation
         run: mkdocs build --strict

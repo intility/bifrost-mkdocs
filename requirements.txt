@@ -1,3 +1,1 @@
--e .
-mkdocs-git-revision-date-localized-plugin>=1.2.0
-livereload>=2.7.0
+-e .[dev]

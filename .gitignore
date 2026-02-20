@@ -25,6 +25,12 @@ src/*.egg-info/
 .DS_Store
 Thumbs.db
 
+# Ruff
+.ruff_cache/
+
+# Pytest
+.pytest_cache/
+
 # Temporary files
 *.tmp
 *.temp

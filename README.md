@@ -15,7 +15,7 @@ intility-bifrost-mkdocs @ git+https://github.com/intility/mkdocs-template.git@v0
 Then install:
 
 ```bash
-pip install -r requirements.txt
+uv pip install -r requirements.txt
 ```
 
 ## Usage
@@ -66,13 +66,13 @@ The core Bifrost CSS variables are loaded from CDN (`@intility/bifrost-css@lates
 ## Local development (this repo)
 
 ```bash
-python3 -m venv .venv
+uv venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
+uv pip install -e ".[dev]"
 mkdocs serve
 ```
 
-The demo site at `docs/index.md` uses the plugin via the editable install (`-e .` in requirements.txt).
+This installs the plugin in editable mode with dev dependencies (ruff, pytest, livereload, git-revision-date plugin). The demo site at `docs/index.md` uses the plugin directly.
 
 ## Using as a GitHub template
 

@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 from pathlib import Path
 
+from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.plugins import BasePlugin
 
 
@@ -11,7 +14,7 @@ class IntilityBifrostPlugin(BasePlugin):
     to their plugins list -- no ``custom_dir`` or ``extra_css`` required.
     """
 
-    def on_config(self, config):
+    def on_config(self, config: MkDocsConfig) -> MkDocsConfig:
         overrides_dir = Path(__file__).parent / "overrides"
 
         # Insert our overrides as the highest-priority theme directory.
