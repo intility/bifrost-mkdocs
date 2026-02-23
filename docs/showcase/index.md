@@ -1,6 +1,6 @@
 # Feature Showcase
 
-This section demonstrates every enabled Markdown extension and Material for MkDocs feature configured in this template. Each page shows the rendered output alongside the source Markdown so you can copy and adapt the syntax.
+This section demonstrates every enabled Markdown extension and Material for MkDocs feature configured in this plugin. Each page shows the rendered output alongside the source Markdown so you can copy and adapt the syntax.
 
 ## Available Features
 

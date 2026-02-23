@@ -1,12 +1,12 @@
-# Welcome to MkDocs Bifrost Template
+# Bifrost MkDocs
 
-A documentation template using Material for MkDocs with Intility's Bifrost design system.
+An MkDocs Material plugin that applies Intility's Bifrost design system.
 
 See the [Feature Showcase](showcase/index.md) for a live demonstration of every enabled extension and component.
 
 ## Quick Start
 
-1. **Use this template** to create your own repository
+1. **Create a new repo** from the [bifrost-mkdocs-template](https://github.com/intility/bifrost-mkdocs-template), or add the plugin to an existing project
 2. **Install the plugin** and add it to your `mkdocs.yml`:
 
     ```yaml

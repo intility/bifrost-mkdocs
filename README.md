@@ -1,19 +1,39 @@
-# Intility Bifrost MkDocs Theme
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
+<h1 align="center">
+  <img src="https://avatars.githubusercontent.com/u/35199565" width="124px"/><br/>
+  Bifrost MkDocs
+</h1>
 
-A pip-installable MkDocs plugin that applies Intility's Bifrost design system to Material for MkDocs.
+<p align="center">
+    <em>Intility's Bifrost design system as a Material for MkDocs plugin.</em>
+</p>
+<p align="center">
+    <a href="https://python.org">
+        <img src="https://img.shields.io/badge/python-v3.10+-blue.svg?logo=python&logoColor=white&label=python" alt="Python version">
+    </a>
+    <a href="https://squidfunk.github.io/mkdocs-material/">
+        <img src="https://img.shields.io/badge/mkdocs--material-9.7.0+-blue.svg?logo=materialformkdocs&logoColor=white&label=mkdocs-material" alt="MkDocs Material version">
+    </a>
+    <a href="https://github.com/intility/bifrost-mkdocs/blob/main/LICENSE">
+        <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
+    </a>
+</p>
 
-Requires Python 3.10 or newer.
+## Description
 
-Take a look at the [documentation](https://intility.github.io/bifrost-mkdocs) for a preview.
+A pip-installable MkDocs plugin that applies Intility's Bifrost design system to Material for MkDocs. The plugin is batteries-included: colors, typography, component styling, markdown extensions, theme features, and admonition icons are all configured automatically.
+
+## Resources
+
+[**Documentation**](https://intility.github.io/bifrost-mkdocs/)
+| [**Template**](https://github.com/intility/bifrost-mkdocs-template)
+| [**MIT License**](https://github.com/intility/bifrost-mkdocs/blob/main/LICENSE)
 
 ## Installation
 
 Add to your `requirements.txt`:
 
 ```
-intility-bifrost-mkdocs @ git+https://github.com/intility/bifrost-mkdocs.git@v0.1.0
+intility-bifrost-mkdocs @ git+https://github.com/intility/bifrost-mkdocs.git@main
 ```
 
 > [!TIP]
@@ -51,19 +71,19 @@ plugins:
 
 ## What it provides
 
-The plugin is batteries-included. Adding `intility-bifrost` to your plugins list gives you:
+Adding `intility-bifrost` to your plugins list gives you:
 
-- **Bifrost design system**: Colors, typography, and component styling matching the Intility design system
-- **Light/dark mode**: Automatic theme switching with Bifrost color variables
-- **Theme colors**: teal, purple, pink, yellow (set via `primary` in your palette config)
-- **Typography**: Satoshi for headings, Open Sans for body, JetBrains Mono for code
-- **23 markdown extensions**: Admonitions, code highlighting, tabs, mermaid diagrams, math (MathJax), emoji, task lists, and more
-- **13 theme features**: Instant navigation, search suggestions, code copy buttons, etc.
-- **Admonition icons**: Custom FontAwesome icons for all admonition types
+- **Bifrost design system** - Colors, typography, and component styling matching the Intility design system
+- **Light/dark mode** - Automatic theme switching with Bifrost color variables
+- **Theme colors** - teal, purple, pink, yellow (set via `primary` in your palette config)
+- **Typography** - Satoshi for headings, Open Sans for body, JetBrains Mono for code
+- **23 markdown extensions** - Admonitions, code highlighting, tabs, mermaid diagrams, math (MathJax), emoji, task lists, and more
+- **13 theme features** - Instant navigation, search suggestions, code copy buttons, etc.
+- **Admonition icons** - Custom FontAwesome icons for all admonition types
 
 All defaults are injected only when the user hasn't provided their own config, so you can override anything by setting it explicitly in your `mkdocs.yml`.
 
-## Local development (this repo)
+## Local development
 
 ```bash
 uv venv .venv
@@ -73,7 +93,3 @@ mkdocs serve
 ```
 
 This installs the plugin in editable mode with dev dependencies (ruff, pytest, livereload, git-revision-date plugin). The demo site at `docs/index.md` uses the plugin directly.
-
-## Using as a GitHub template
-
-This repo also works as a GitHub template. Click "Use this template" to create a new docs site with the Bifrost theme pre-configured.

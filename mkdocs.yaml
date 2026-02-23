@@ -1,5 +1,5 @@
-site_name: MkDocs Template
-site_description: A template repository for MkDocs with Intility Bifrost styling
+site_name: Bifrost MkDocs
+site_description: Intility Bifrost theme plugin for MkDocs Material
 site_author: Intility
 site_url: https://intility.github.io/bifrost-mkdocs
 
