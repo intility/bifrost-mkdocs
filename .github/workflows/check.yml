@@ -27,7 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: astral-sh/setup-uv@a2a8b00df0aa22a77a33ee5f956c2128661fabeb # v7
+      - uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7
         with:
           python-version: '3.13'
 
@@ -46,7 +46,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: astral-sh/setup-uv@a2a8b00df0aa22a77a33ee5f956c2128661fabeb # v7
+      - uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7
         with:
           python-version: ${{ matrix.python-version }}
 
