@@ -16,6 +16,9 @@ on:
       - 'pyproject.toml'
       - '.github/workflows/check.yml'
 
+permissions:
+  contents: read
+
 concurrency:
   group: check-${{ github.ref }}
   cancel-in-progress: true
