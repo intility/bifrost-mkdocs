@@ -1,6 +1,6 @@
 site_name: MkDocs Template
-site_description: A template repository for MkDocs with IDP-Docs styling
-site_author: Your Organization
+site_description: A template repository for MkDocs with Intility Bifrost styling
+site_author: Intility
 site_url: https://intility.github.io/mkdocs-template
 
 
@@ -27,37 +27,6 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
-  font:
-    text: Open Sans
-    code: JetBrains Mono
-  icon:
-    admonition:
-      note: fontawesome/solid/note-sticky
-      abstract: fontawesome/solid/clipboard
-      info: fontawesome/solid/circle-info
-      tip: fontawesome/solid/lightbulb
-      success: fontawesome/solid/check
-      question: fontawesome/solid/circle-question
-      warning: fontawesome/solid/triangle-exclamation
-      failure: fontawesome/solid/bomb
-      danger: fontawesome/solid/skull
-      bug: fontawesome/solid/robot
-      example: fontawesome/solid/flask
-      quote: fontawesome/solid/quote-left
-  features:
-    - navigation.instant
-    - navigation.instant.progress
-    - navigation.instant.prefetch
-    - navigation.sections
-    - navigation.path
-    - navigation.top
-    - toc.follow
-    - search.suggest
-    - search.highlight
-    - search.share
-    - content.code.copy
-    - content.code.annotate
-    - content.tabs.link
 
 plugins:
   - intility-bifrost
@@ -67,43 +36,23 @@ plugins:
       enable_creation_date: true
       type: timeago
 
-markdown_extensions:
-  - abbr
-  - admonition
-  - attr_list
-  - def_list
-  - footnotes
-  - md_in_html
-  - toc:
-      permalink: true
-  - pymdownx.arithmatex:
-      generic: true
-  - pymdownx.betterem:
-      smart_enable: all
-  - pymdownx.caret
-  - pymdownx.details
-  - pymdownx.emoji:
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-  - pymdownx.highlight:
-      anchor_linenums: true
-      line_spans: __span
-      pygments_lang_class: true
-  - pymdownx.inlinehilite
-  - pymdownx.keys
-  - pymdownx.mark
-  - pymdownx.smartsymbols
-  - pymdownx.snippets
-  - pymdownx.superfences:
-      custom_fences:
-        - name: mermaid
-          class: mermaid
-          format: !!python/name:pymdownx.superfences.fence_code_format
-  - pymdownx.tabbed:
-      alternate_style: true
-  - pymdownx.tasklist:
-      custom_checkbox: true
-  - pymdownx.tilde
-  - tables
 nav:
   - Home: index.md
+  - Feature Showcase:
+      - showcase/index.md
+      - Typography: showcase/typography.md
+      - Smart Symbols: showcase/smart-symbols.md
+      - Keyboard Keys: showcase/keyboard-keys.md
+      - Buttons: showcase/buttons.md
+      - Lists: showcase/lists.md
+      - Tables: showcase/tables.md
+      - Admonitions: showcase/admonitions.md
+      - Code Blocks: showcase/code-blocks.md
+      - Content Tabs: showcase/content-tabs.md
+      - Diagrams: showcase/diagrams.md
+      - Math: showcase/math.md
+      - Footnotes: showcase/footnotes.md
+      - Abbreviations: showcase/abbreviations.md
+      - Icons & Emojis: showcase/icons-emojis.md
+      - Grid Cards: showcase/grid-cards.md
+  - Changelog: changelog.md
