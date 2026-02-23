@@ -30,14 +30,11 @@ A pip-installable MkDocs plugin that applies Intility's Bifrost design system to
 
 ## Installation
 
-Add to your `requirements.txt`:
+Add to your `requirements.txt`, pinning to a [release tag](https://github.com/intility/bifrost-mkdocs/releases):
 
 ```
-intility-bifrost-mkdocs @ git+https://github.com/intility/bifrost-mkdocs.git@main
+intility-bifrost-mkdocs @ git+https://github.com/intility/bifrost-mkdocs.git@<version>
 ```
-
-> [!TIP]
-> Pin to a specific release tag for reproducible builds. Check [releases](https://github.com/intility/bifrost-mkdocs/releases) for the latest version.
 
 Then install:
 
