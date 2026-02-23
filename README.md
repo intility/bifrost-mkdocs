@@ -6,18 +6,18 @@ A pip-installable MkDocs plugin that applies Intility's Bifrost design system to
 
 Requires Python 3.10 or newer.
 
-Take a look at the [documentation](https://intility.github.io/mkdocs-template) for a preview.
+Take a look at the [documentation](https://intility.github.io/bifrost-mkdocs) for a preview.
 
 ## Installation
 
 Add to your `requirements.txt`:
 
 ```
-intility-bifrost-mkdocs @ git+https://github.com/intility/mkdocs-template.git@v0.1.0
+intility-bifrost-mkdocs @ git+https://github.com/intility/bifrost-mkdocs.git@v0.1.0
 ```
 
 > [!TIP]
-> Pin to a specific release tag for reproducible builds. Check [releases](https://github.com/intility/mkdocs-template/releases) for the latest version.
+> Pin to a specific release tag for reproducible builds. Check [releases](https://github.com/intility/bifrost-mkdocs/releases) for the latest version.
 
 Then install:
 

@@ -1,7 +1,7 @@
 site_name: MkDocs Template
 site_description: A template repository for MkDocs with Intility Bifrost styling
 site_author: Intility
-site_url: https://intility.github.io/mkdocs-template
+site_url: https://intility.github.io/bifrost-mkdocs
 
 
 copyright: Copyright &copy; 2026 Intility
@@ -9,7 +9,7 @@ copyright: Copyright &copy; 2026 Intility
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/intility/mkdocs-template
+      link: https://github.com/intility/bifrost-mkdocs
 
 theme:
   name: material

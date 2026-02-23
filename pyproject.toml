@@ -28,11 +28,11 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://intility.github.io/mkdocs-template"
-Documentation = "https://intility.github.io/mkdocs-template"
-Repository = "https://github.com/intility/mkdocs-template"
-Issues = "https://github.com/intility/mkdocs-template/issues"
-Changelog = "https://github.com/intility/mkdocs-template/blob/main/CHANGELOG.md"
+Homepage = "https://intility.github.io/bifrost-mkdocs"
+Documentation = "https://intility.github.io/bifrost-mkdocs"
+Repository = "https://github.com/intility/bifrost-mkdocs"
+Issues = "https://github.com/intility/bifrost-mkdocs/issues"
+Changelog = "https://github.com/intility/bifrost-mkdocs/blob/main/CHANGELOG.md"
 
 [project.entry-points."mkdocs.plugins"]
 intility-bifrost = "intility_bifrost_mkdocs.plugin:IntilityBifrostPlugin"
