@@ -7,12 +7,6 @@ venv/
 __pycache__/
 *.pyc
 
-# Python build artifacts
-dist/
-build/
-*.egg-info/
-src/*.egg-info/
-
 # IDE
 .vscode/
 .vs/
@@ -24,12 +18,6 @@ src/*.egg-info/
 # OS
 .DS_Store
 Thumbs.db
-
-# Ruff
-.ruff_cache/
-
-# Pytest
-.pytest_cache/
 
 # Temporary files
 *.tmp
