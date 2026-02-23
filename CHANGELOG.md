@@ -1,1 +1,29 @@
 # Changelog
+
+## [0.2.0](https://github.com/intility/bifrost-mkdocs/compare/v0.1.0...v0.2.0) (2026-02-23)
+
+
+### Features
+
+* auto-inject extensions, features, and theme defaults from plugin ([9178bec](https://github.com/intility/bifrost-mkdocs/commit/9178bec9be8e773c95f2997161c85ed63911f1d5))
+* auto-inject extensions, features, and theme defaults from plugin ([815c9f8](https://github.com/intility/bifrost-mkdocs/commit/815c9f86025b477e6945672d72c12983bbc33616))
+* **docs:** Add MkDocs template with GitHub Pages deployment ([4957bc2](https://github.com/intility/bifrost-mkdocs/commit/4957bc23d0b0699914f454fe90b2788be091bd67))
+* **docs:** Enable live reload for local documentation server ([b53d9ed](https://github.com/intility/bifrost-mkdocs/commit/b53d9edb9fd10138fa5750ff16d07d2e88e45dc7))
+* Enhance Bifrost theme integration and syntax highlighting ([d2ee2d9](https://github.com/intility/bifrost-mkdocs/commit/d2ee2d9331ba2ab65f10fbebb87f3d6afce3edb0))
+* restructure as pip-installable MkDocs plugin ([ef822f4](https://github.com/intility/bifrost-mkdocs/commit/ef822f4758c4a5b6b146311d709a7ecce3157c47))
+* restructure as pip-installable plugin with included defaults ([#4](https://github.com/intility/bifrost-mkdocs/issues/4)) ([a145b4c](https://github.com/intility/bifrost-mkdocs/commit/a145b4c1552359822146d19b79af5075a882b1e7))
+
+
+### Fixes
+
+* **ci:** fix check and deploy docs workflows ([25e6fb1](https://github.com/intility/bifrost-mkdocs/commit/25e6fb1a3f98983b0f278553e7f2aba7983cf4de))
+* **docs:** update URLs after repo rename to bifrost-mkdocs ([6a5cea1](https://github.com/intility/bifrost-mkdocs/commit/6a5cea10190147d26f3be2cd06ad3ebb4e19628f))
+* **docs:** Update virtual environment activation command in README and enhance link styles in Bifrost theme ([6c310f8](https://github.com/intility/bifrost-mkdocs/commit/6c310f85739e7e7ff547562049013a042418bc77))
+
+
+### Documentation
+
+* Correct line number for changing the primary color in mkdocs.yaml ([a28484c](https://github.com/intility/bifrost-mkdocs/commit/a28484cf628b4ac4072810454ad6b951ff0b81d3))
+* **README:** Add link to documentation preview and fix URL placeholder ([65a4570](https://github.com/intility/bifrost-mkdocs/commit/65a457027ca21e6373746c051218a34fbeec8f88))
+
+## Changelog
