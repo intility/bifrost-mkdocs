@@ -1,6 +1,4 @@
 # Intility Bifrost MkDocs Theme
-
-[![Code Quality](https://github.com/intility/mkdocs-template/actions/workflows/check.yml/badge.svg)](https://github.com/intility/mkdocs-template/actions/workflows/check.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 
