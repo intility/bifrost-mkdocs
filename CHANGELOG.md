@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.1](https://github.com/intility/bifrost-mkdocs/compare/v0.2.0...v0.2.1) (2026-02-23)
+
+
+### CI
+
+* add permissions to check workflow ([28abe84](https://github.com/intility/bifrost-mkdocs/commit/28abe84ee700d2fabf3280d1825762d651efdd95))
+* codeql read permission ([5c879f7](https://github.com/intility/bifrost-mkdocs/commit/5c879f7d680d04d78d3b4c1fb66e944a61b7c46e))
+
 ## [0.2.0](https://github.com/intility/bifrost-mkdocs/compare/v0.1.0...v0.2.0) (2026-02-23)
 
 
