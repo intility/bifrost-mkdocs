@@ -14,7 +14,7 @@
    1. IMPORT BIFROST CSS FRAMEWORK (for fonts and utilities)
    ============================================================================ */
 
-@import url("https://unpkg.com/@intility/bifrost-css@latest/dist/bifrost-all.css");
+@import url("https://unpkg.com/@intility/bifrost-css@6.7.0/dist/bifrost-all.css");
 
 /* ============================================================================
    2. BIFROST COLOR VARIABLES
