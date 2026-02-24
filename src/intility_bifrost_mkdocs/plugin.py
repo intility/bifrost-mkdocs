@@ -12,6 +12,7 @@ from mkdocs.plugins import BasePlugin
 DEFAULT_EXTENSIONS: list[str] = [
     "abbr",
     "admonition",
+    "github-callouts",
     "attr_list",
     "def_list",
     "footnotes",
