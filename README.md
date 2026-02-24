@@ -31,7 +31,7 @@ A pip-installable MkDocs plugin that applies Intility's Bifrost design system to
 ## Installation
 
 ```bash
-pip install intility-bifrost-mkdocs
+uv pip install intility-bifrost-mkdocs
 ```
 
 To pin a specific version in your `requirements.txt`:
