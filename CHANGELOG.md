@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/intility/bifrost-mkdocs/compare/v0.3.0...v0.3.1) (2026-02-24)
+
+
+### Documentation
+
+* add readme to python project file ([85484d1](https://github.com/intility/bifrost-mkdocs/commit/85484d13c700bd0f023cf41aac48cb4af10be38e))
+
 ## [0.3.0](https://github.com/intility/bifrost-mkdocs/compare/v0.2.1...v0.3.0) (2026-02-24)
 
 
