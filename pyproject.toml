@@ -30,11 +30,11 @@ classifiers = [
 dependencies = [
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.7.0,<10",
+    "mkdocs-git-revision-date-localized-plugin>=1.5.0",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "mkdocs-git-revision-date-localized-plugin>=1.5.0",
     "livereload>=2.7.1",
     "ruff>=0.15.0",
     "pytest>=9.0.0",
