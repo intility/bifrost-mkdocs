@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/intility/bifrost-mkdocs/compare/v0.3.3...v0.4.0) (2026-02-24)
+
+
+### Features
+
+* add localized-plugin as dependancy ([a0565d2](https://github.com/intility/bifrost-mkdocs/commit/a0565d2351a7b4471cd5f897e15c216d39ff1ae4))
+
 ## [0.3.3](https://github.com/intility/bifrost-mkdocs/compare/v0.3.2...v0.3.3) (2026-02-24)
 
 
