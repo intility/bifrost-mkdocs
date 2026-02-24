@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.3](https://github.com/intility/bifrost-mkdocs/compare/v0.3.2...v0.3.3) (2026-02-24)
+
+
+### Fixes
+
+* add missing content.tabs.link feature ([416e47f](https://github.com/intility/bifrost-mkdocs/commit/416e47faff3ea277010bcd0e59eedf4a0d61d754))
+* formatting error ([fb8dcf9](https://github.com/intility/bifrost-mkdocs/commit/fb8dcf9f87c7bd350118c0b621bc7616049f2a89))
+
 ## [0.3.2](https://github.com/intility/bifrost-mkdocs/compare/v0.3.1...v0.3.2) (2026-02-24)
 
 
