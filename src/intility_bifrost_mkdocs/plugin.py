@@ -52,7 +52,7 @@ DEFAULT_FEATURES: list[str] = [
     "search.share",
     "content.code.copy",
     "content.code.annotate",
-    "content.tabs.link"
+    "content.tabs.link",
 ]
 
 # ---------------------------------------------------------------------------
