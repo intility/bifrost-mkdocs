@@ -1,6 +1,6 @@
 [project]
 name = "intility-bifrost-mkdocs"
-version = "0.3.1"
+version = "0.3.2"
 description = "Intility Bifrost theme plugin for MkDocs Material"
 authors = [
     { name = "Erlend Ellefsen", email = "erlend.ellefsen@intility.no" },

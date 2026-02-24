@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.2](https://github.com/intility/bifrost-mkdocs/compare/v0.3.1...v0.3.2) (2026-02-24)
+
+
+### Documentation
+
+* update README ([c1b842c](https://github.com/intility/bifrost-mkdocs/commit/c1b842cc28438411d79bc0428bab0f0f67160983))
+* update README and mkdocs.yml ([bbd776b](https://github.com/intility/bifrost-mkdocs/commit/bbd776bfa0916db3f2afcf3cff66d322480afe96))
+
 ## [0.3.1](https://github.com/intility/bifrost-mkdocs/compare/v0.3.0...v0.3.1) (2026-02-24)
 
 
