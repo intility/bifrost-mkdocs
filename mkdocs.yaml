@@ -15,15 +15,13 @@ theme:
   name: material
   language: en
   palette:
-    # Palette toggle for light mode
     - scheme: light
-      primary: &bifrost_theme teal # Bifrost theme: teal, purple, pink, or yellow
+      primary: teal # Bifrost theme: teal, purple, pink, or yellow
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    # Palette toggle for dark mode
     - scheme: dark
-      primary: *bifrost_theme # Reuses the theme defined above
+      primary: teal 
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
