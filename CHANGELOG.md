@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.3.0](https://github.com/intility/bifrost-mkdocs/compare/v0.2.1...v0.3.0) (2026-02-24)
+
+
+### Features
+
+* add PyPI publishing and pin dependencies ([#13](https://github.com/intility/bifrost-mkdocs/issues/13)) ([32d671f](https://github.com/intility/bifrost-mkdocs/commit/32d671f3982b1ee9d647ed11009b40985f057319))
+
+
+### Documentation
+
+* clean up README ([bbfebe3](https://github.com/intility/bifrost-mkdocs/commit/bbfebe3a2ed117dd57b60b183cb69d7624361c2e))
+
+
+### CI
+
+* codeql action-read ([7d3b91c](https://github.com/intility/bifrost-mkdocs/commit/7d3b91c49cdbe55fc8b919644f44ac781ccf316e))
+
 ## [0.2.1](https://github.com/intility/bifrost-mkdocs/compare/v0.2.0...v0.2.1) (2026-02-23)
 
 
