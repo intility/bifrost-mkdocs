@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/intility/bifrost-mkdocs/compare/v0.4.0...v0.5.0) (2026-02-24)
+
+
+### Features
+
+* add markdown-callouts for GitHub alert syntax support ([#18](https://github.com/intility/bifrost-mkdocs/issues/18)) ([d63f72f](https://github.com/intility/bifrost-mkdocs/commit/d63f72fcafb084ea42a4f898f46315d4ee5294e1))
+
 ## [0.4.0](https://github.com/intility/bifrost-mkdocs/compare/v0.3.3...v0.4.0) (2026-02-24)
 
 
