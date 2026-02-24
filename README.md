@@ -22,22 +22,10 @@
 
 A pip-installable MkDocs plugin that applies Intility's Bifrost design system to Material for MkDocs. The plugin is batteries-included: colors, typography, component styling, markdown extensions, theme features, and admonition icons are all configured automatically.
 
-## Resources
-
-[**Documentation**](https://intility.github.io/bifrost-mkdocs/)
-| [**Template**](https://github.com/intility/bifrost-mkdocs-template)
-| [**MIT License**](https://github.com/intility/bifrost-mkdocs/blob/main/LICENSE)
-
 ## Installation
 
 ```bash
 uv pip install intility-bifrost-mkdocs
-```
-
-To pin a specific version in your `requirements.txt`:
-
-```
-intility-bifrost-mkdocs==0.2.1
 ```
 
 ## Usage
@@ -49,12 +37,12 @@ theme:
   name: material
   palette:
     - scheme: light
-      primary: &bifrost_theme teal  # Options: teal, purple, pink, yellow
+      primary: teal  # Options: teal, purple, pink, yellow
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: dark
-      primary: *bifrost_theme
+      primary: teal
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
