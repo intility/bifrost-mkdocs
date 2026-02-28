@@ -1213,7 +1213,18 @@ button:focus-visible {
 }
 
 /* ============================================================================
-   21. MISCELLANEOUS
+   21. VERSION BADGE
+   ============================================================================ */
+
+/* Positioning for version badge in the header */
+.bf-header-version {
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    font-size: 0.65rem;
+}
+
+/* ============================================================================
+   22. MISCELLANEOUS
    ============================================================================ */
 
 /* Horizontal rules */

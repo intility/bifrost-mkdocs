@@ -22,6 +22,9 @@
     (function() {
       var html = document.documentElement;
       var bifrostThemes = ['teal', 'purple', 'pink', 'yellow'];
+      {% if config.extra.version %}
+      var siteVersion = '{{ config.extra.version }}';
+      {% endif %}
 
       // Function to sync Bifrost classes with Material's palette
       function syncBifrostTheme() {
@@ -59,10 +62,22 @@
         }
       }
 
+      // Insert version badge next to site name in the header
+      function insertVersionBadge() {
+        if (typeof siteVersion === 'undefined') return;
+        var topic = document.querySelector('.md-header__topic .md-ellipsis');
+        if (!topic || document.querySelector('.bf-header-version')) return;
+        var badge = document.createElement('span');
+        badge.className = 'bf-badge bfc-theme-fade-bg bf-header-version';
+        badge.textContent = 'v' + siteVersion;
+        topic.appendChild(badge);
+      }
+
       // Apply when DOM is ready
       if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function() {
           syncBifrostTheme();
+          insertVersionBadge();
 
           // Watch for changes to palette attributes on body
           var observer = new MutationObserver(syncBifrostTheme);
@@ -73,6 +88,7 @@
         });
       } else {
         syncBifrostTheme();
+        insertVersionBadge();
 
         // Watch for changes to palette attributes on body
         var observer = new MutationObserver(syncBifrostTheme);
