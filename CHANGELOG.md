@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/intility/bifrost-mkdocs/compare/v0.5.0...v0.6.0) (2026-02-28)
+
+
+### Features
+
+* display version badge in header when extra.version is set ([#20](https://github.com/intility/bifrost-mkdocs/issues/20)) ([5787a4e](https://github.com/intility/bifrost-mkdocs/commit/5787a4e2107c0f16ea081590b7e397a56ead6f31))
+
 ## [0.5.0](https://github.com/intility/bifrost-mkdocs/compare/v0.4.0...v0.5.0) (2026-02-24)
 
 
