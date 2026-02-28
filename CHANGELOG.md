@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/intility/bifrost-mkdocs/compare/v0.6.0...v0.6.1) (2026-02-28)
+
+
+### Fixes
+
+* clean up version badge styling ([05ebc17](https://github.com/intility/bifrost-mkdocs/commit/05ebc177465f14872d805850de039b442e263779))
+
 ## [0.6.0](https://github.com/intility/bifrost-mkdocs/compare/v0.5.0...v0.6.0) (2026-02-28)
 
 
