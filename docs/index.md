@@ -55,6 +55,17 @@ primary: &bifrost_theme teal  # Options: teal, purple, pink, yellow
 
 The color is defined once and automatically applied to both light and dark modes.
 
+### Version Badge
+
+Display a version badge in the header next to the site name by setting `extra.version`:
+
+```yaml
+extra:
+  version: 1.0.0
+```
+
+The badge renders using Bifrost's `bf-badge` styling and only appears when `version` is set.
+
 ### Add Pages
 
 1. Create markdown files in the `docs/` directory
