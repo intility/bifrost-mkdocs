@@ -65,10 +65,10 @@
       // Insert version badge next to site name in the header
       function insertVersionBadge() {
         if (typeof siteVersion === 'undefined') return;
-        var topic = document.querySelector('.md-header__topic .md-ellipsis');
+        var topic = document.querySelector('.md-header__topic');
         if (!topic || document.querySelector('.bf-header-version')) return;
         var badge = document.createElement('span');
-        badge.className = 'bf-badge bfc-theme-fade-bg bf-header-version';
+        badge.className = 'bf-badge bf-badge-pill bfc-theme-fade-bg bf-header-version';
         badge.textContent = 'v' + siteVersion;
         topic.appendChild(badge);
       }
