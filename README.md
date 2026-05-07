@@ -63,6 +63,7 @@ Adding `intility-bifrost` to your plugins list gives you:
 - **23 markdown extensions** - Admonitions, code highlighting, tabs, mermaid diagrams, math (MathJax), emoji, task lists, and more
 - **13 theme features** - Instant navigation, search suggestions, code copy buttons, etc.
 - **Admonition icons** - Custom FontAwesome icons for all admonition types
+- **Bundled plugins** - `mkdocs-awesome-nav` and `mkdocs-git-revision-date-localized-plugin` are installed alongside; opt in by adding them to your `plugins:` list
 
 All defaults are injected only when the user hasn't provided their own config, so you can override anything by setting it explicitly in your `mkdocs.yml`.
 
