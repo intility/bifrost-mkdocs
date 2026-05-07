@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.0](https://github.com/intility/bifrost-mkdocs/compare/v0.6.1...v0.7.0) (2026-05-07)
+
+
+### Features
+
+* bundle mkdocs-awesome-nav as runtime dependency ([#31](https://github.com/intility/bifrost-mkdocs/issues/31)) ([5f4f565](https://github.com/intility/bifrost-mkdocs/commit/5f4f565ea27ec4d1beedf8a23d35baba7badfc9a))
+
 ## [0.6.1](https://github.com/intility/bifrost-mkdocs/compare/v0.6.0...v0.6.1) (2026-02-28)
 
 
