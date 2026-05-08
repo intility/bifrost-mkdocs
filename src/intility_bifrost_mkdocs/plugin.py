@@ -85,9 +85,10 @@ DEFAULT_ADMONITION_ICONS: dict[str, str] = {
 }
 
 # ---------------------------------------------------------------------------
-# Default extra JavaScript (MathJax).
+# Default extra JavaScript.
 # ---------------------------------------------------------------------------
 DEFAULT_EXTRA_JS: list[str] = [
+    "javascripts/bifrost-theme.js",
     "javascripts/mathjax.js",
     "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js",
 ]

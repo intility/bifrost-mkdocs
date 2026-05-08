@@ -4,7 +4,8 @@
   Bifrost MkDocs Theme
 
   A custom theme that extends Material for MkDocs while implementing
-  Intility's Bifrost design system.
+  Intility's Bifrost design system. Theme-sync behaviour lives in
+  `assets/javascripts/bifrost-theme.js`, injected via the plugin.
 #}
 
 {% block htmltitle %}
@@ -17,90 +18,7 @@
 {% endblock %}
 
 {% block extrahead %}
-  {# Apply Bifrost classes based on Material's palette configuration #}
-  <script>
-    (function() {
-      var html = document.documentElement;
-      var bifrostThemes = ['teal', 'purple', 'pink', 'yellow'];
-      {% if config.extra.version %}
-      var siteVersion = '{{ config.extra.version }}';
-      {% endif %}
-
-      // Function to sync Bifrost classes with Material's palette
-      function syncBifrostTheme() {
-        var body = document.body;
-        if (!body) return; // Body might not be ready yet
-
-        // Get scheme (light/dark) from data-md-color-scheme
-        var scheme = body.getAttribute('data-md-color-scheme');
-
-        // Get Bifrost theme from data-md-color-primary
-        var primary = body.getAttribute('data-md-color-primary');
-
-        // Apply light/dark mode
-        // Material now uses 'light' and 'dark' instead of 'default' and 'slate'
-        if (scheme === 'dark') {
-          html.classList.add('bf-darkmode');
-          html.classList.remove('bf-lightmode');
-        } else {
-          html.classList.add('bf-lightmode');
-          html.classList.remove('bf-darkmode');
-        }
-
-        // Apply Bifrost theme color
-        // Remove all existing theme classes
-        bifrostThemes.forEach(function(theme) {
-          html.classList.remove('bf-theme-' + theme);
-        });
-
-        // Add the appropriate theme class if valid
-        if (primary && bifrostThemes.indexOf(primary) !== -1) {
-          html.classList.add('bf-theme-' + primary);
-        } else {
-          // Default to teal if not specified or invalid
-          html.classList.add('bf-theme-teal');
-        }
-      }
-
-      // Insert version badge next to site name in the header
-      function insertVersionBadge() {
-        if (typeof siteVersion === 'undefined') return;
-        var topic = document.querySelector('.md-header__topic');
-        if (!topic || document.querySelector('.bf-header-version')) return;
-        var badge = document.createElement('span');
-        badge.className = 'bf-badge bf-badge-pill bfc-theme-fade-bg bf-header-version';
-        badge.textContent = 'v' + siteVersion;
-        topic.appendChild(badge);
-      }
-
-      // Apply when DOM is ready
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', function() {
-          syncBifrostTheme();
-          insertVersionBadge();
-
-          // Watch for changes to palette attributes on body
-          var observer = new MutationObserver(syncBifrostTheme);
-          observer.observe(document.body, {
-            attributes: true,
-            attributeFilter: ['data-md-color-scheme', 'data-md-color-primary']
-          });
-        });
-      } else {
-        syncBifrostTheme();
-        insertVersionBadge();
-
-        // Watch for changes to palette attributes on body
-        var observer = new MutationObserver(syncBifrostTheme);
-        observer.observe(document.body, {
-          attributes: true,
-          attributeFilter: ['data-md-color-scheme', 'data-md-color-primary']
-        });
-      }
-    })();
-  </script>
-{% endblock %}
-
-{% block scripts %}
-  {{ super() }}
+  {%- if config.extra.version -%}
+  <meta name="bifrost-version" content="{{ config.extra.version }}">
+  {%- endif -%}
 {% endblock %}

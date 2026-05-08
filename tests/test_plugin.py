@@ -5,16 +5,17 @@ from pathlib import Path
 from mkdocs.config.defaults import MkDocsConfig
 
 from intility_bifrost_mkdocs.plugin import (
-    DEFAULT_ADMONITION_ICONS,
-    DEFAULT_EXTENSIONS,
-    DEFAULT_EXTRA_JS,
-    DEFAULT_FEATURES,
     BIFROST_FONT_CODE,
     BIFROST_FONT_TEXT,
+    DEFAULT_ADMONITION_ICONS,
+    DEFAULT_EXTENSIONS,
+    DEFAULT_FEATURES,
     IntilityBifrostPlugin,
 )
 
-OVERRIDES_DIR = Path(__file__).parent.parent / "src" / "intility_bifrost_mkdocs" / "overrides"
+OVERRIDES_DIR = (
+    Path(__file__).parent.parent / "src" / "intility_bifrost_mkdocs" / "overrides"
+)
 
 
 def _minimal_config() -> MkDocsConfig:
@@ -65,7 +66,9 @@ def test_overrides_directory_exists():
     assert (OVERRIDES_DIR / "assets" / "stylesheets" / "extra.css").is_file()
     assert (OVERRIDES_DIR / "assets" / "stylesheets" / "bifrost.css").is_file()
     assert (OVERRIDES_DIR / "assets" / "fonts" / "satoshi-variable.woff2").is_file()
-    assert (OVERRIDES_DIR / "assets" / "fonts" / "satoshi-variable-italic.woff2").is_file()
+    assert (
+        OVERRIDES_DIR / "assets" / "fonts" / "satoshi-variable-italic.woff2"
+    ).is_file()
 
 
 def test_plugin_preserves_existing_extra_css():
@@ -81,7 +84,9 @@ def test_plugin_preserves_existing_extra_css():
     assert result["extra_css"][0] == "assets/stylesheets/extra.css"
     assert "custom/user.css" in result["extra_css"]
     assert "custom/other.css" in result["extra_css"]
-    assert result["extra_css"].index("assets/stylesheets/extra.css") < result["extra_css"].index("custom/user.css")
+    assert result["extra_css"].index("assets/stylesheets/extra.css") < result[
+        "extra_css"
+    ].index("custom/user.css")
 
 
 # ---------------------------------------------------------------------------
@@ -97,7 +102,9 @@ def test_default_extensions_injected():
     result = plugin.on_config(config)
 
     for ext in DEFAULT_EXTENSIONS:
-        assert ext in result.markdown_extensions, f"{ext} missing from markdown_extensions"
+        assert ext in result.markdown_extensions, (
+            f"{ext} missing from markdown_extensions"
+        )
 
 
 def test_default_extension_configs_injected():
@@ -109,7 +116,9 @@ def test_default_extension_configs_injected():
 
     assert result.mdx_configs.get("toc", {}).get("permalink") is True
     assert result.mdx_configs.get("pymdownx.arithmatex", {}).get("generic") is True
-    assert result.mdx_configs.get("pymdownx.highlight", {}).get("anchor_linenums") is True
+    assert (
+        result.mdx_configs.get("pymdownx.highlight", {}).get("anchor_linenums") is True
+    )
 
 
 def test_user_extension_config_preserved():
@@ -244,6 +253,22 @@ def test_mathjax_js_injected():
     paths = [str(entry) for entry in result.extra_javascript]
     assert "javascripts/mathjax.js" in paths
     assert "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js" in paths
+
+
+def test_bifrost_theme_js_injected():
+    """The Bifrost theme-sync script should be added to extra_javascript."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    result = plugin.on_config(config)
+
+    paths = [str(entry) for entry in result.extra_javascript]
+    assert "javascripts/bifrost-theme.js" in paths
+
+
+def test_bifrost_theme_js_exists_in_overrides():
+    """The bifrost-theme.js file should ship in the overrides directory."""
+    assert (OVERRIDES_DIR / "javascripts" / "bifrost-theme.js").is_file()
 
 
 def test_existing_extra_javascript_preserved():
