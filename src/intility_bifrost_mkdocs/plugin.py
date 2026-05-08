@@ -212,11 +212,6 @@ class IntilityBifrostPlugin(BasePlugin):
         # Insert our overrides as the highest-priority theme directory.
         config.theme.dirs.insert(0, str(overrides_dir.resolve()))
 
-        # Inject extra.css so it gets a <link> tag in every page.
-        config["extra_css"] = [
-            "assets/stylesheets/extra.css",
-        ] + config["extra_css"]
-
         # Inject sensible defaults (never overwrites user-provided config).
         _inject_markdown_extensions(config)
         _inject_theme_features(config)

@@ -1,43 +1,20 @@
-/**
- * Bifrost MkDocs Theme Stylesheet
- *
- * A custom theme implementation using Intility's Bifrost design system.
- * This theme extends Material for MkDocs while fully implementing Bifrost design principles.
- *
- * @see https://bifrost.intility.com
- */
+/* Bifrost MkDocs theme overrides. See https://bifrost.intility.com */
 
-/* Use cascade layers to ensure our CSS takes precedence */
-@layer material-overrides;
+/* Bifrost CSS framework, scoped into the `bifrost` cascade layer.
+   Unpkg-hosted so version bumps are a one-line change. */
+@layer bifrost;
+@import url("https://unpkg.com/@intility/bifrost-css@6.7.0/dist/bifrost-all.css") layer(bifrost);
 
-/* ============================================================================
-   1. IMPORT BIFROST CSS FRAMEWORK (for fonts and utilities)
-   ============================================================================ */
+/* Bifrost color variables (--bfc-*) come from the framework above and switch
+   automatically with .bf-lightmode / .bf-darkmode and .bf-theme-* on <html>. */
 
-@import url("https://unpkg.com/@intility/bifrost-css@6.7.0/dist/bifrost-all.css");
+/* Material theme variable mapping */
 
-/* ============================================================================
-   2. BIFROST COLOR VARIABLES
-   ============================================================================ */
-
-/*
- * Note: All Bifrost color variables (--bfc-*) are defined by the Bifrost CSS
- * framework loaded from CDN. They automatically switch between light and dark
- * mode based on the .bf-lightmode and .bf-darkmode classes applied to <html>.
- * The theme colors change based on .bf-theme-* classes (teal, purple, pink, yellow).
- *
- * We don't need to redefine them here - just use them directly!
- */
-
-/* ============================================================================
-   3. MATERIAL THEME VARIABLE MAPPING
-   ============================================================================ */
-
+/* Local font-size scale (Bifrost only ships --bf-font-size-m by default). */
 :root {
-    /* Bifrost Font Size Variables - Define if not present from CDN */
     --bf-font-size-xs: 12px;
     --bf-font-size-s: 13px;
-    --bf-font-size-m: 14px;  /* Base size */
+    --bf-font-size-m: 14px;
     --bf-font-size-l: 16px;
     --bf-font-size-xl: 18px;
     --bf-font-size-h5: 18px;
@@ -45,44 +22,25 @@
     --bf-font-size-h3: 24px;
     --bf-font-size-h2: 29px;
     --bf-font-size-h1: 35px;
-
-    /* Bifrost success colors */
-    --bifrost-success-light: #007a4b;
-    --bifrost-success-dark: #00f597;
-    --bifrost-success: var(--bifrost-success-light); /* Default to light */
 }
 
-/* Override success color for dark mode */
-[data-md-color-scheme="dark"] {
-    --bifrost-success: var(--bifrost-success-dark);
-}
-
-[data-md-color-scheme="slate"] {
-    --bifrost-success: var(--bifrost-success-dark);
-}
-
+/* Point Material's CSS variables at Bifrost tokens so Material's default
+   blue accent is replaced everywhere it's used internally. */
 :root {
-    /* Background colors */
     --md-default-bg-color: var(--bfc-base);
     --md-default-fg-color: var(--bfc-base-c);
-
-    /* Primary color (header, links) */
     --md-primary-fg-color: var(--bfc-theme);
     --md-primary-bg-color: var(--bfc-base);
-
-    /* Accent color (buttons, highlights) */
     --md-accent-fg-color: var(--bfc-theme);
     --md-accent-bg-color: var(--bfc-theme-fade);
-    
-    /* Override Material's default blue for various components */
+
     --md-typeset-a-color: var(--bfc-theme);
     --md-typeset-mark-color: var(--bfc-theme-fade);
     --md-typeset-kbd-color: var(--bfc-base-c);
     --md-typeset-kbd-accent-color: var(--bfc-theme);
     --md-typeset-kbd-border-color: var(--bfc-base-dimmed);
     --md-typeset-table-color: var(--bfc-base-c);
-    
-    /* Override Material's internal CSS variables that cause blue colors */
+
     --md-default-fg-color--accent: var(--bfc-theme);
     --md-typeset-color: var(--bfc-base-c);
     --md-typeset-del-color: var(--bfc-alert);
@@ -91,49 +49,38 @@
     --md-focus-color: var(--bfc-theme);
     --md-selection-color: var(--bfc-theme-fade);
 
-    /* Code blocks */
     --md-code-bg-color: var(--bfc-base-2);
     --md-code-fg-color: var(--bfc-base-c);
 
-    /* Links */
-    --md-typeset-a-color: var(--bfc-theme);
-
-    /* Borders and dividers */
     --md-default-fg-color--light: var(--bfc-base-c-2);
     --md-default-fg-color--lighter: var(--bfc-base-dimmed);
     --md-default-fg-color--lightest: var(--bfc-base-dimmed-2);
 
-    /* Footer */
     --md-footer-bg-color: var(--bfc-base-2);
     --md-footer-fg-color: var(--bfc-base-c);
 
-    /* Shadows */
     --md-shadow-z1: var(--bf-shadow);
     --md-shadow-z2: 0 0 12px var(--bfc-shadow);
     --md-shadow-z3: 0 0 16px var(--bfc-shadow);
 }
 
-/* ============================================================================
-   4. BIFROST TYPOGRAPHY
-   ============================================================================ */
+/* Typography */
 
 body {
     font-family: "Open Sans", sans-serif;
-    font-size: var(--bf-font-size-m); /* 14px - Bifrost default */
+    font-size: var(--bf-font-size-m);
     color: var(--bfc-base-c);
     background-color: var(--bfc-base);
     line-height: 1.6;
 }
 
-/* Override Material's default font sizes with higher specificity */
 .md-container .md-main .md-content .md-typeset,
 .md-container .md-typeset,
 .md-typeset {
-    font-size: var(--bf-font-size-m); /* 14px */
+    font-size: var(--bf-font-size-m);
     line-height: 1.6;
 }
 
-/* Headings use Satoshi font */
 h1,
 h2,
 h3,
@@ -147,17 +94,17 @@ h6,
 .md-typeset h5,
 .md-typeset h6 {
     font-family: "Satoshi", sans-serif;
-    font-weight: 700; /* Bifrost uses 700 for headings */
+    font-weight: 700;
     color: var(--bfc-base-c);
     margin-top: 1.5em;
     margin-bottom: 0.5em;
 }
 
-/* Use higher specificity instead of !important */
+/* Higher-specificity heading selectors used in place of !important. */
 .md-container .md-main .md-content .md-typeset h1,
 .md-content .md-typeset h1,
 .md-typeset h1 {
-    font-size: var(--bf-font-size-h2); /* 29px - using h2 size for h1 */
+    font-size: var(--bf-font-size-h2);
     line-height: 1.2;
     margin-top: 0;
 }
@@ -165,35 +112,35 @@ h6,
 .md-container .md-main .md-content .md-typeset h2,
 .md-content .md-typeset h2,
 .md-typeset h2 {
-    font-size: var(--bf-font-size-h3); /* 24px - using h3 size for h2 */
+    font-size: var(--bf-font-size-h3);
     line-height: 1.3;
 }
 
 .md-container .md-main .md-content .md-typeset h3,
 .md-content .md-typeset h3,
 .md-typeset h3 {
-    font-size: var(--bf-font-size-h4); /* 20px - using h4 size for h3 */
+    font-size: var(--bf-font-size-h4);
     line-height: 1.4;
 }
 
 .md-container .md-main .md-content .md-typeset h4,
 .md-content .md-typeset h4,
 .md-typeset h4 {
-    font-size: var(--bf-font-size-h5); /* 18px - using h5 size for h4 */
+    font-size: var(--bf-font-size-h5);
     line-height: 1.4;
 }
 
 .md-container .md-main .md-content .md-typeset h5,
 .md-content .md-typeset h5,
 .md-typeset h5 {
-    font-size: var(--bf-font-size-l); /* 16px */
+    font-size: var(--bf-font-size-l);
     line-height: 1.5;
 }
 
 .md-container .md-main .md-content .md-typeset h6,
 .md-content .md-typeset h6,
 .md-typeset h6 {
-    font-size: var(--bf-font-size-m); /* 14px - same as body */
+    font-size: var(--bf-font-size-m);
     line-height: 1.5;
 }
 
@@ -209,14 +156,12 @@ h6,
 .md-typeset ul,
 .md-typeset ol,
 .md-typeset li {
-    font-size: var(--bf-font-size-m); /* 14px */
+    font-size: var(--bf-font-size-m);
     line-height: 1.6;
     color: var(--bfc-base-c);
 }
 
-/* ============================================================================
-   5. HEADER
-   ============================================================================ */
+/* Header */
 
 .md-header {
     background-color: var(--bfc-base-2);
@@ -242,9 +187,7 @@ h6,
     color: var(--bfc-base-c);
 }
 
-/* ============================================================================
-   6. NAVIGATION TABS
-   ============================================================================ */
+/* Navigation tabs */
 
 .md-tabs {
     background-color: var(--bfc-base-2);
@@ -269,9 +212,7 @@ h6,
     outline-offset: 2px;
 }
 
-/* ============================================================================
-   7. SIDEBAR NAVIGATION
-   ============================================================================ */
+/* Sidebar navigation */
 
 .md-sidebar {
     background-color: var(--bfc-base);
@@ -290,112 +231,103 @@ h6,
 }
 
 .md-nav {
-    font-size: var(--bf-font-size-m); /* 14px */
+    font-size: var(--bf-font-size-m);
     color: var(--bfc-base-c);
 }
 
 .md-nav__title {
-    color: var(--bfc-base-c) !important;
+    color: var(--bfc-base-c);
     font-weight: 700;
-    font-size: var(--bf-font-size-m); /* 14px */
+    font-size: var(--bf-font-size-m);
 }
 
-/* Remove background and shadow from all navigation titles */
 .md-nav__title,
 .md-nav--primary .md-nav__title,
 .md-nav--secondary .md-nav__title,
 .md-nav__title[for] {
-    background: none !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
-    position: relative !important;
+    background: none;
+    background-color: transparent;
+    box-shadow: none;
+    position: relative;
 }
 
-/* Remove pseudo-element shadows/fades */
 .md-nav__title::before,
 .md-nav__title::after,
 .md-nav--secondary .md-nav__title::before,
 .md-nav--secondary .md-nav__title::after,
 .md-nav--primary .md-nav__title::before,
 .md-nav--primary .md-nav__title::after {
-    display: none !important;
-    content: none !important;
-    background: none !important;
-    box-shadow: none !important;
+    display: none;
+    content: none;
+    background: none;
+    box-shadow: none;
 }
 
-/* Remove fade from lifted navigation active links */
 .md-nav--lifted > .md-nav__list > .md-nav__item--active > .md-nav__link {
-    background: none !important;
-    background-color: transparent !important;
-    box-shadow: none !important;
+    background: none;
+    background-color: transparent;
+    box-shadow: none;
 }
 
-/* Ensure labels in active nav items use default text color */
 .md-nav--lifted > .md-nav__list > .md-nav__item--active > .md-nav__link[for] {
-    color: var(--bfc-base-c) !important;
+    color: var(--bfc-base-c);
 }
 
 .md-nav__link {
-    color: var(--bfc-base-c) !important;
-    font-size: var(--bf-font-size-m); /* 14px */
+    color: var(--bfc-base-c);
+    font-size: var(--bf-font-size-m);
 }
 
 .md-nav__link--active {
-    color: var(--bfc-theme) !important;
+    color: var(--bfc-theme);
     font-weight: 600;
 }
 
 .md-nav__link:hover,
 .md-nav__link:focus {
-    color: var(--bfc-theme) !important;
+    color: var(--bfc-theme);
 }
 
-/* Primary navigation (left sidebar) */
 .md-nav--primary .md-nav__title {
-    color: var(--bfc-base-c) !important;
+    color: var(--bfc-base-c);
 }
 
 .md-nav--primary .md-nav__link {
-    color: var(--bfc-base-c) !important;
-    font-size: var(--bf-font-size-m); /* 14px */
+    color: var(--bfc-base-c);
+    font-size: var(--bf-font-size-m);
 }
 
 .md-nav--primary .md-nav__link--active {
-    color: var(--bfc-theme) !important;
+    color: var(--bfc-theme);
 }
 
 .md-nav--primary .md-nav__link:hover {
-    color: var(--bfc-theme) !important;
+    color: var(--bfc-theme);
 }
 
-/* Table of Contents (right sidebar) */
 .md-nav--secondary .md-nav__link {
-    color: var(--bfc-base-c) !important;
-    font-size: var(--bf-font-size-m); /* 14px */
+    color: var(--bfc-base-c);
+    font-size: var(--bf-font-size-m);
 }
 
 .md-nav--secondary .md-nav__link:hover {
-    color: var(--bfc-theme) !important;
+    color: var(--bfc-theme);
 }
 
 .md-nav--secondary .md-nav__link--active {
-    color: var(--bfc-theme) !important;
+    color: var(--bfc-theme);
     font-weight: 600;
 }
 
-/* Navigation items */
 .md-nav__item {
     color: var(--bfc-base-c);
 }
 
 .md-nav__item--active > .md-nav__link {
-    color: var(--bfc-theme) !important;
+    color: var(--bfc-theme);
 }
 
-/* ============================================================================
-   8. MAIN CONTENT
-   ============================================================================ */
+/* Main content */
 
 .md-content {
     background-color: var(--bfc-base);
@@ -409,7 +341,6 @@ h6,
     color: var(--bfc-base-c);
 }
 
-/* Links */
 .md-typeset a {
     color: var(--bfc-theme);
     text-decoration: none;
@@ -421,9 +352,8 @@ h6,
     color: var(--bfc-theme);
 }
 
-/* Permalink icons (¶ after headings) */
 .md-typeset .headerlink {
-    color: var(--bfc-base-dimmed) !important;
+    color: var(--bfc-base-dimmed);
 }
 
 .md-typeset .headerlink:hover,
@@ -435,12 +365,10 @@ h6,
 .md-typeset h4:target .headerlink,
 .md-typeset h5:target .headerlink,
 .md-typeset h6:target .headerlink {
-    color: var(--bfc-theme) !important;
+    color: var(--bfc-theme);
 }
 
-/* ============================================================================
-   9. CODE BLOCKS
-   ============================================================================ */
+/* Code blocks */
 
 .md-typeset pre,
 .md-typeset code {
@@ -450,9 +378,8 @@ h6,
 
 .md-typeset code {
     padding: 0.1em 0.4em;
-    border-radius: 3px;
+    border-radius: var(--bf-radius-xs);
     font-size: 0.9em;
-    font-family: "Monaco", "Courier New", Consolas, monospace;
 }
 
 .md-typeset pre > code {
@@ -468,7 +395,8 @@ h6,
     color: var(--bfc-base-c);
 }
 
-/* Code copy button - target all possible selectors */
+/* Code copy button — Material applies styles via JS, so several selector
+   variants are listed to make sure we catch every rendered form. */
 .md-clipboard,
 button[data-clipboard-text],
 .md-icon[data-clipboard-text],
@@ -498,7 +426,8 @@ button[data-clipboard-text]:active,
     background-color: var(--bfc-theme-fade);
 }
 
-/* Universal override for all interactive elements - no blue anywhere */
+/* Blanket no-blue rule for interactive elements — Material's default accent
+   leaks blue into focus/hover states; force the Bifrost theme color instead. */
 button,
 .md-button,
 input,
@@ -533,7 +462,6 @@ a:active,
     outline-offset: 2px;
 }
 
-/* Override blue selection and active states universally */
 *:focus,
 *:active,
 *:hover.md-button,
@@ -542,12 +470,11 @@ a:active,
     border-color: var(--bfc-theme);
 }
 
-/* Override browser default focus styles */
 *:focus-visible {
     outline: 2px solid var(--bfc-theme);
 }
 
-/* Force override Material's JavaScript-applied styles */
+/* Material applies these button styles via JS after page load. */
 .highlight button,
 .codehilite button,
 pre button,
@@ -573,28 +500,23 @@ code button:active {
     background-color: var(--bfc-theme-fade);
 }
 
-/* Code copy confirmation message */
 .md-clipboard__message {
     background-color: var(--bfc-base-3);
     color: var(--bfc-base-c);
     border: 1px solid var(--bfc-base-dimmed);
 }
 
-/* Ensure the message text has proper contrast */
 .md-clipboard__message::after {
     background-color: var(--bfc-base-3);
     color: var(--bfc-base-c);
 }
 
-/* ============================================================================
-   10. ADMONITIONS
-   ============================================================================ */
+/* Admonitions */
 
-/* Base admonition styling with full border */
 .md-typeset .admonition,
 .md-typeset details {
     border: 1px solid;
-    border-radius: 8px;
+    border-radius: var(--bf-radius-s);
     background-color: var(--bfc-base);
     color: var(--bfc-base-c);
     margin: 1.5625em 0;
@@ -609,13 +531,13 @@ code button:active {
     font-weight: 600;
     font-family: "Satoshi", sans-serif;
     margin: 0;
-    padding: 12px 16px 12px 44px;
+    /* 44px left padding makes room for the absolutely-positioned icon. */
+    padding: var(--bfs12) var(--bfs16) var(--bfs12) 44px;
     border: none;
     border-radius: 0;
     position: relative;
 }
 
-/* Keep Material's default icon but allow coloring */
 .md-typeset .admonition-title::before,
 .md-typeset summary::before {
     position: absolute;
@@ -626,29 +548,22 @@ code button:active {
     height: 16px;
 }
 
-/* Admonition content padding */
 .md-typeset .admonition > *:not(.admonition-title),
 .md-typeset details > *:not(summary) {
-    padding: 0 16px;
-    margin: 16px 0;
+    padding: 0 var(--bfs16);
+    margin: var(--bfs16) 0;
 }
 
 .md-typeset .admonition > *:last-child,
 .md-typeset details > *:last-child {
-    margin-bottom: 16px;
+    margin-bottom: var(--bfs16);
 }
 
-/* Style the expand/collapse arrow for better contrast */
-.md-typeset summary::after {
-    color: var(--bfc-base-c);
-}
-
-/* Ensure the arrow icon in collapsible admonitions has proper contrast */
+.md-typeset summary::after,
 .md-typeset details[open] > summary::after {
     color: var(--bfc-base-c);
 }
 
-/* Note - Theme color */
 .md-typeset .admonition.note,
 .md-typeset details.note {
     border-color: var(--bfc-theme);
@@ -667,7 +582,6 @@ code button:active {
     -webkit-mask-size: contain;
 }
 
-/* Info - Theme color (same as note) */
 .md-typeset .admonition.info,
 .md-typeset details.info {
     border-color: var(--bfc-theme);
@@ -686,7 +600,6 @@ code button:active {
     -webkit-mask-size: contain;
 }
 
-/* Abstract - Chill (purple) */
 .md-typeset .admonition.abstract,
 .md-typeset details.abstract {
     border-color: var(--bfc-chill);
@@ -705,17 +618,16 @@ code button:active {
     -webkit-mask-size: contain;
 }
 
-/* Tip - Success (green) */
 .md-typeset .admonition.tip,
 .md-typeset details.tip {
-    border-color: var(--bifrost-success);
+    border-color: var(--bfc-success);
 }
 
 .md-container .md-typeset .tip > .admonition-title::before,
 .md-container .md-typeset .tip > summary::before,
 .md-typeset .tip > .admonition-title::before,
 .md-typeset .tip > summary::before {
-    background-color: var(--bifrost-success);
+    background-color: var(--bfc-success);
     mask-image: var(--md-admonition-icon--tip);
     -webkit-mask-image: var(--md-admonition-icon--tip);
     mask-repeat: no-repeat;
@@ -724,17 +636,16 @@ code button:active {
     -webkit-mask-size: contain;
 }
 
-/* Success - Success (green) */
 .md-typeset .admonition.success,
 .md-typeset details.success {
-    border-color: var(--bifrost-success);
+    border-color: var(--bfc-success);
 }
 
 .md-container .md-typeset .success > .admonition-title::before,
 .md-container .md-typeset .success > summary::before,
 .md-typeset .success > .admonition-title::before,
 .md-typeset .success > summary::before {
-    background-color: var(--bifrost-success);
+    background-color: var(--bfc-success);
     mask-image: var(--md-admonition-icon--success);
     -webkit-mask-image: var(--md-admonition-icon--success);
     mask-repeat: no-repeat;
@@ -743,7 +654,6 @@ code button:active {
     -webkit-mask-size: contain;
 }
 
-/* Warning/Attention/Caution - Warning (orange) */
 .md-typeset .admonition.warning,
 .md-typeset .admonition.attention,
 .md-typeset .admonition.caution,
@@ -766,7 +676,6 @@ code button:active {
     -webkit-mask-size: contain;
 }
 
-/* Failure/Danger/Error - Alert (red) */
 .md-typeset .admonition.failure,
 .md-typeset .admonition.danger,
 .md-typeset .admonition.error,
@@ -789,7 +698,6 @@ code button:active {
     -webkit-mask-size: contain;
 }
 
-/* Example - Chill (purple) for better visibility */
 .md-typeset .admonition.example,
 .md-typeset details.example {
     border-color: var(--bfc-chill);
@@ -808,7 +716,6 @@ code button:active {
     -webkit-mask-size: contain;
 }
 
-/* Question - Chill (purple) */
 .md-typeset .admonition.question,
 .md-typeset details.question {
     border-color: var(--bfc-chill);
@@ -827,7 +734,6 @@ code button:active {
     -webkit-mask-size: contain;
 }
 
-/* Bug - Alert (red) */
 .md-typeset .admonition.bug,
 .md-typeset details.bug {
     border-color: var(--bfc-alert);
@@ -846,7 +752,6 @@ code button:active {
     -webkit-mask-size: contain;
 }
 
-/* Quote - Base dimmed */
 .md-typeset .admonition.quote,
 .md-typeset details.quote {
     border-color: var(--bfc-base-dimmed);
@@ -865,14 +770,12 @@ code button:active {
     -webkit-mask-size: contain;
 }
 
-/* ============================================================================
-   11. TABLES
-   ============================================================================ */
+/* Tables */
 
 .md-typeset table:not([class]) {
     border: 1px solid var(--bfc-base-dimmed);
     background-color: var(--bfc-base-3);
-    border-radius: 4px;
+    border-radius: var(--bf-radius-xs);
     overflow: hidden;
 }
 
@@ -893,16 +796,14 @@ code button:active {
     background-color: var(--bfc-base-2);
 }
 
-/* ============================================================================
-   12. BUTTONS
-   ============================================================================ */
+/* Buttons */
 
 .md-button {
     background-color: var(--bfc-theme);
     color: var(--bfc-theme-c);
     border: none;
     padding: 0.625em 1.25em;
-    border-radius: 4px;
+    border-radius: var(--bf-radius-xs);
     font-family: "Open Sans", sans-serif;
     font-weight: 500;
     transition:
@@ -922,11 +823,10 @@ code button:active {
     color: var(--bfc-theme-c);
 }
 
-/* ============================================================================
-   13. FOOTER
-   ============================================================================ */
+/* Footer */
 
-/* Sticky footer - ensure footer stays at bottom even with minimal content */
+/* Sticky footer: flex column on body keeps the footer at the bottom even
+   when content is short. */
 body {
     display: flex;
     flex-direction: column;
@@ -971,14 +871,13 @@ body {
     background-color: var(--bfc-base-3);
 }
 
-/* Override Material's default footer link color with more specific selector */
 html .md-footer-meta.md-typeset a {
-    color: var(--bfc-theme) !important;
+    color: var(--bfc-theme);
 }
 
 html .md-footer-meta.md-typeset a:hover,
 html .md-footer-meta.md-typeset a:focus {
-    color: var(--bfc-theme-2) !important;
+    color: var(--bfc-theme-2);
     text-decoration: underline;
 }
 
@@ -999,9 +898,7 @@ html .md-footer-meta.md-typeset a:focus {
     color: var(--bfc-base-c);
 }
 
-/* ============================================================================
-   14. SEARCH
-   ============================================================================ */
+/* Search */
 
 .md-search__form {
     background-color: var(--bfc-base-3);
@@ -1011,12 +908,11 @@ html .md-footer-meta.md-typeset a:focus {
     background-color: var(--bfc-base-3);
     color: var(--bfc-base-c);
     border: 1px solid var(--bfc-base-dimmed);
-    border-radius: 4px;
+    border-radius: var(--bf-radius-xs);
 }
 
-/* Search icon */
 .md-search__icon {
-    color: var(--bfc-base-c) !important;
+    color: var(--bfc-base-c);
 }
 
 .md-search__input::placeholder {
@@ -1029,7 +925,7 @@ html .md-footer-meta.md-typeset a:focus {
 
 .md-search__output {
     background-color: var(--bfc-base);
-    border-radius: 4px;
+    border-radius: var(--bf-radius-xs);
     box-shadow: var(--bf-shadow);
 }
 
@@ -1055,24 +951,19 @@ html .md-footer-meta.md-typeset a:focus {
     color: var(--bfc-theme);
 }
 
-/* ============================================================================
-   15. TABS AND TABBED CONTENT
-   ============================================================================ */
+/* Tabs and tabbed content */
 
-/* Inactive tab labels */
 .md-typeset .tabbed-set > label {
     color: var(--bfc-base-c-2);
     font-weight: 500;
     border-bottom: 2px solid transparent;
 }
 
-/* Hover state */
 .md-typeset .tabbed-set > label:hover {
     color: var(--bfc-theme);
     border-bottom-color: var(--bfc-theme-fade);
 }
 
-/* Active/checked tab - use theme color, not blue */
 .md-typeset .tabbed-set > input:checked + label,
 .md-typeset .tabbed-set > input:focus + label,
 .md-typeset .tabbed-set > label.active {
@@ -1081,18 +972,16 @@ html .md-footer-meta.md-typeset a:focus {
     border-bottom-color: var(--bfc-theme);
 }
 
-/* Override Material's default blue active indicator */
 .md-typeset .tabbed-set > input:checked + label::after {
     background-color: var(--bfc-theme);
 }
 
-/* Focus state */
 .md-typeset .tabbed-set > label:focus {
     outline: 2px solid var(--bfc-theme);
     outline-offset: 2px;
 }
 
-/* Ultra-specific targeting to override Material's blue tabs */
+/* Material wins on specificity for tabs unless we match its 5+ class chain. */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set > input:checked + label,
 html body .md-container .md-typeset .tabbed-set > input:checked + label,
 html body .md-typeset .tabbed-set > input:checked + label,
@@ -1104,7 +993,6 @@ html .md-typeset .tabbed-set > input:checked + label,
     border-bottom: 2px solid var(--bfc-theme);
 }
 
-/* Target the pseudo-elements with maximum specificity */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set > input:checked + label::after,
 html body .md-container .md-typeset .tabbed-set > input:checked + label::after,
 html body .md-typeset .tabbed-set > input:checked + label::after,
@@ -1114,7 +1002,6 @@ html .md-typeset .tabbed-set > input:checked + label::after,
     border-color: var(--bfc-theme);
 }
 
-/* Target focus states */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set > input:focus + label,
 html body .md-container .md-typeset .tabbed-set > input:focus + label,
 html body .md-typeset .tabbed-set > input:focus + label,
@@ -1125,14 +1012,11 @@ html .md-typeset .tabbed-set > input:focus + label,
     border-bottom-color: var(--bfc-theme);
 }
 
-/* Ensure the tab content area uses theme colors */
 .md-typeset .tabbed-content {
     border-color: var(--bfc-base-dimmed);
 }
 
-/* ============================================================================
-   16. PAGINATION
-   ============================================================================ */
+/* Pagination */
 
 .md-footer__link {
     transition: background-color 0.2s ease;
@@ -1142,21 +1026,16 @@ html .md-typeset .tabbed-set > input:focus + label,
     background-color: var(--bfc-base-2);
 }
 
-/* ============================================================================
-   17. ANNOUNCEMENT BAR
-   ============================================================================ */
+/* Announcement bar */
 
 .md-announce {
     background-color: var(--bfc-theme-fade);
     color: var(--bfc-theme-fade-c);
 }
 
-/* ============================================================================
-   18. RESPONSIVE DESIGN
-   ============================================================================ */
+/* Responsive design */
 
 @media screen and (max-width: 76.1875em) {
-    /* Mobile adjustments */
     .md-nav--primary .md-nav__title {
         background-color: var(--bfc-base-2);
         color: var(--bfc-base-c);
@@ -1167,9 +1046,7 @@ html .md-typeset .tabbed-set > input:focus + label,
     }
 }
 
-/* ============================================================================
-   19. ACCESSIBILITY
-   ============================================================================ */
+/* Accessibility */
 
 a:focus,
 button:focus,
@@ -1183,16 +1060,13 @@ input:focus {
     color: var(--bfc-theme-c);
 }
 
-/* Focus visible (keyboard navigation) */
 a:focus-visible,
 button:focus-visible {
     outline: 2px solid var(--bfc-theme);
     outline-offset: 2px;
 }
 
-/* ============================================================================
-   20. SCROLLBAR STYLING
-   ============================================================================ */
+/* Scrollbar */
 
 ::-webkit-scrollbar {
     width: 8px;
@@ -1205,18 +1079,15 @@ button:focus-visible {
 
 ::-webkit-scrollbar-thumb {
     background: var(--bfc-base-dimmed);
-    border-radius: 4px;
+    border-radius: var(--bf-radius-xs);
 }
 
 ::-webkit-scrollbar-thumb:hover {
     background: var(--bfc-base-c-2);
 }
 
-/* ============================================================================
-   21. VERSION BADGE
-   ============================================================================ */
+/* Version badge */
 
-/* Positioning for version badge in the header */
 .bf-header-version {
     align-self: center;
     flex-shrink: 0;
@@ -1225,38 +1096,31 @@ button:focus-visible {
     font-family: "Open Sans", sans-serif;
 }
 
-/* ============================================================================
-   22. MISCELLANEOUS
-   ============================================================================ */
+/* Miscellaneous */
 
-/* Horizontal rules */
 .md-typeset hr {
     border-bottom: 1px solid var(--bfc-base-dimmed);
 }
 
-/* Blockquotes */
 .md-typeset blockquote {
     border-left: 4px solid var(--bfc-base-dimmed);
     color: var(--bfc-base-c-2);
 }
 
-/* Keyboard keys */
 .md-typeset kbd {
     background-color: var(--bfc-base-2);
     color: var(--bfc-base-c);
     border: 1px solid var(--bfc-base-dimmed);
-    border-radius: 3px;
+    border-radius: var(--bf-radius-xs);
     box-shadow: 0 1px 0 var(--bfc-base-dimmed);
 }
 
-/* Tags/badges */
 .md-tag {
     background-color: var(--bfc-theme-fade);
     color: var(--bfc-theme-fade-c);
-    border-radius: 3px;
+    border-radius: var(--bf-radius-xs);
 }
 
-/* Print styles */
 @media print {
     body {
         background-color: white;
@@ -1264,11 +1128,8 @@ button:focus-visible {
     }
 }
 
-/* ============================================================================
-   FINAL OVERRIDES - Use cascade layer for higher specificity than Material
-   ============================================================================ */
-
-/* Override Material's generated styles after they load */
+/* Late overrides — these target Material styles applied after page load.
+   They sit at the end of the file so source order beats earlier rules. */
 .md-typeset a:focus,
 .md-typeset a:hover {
     color: var(--bfc-theme);
@@ -1280,7 +1141,6 @@ button:focus-visible {
     color: var(--bfc-theme);
 }
 
-/* Tab navigation active states */
 .md-tabs__item--active .md-tabs__link {
     color: var(--bfc-theme);
 }
@@ -1290,7 +1150,6 @@ button:focus-visible {
     color: var(--bfc-theme);
 }
 
-/* Tabbed content active states */
 .tabbed-set > input:checked + label {
     color: var(--bfc-theme);
     border-color: transparent;
@@ -1311,7 +1170,6 @@ button:focus-visible {
     background: transparent;
 }
 
-/* Button and clipboard active states */
 .md-clipboard,
 .md-clipboard:focus,
 .md-clipboard:hover {
@@ -1338,17 +1196,11 @@ button:focus-visible {
     color: var(--bfc-theme);
 }
 
-/* Remove background from code navigation container */
 .md-code__nav {
     background: transparent;
 }
 
-/* ============================================================================
-   15. SYNTAX HIGHLIGHTING
-   ============================================================================ */
-
-/* Pygments syntax highlighting with Bifrost colors */
-/* Use high specificity selectors to override Material defaults */
+/* Syntax highlighting (Pygments tokens mapped to Bifrost colors) */
 html body .md-typeset .highlight .hll,
 html body .md-typeset div[class*="language-"].highlight .hll { 
     background-color: var(--bfc-theme-fade); 
@@ -1579,9 +1431,7 @@ html body .md-typeset div[class*="language-"].highlight .l-Scalar-Plain { color:
 html body .md-typeset .highlight .p-Indicator,
 html body .md-typeset div[class*="language-"].highlight .p-Indicator { color: var(--bfc-base-c-2); } /* YAML Indicators */
 
-/* Diverse color scheme using different Bifrost colors */
-
-/* Keywords (def, return, etc.) - Theme color, bold */
+/* Higher-specificity Pygments overrides — keep below the simple rules above. */
 html body .md-typeset .highlight .k,
 html body .md-typeset .highlight .kd,
 html body .md-typeset .highlight .kn,
@@ -1596,7 +1446,6 @@ html body .md-typeset div[class*="language-"].highlight .kr {
     font-weight: bold;
 }
 
-/* Built-in constants (True, False, None) - Alert color */
 html body .md-typeset .highlight .kc,
 html body .md-typeset .highlight .kt,
 html body .md-typeset div[class*="language-"].highlight .kc,
@@ -1605,7 +1454,6 @@ html body .md-typeset div[class*="language-"].highlight .kt {
     font-weight: bold;
 }
 
-/* Strings - Bifrost success color with light/dark adaptation */
 html body .md-typeset .highlight .s,
 html body .md-typeset .highlight .s1,
 html body .md-typeset .highlight .s2,
@@ -1624,11 +1472,10 @@ html body .md-typeset div[class*="language-"].highlight .sh,
 html body .md-typeset div[class*="language-"].highlight .sx,
 html body .md-typeset div[class*="language-"].highlight .sr,
 html body .md-typeset div[class*="language-"].highlight .ss {
-    color: var(--bifrost-success);
+    color: var(--bfc-success);
     font-weight: normal;
 }
 
-/* Functions and built-ins (print, hello_world) - Base color */
 html body .md-typeset .highlight .nb,
 html body .md-typeset .highlight .nf,
 html body .md-typeset div[class*="language-"].highlight .nb,
@@ -1637,7 +1484,6 @@ html body .md-typeset div[class*="language-"].highlight .nf {
     font-weight: normal;
 }
 
-/* Comments - Dimmed, italic */
 html body .md-typeset .highlight .c,
 html body .md-typeset .highlight .c1,
 html body .md-typeset .highlight .cm,
@@ -1655,7 +1501,6 @@ html body .md-typeset div[class*="language-"].highlight .sd {
     font-weight: normal;
 }
 
-/* Punctuation and operators - Base color */
 html body .md-typeset .highlight .p,
 html body .md-typeset .highlight .o,
 html body .md-typeset div[class*="language-"].highlight .p,
@@ -1664,38 +1509,33 @@ html body .md-typeset div[class*="language-"].highlight .o {
     font-weight: normal;
 }
 
-/* YAML-specific syntax highlighting */
-/* YAML keys and tags - Theme color */
+/* YAML-specific token colors */
 html body .md-typeset .highlight .nt,
 html body .md-typeset div[class*="language-"].highlight .nt {
     color: var(--bfc-theme);
     font-weight: bold;
 }
 
-/* YAML anchors and labels - Base text color for better contrast */
 html body .md-typeset .highlight .nl,
 html body .md-typeset div[class*="language-"].highlight .nl {
     color: var(--bfc-base-c);
     font-weight: normal;
 }
 
-/* YAML scalar values - Bifrost success color with light/dark adaptation */
 html body .md-typeset .highlight .l-Scalar,
 html body .md-typeset .highlight .l-Scalar-Plain,
 html body .md-typeset div[class*="language-"].highlight .l-Scalar,
 html body .md-typeset div[class*="language-"].highlight .l-Scalar-Plain {
-    color: var(--bifrost-success);
+    color: var(--bfc-success);
     font-weight: normal;
 }
 
-/* YAML indicators (-, :, etc.) - Base color */
 html body .md-typeset .highlight .p-Indicator,
 html body .md-typeset div[class*="language-"].highlight .p-Indicator {
     color: var(--bfc-base-c);
     font-weight: normal;
 }
 
-/* Remove borders from all Material buttons */
 html body .md-button,
 html body .md-button:focus,
 html body .md-button:hover,
@@ -1714,7 +1554,6 @@ html body button:hover {
     box-shadow: none;
 }
 
-/* Force override tab button styling with high specificity */
 html body .md-typeset .tabbed-set > label,
 html body .md-typeset .tabbed-set > label:focus,
 html body .md-typeset .tabbed-set > label:hover {
@@ -1738,7 +1577,6 @@ html body .md-typeset .tabbed-set > input:checked + label {
     box-shadow: none;
 }
 
-/* Target the actual tabbed labels structure from the HTML */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label,
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label:focus,
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label:hover,
@@ -1762,7 +1600,6 @@ html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-lab
     color: var(--bfc-base-c);
 }
 
-/* Target active tab using CSS :has() selector or fallback to specific IDs */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set:has(input#__tabbed_1_1:checked) .tabbed-labels label[for="__tabbed_1_1"],
 html body .md-container .md-main .md-content .md-typeset .tabbed-set:has(input#__tabbed_1_2:checked) .tabbed-labels label[for="__tabbed_1_2"],
 html body .md-container .md-main .md-content .md-typeset .tabbed-set:has(input#__tabbed_1_3:checked) .tabbed-labels label[for="__tabbed_1_3"],
@@ -1782,7 +1619,6 @@ html body .md-container .md-main .md-content .md-typeset .tabbed-set:has(input#_
     box-shadow: none;
 }
 
-/* Remove all unwanted lines and borders from tabbed elements */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set,
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels,
 html body .md-container .md-main .md-content .md-typeset .tabbed-set::before,
@@ -1795,14 +1631,12 @@ html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-lab
     box-shadow: none;
 }
 
-/* Force override Material's theme color variables specifically for tabbed elements */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set,
 html body .md-container .md-main .md-content .md-typeset .tabbed-set.tabbed-alternate {
     --md-primary-fg-color: var(--bfc-base-dimmed);
     --md-accent-fg-color: var(--bfc-base-dimmed);
 }
 
-/* Target the tabbed-alternate variant specifically */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set.tabbed-alternate .tabbed-labels label::before,
 html body .md-container .md-main .md-content .md-typeset .tabbed-set.tabbed-alternate .tabbed-labels label::after {
     background: var(--bfc-base-dimmed);
@@ -1812,7 +1646,6 @@ html body .md-container .md-main .md-content .md-typeset .tabbed-set.tabbed-alte
     fill: var(--bfc-base-dimmed);
 }
 
-/* Change vertical lines to dimmed color with maximum specificity */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label::before,
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label::after,
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels::before {
@@ -1823,7 +1656,6 @@ html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-lab
     fill: var(--bfc-base-dimmed);
 }
 
-/* Allow the horizontal line ::after but remove any other styling */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels::after {
     border: 0;
     box-shadow: none;
@@ -1831,7 +1663,6 @@ html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-lab
     visibility: visible;
 }
 
-/* Force override all possible border properties on tab labels only */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label {
     position: relative;
     border-left: 0;
@@ -1840,14 +1671,12 @@ html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-lab
     background-image: none;
 }
 
-/* Target specific label positions to remove separators */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label + label {
     border-left: 0;
     margin-left: 0;
     padding-left: inherit;
 }
 
-/* Remove any inset shadows or borders from tab container only */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels {
     box-shadow: none;
     background-image: none;
@@ -1855,7 +1684,7 @@ html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-lab
     position: relative;
 }
 
-/* Add the horizontal line under all tabs */
+/* Single horizontal divider under the tab row, drawn via the labels' ::after. */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels::after {
     content: "";
     display: block;
@@ -1868,7 +1697,6 @@ html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-lab
     z-index: 0;
 }
 
-/* Force remove vertical borders with extreme specificity */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label[for] {
     position: relative;
     z-index: 1;
@@ -1885,7 +1713,6 @@ html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-lab
     border-right: 1px solid var(--bfc-base-dimmed);
 }
 
-/* Direct override of Material's CSS variables within tabbed context */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set {
     --md-primary-fg-color: var(--bfc-base-dimmed);
     --md-primary-fg-color--light: var(--bfc-base-dimmed);
@@ -1894,20 +1721,17 @@ html body .md-container .md-main .md-content .md-typeset .tabbed-set {
     --md-accent-fg-color--transparent: var(--bfc-base-dimmed);
 }
 
-/* Override any border styles on the labels themselves */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label {
     border-left-color: var(--bfc-base-dimmed);
     border-right-color: var(--bfc-base-dimmed);
 }
 
-/* Force Material's default border properties to use dimmed color */
 html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-labels label + label:before {
     background: var(--bfc-base-dimmed);
     border-left: 1px solid var(--bfc-base-dimmed);
 }
 
 
-/* Completely remove vertical lines from tabs by hiding pseudo-elements */
 .md-typeset .tabbed-set > input + label:before,
 .md-typeset .tabbed-set > input + label:after,
 .md-typeset .tabbed-labels > label:before,
@@ -1926,7 +1750,6 @@ html body .md-container .md-main .md-content .md-typeset .tabbed-set .tabbed-lab
     visibility: hidden;
 }
 
-/* Force override of any Material theme color usage in tabbed context */
 html body .md-typeset .tabbed-set,
 html body .md-typeset .tabbed-alternate,
 html body .md-content .tabbed-set,
@@ -1938,7 +1761,6 @@ html body .md-content .tabbed-alternate {
     --md-typeset-color: var(--bfc-base-c);
 }
 
-/* Search and form elements */
 .md-search__input:focus {
     border-color: var(--bfc-theme);
 }
@@ -1947,7 +1769,6 @@ html body .md-content .tabbed-alternate {
     background-color: var(--bfc-base);
 }
 
-/* Navigation elements */
 .md-nav__link--active {
     color: var(--bfc-theme);
 }
@@ -1957,7 +1778,6 @@ html body .md-content .tabbed-alternate {
     color: var(--bfc-theme);
 }
 
-/* Remove borders from navigation links */
 .md-nav__link,
 .md-nav__link:focus,
 .md-nav__link:hover,
@@ -1966,17 +1786,10 @@ html body .md-content .tabbed-alternate {
     outline: none;
 }
 
-/* Remove borders and outlines from all links on hover/focus */
 a,
 a:hover,
 a:focus,
-a:active {
-    border: none;
-    outline: none;
-    box-shadow: none;
-}
-
-/* Specifically target Material's content links */
+a:active,
 .md-typeset a,
 .md-typeset a:hover,
 .md-typeset a:focus,
