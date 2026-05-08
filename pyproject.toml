@@ -63,7 +63,6 @@ where = ["src"]
 intility_bifrost_mkdocs = [
     "overrides/**/*.html",
     "overrides/**/*.css",
-    "overrides/**/*.woff2",
     "overrides/**/*.js",
 ]
 

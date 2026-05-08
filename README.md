@@ -36,12 +36,12 @@ Add `intility-bifrost` to your `mkdocs.yml` plugins:
 theme:
   name: material
   palette:
-    - scheme: light
-      primary: teal  # Options: teal, purple, pink, yellow
+    - scheme: default       # or 'light' — both map to Bifrost light mode
+      primary: teal         # Options: teal, purple, pink, yellow
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    - scheme: dark
+    - scheme: slate         # or 'dark' — both map to Bifrost dark mode
       primary: teal
       toggle:
         icon: material/brightness-4

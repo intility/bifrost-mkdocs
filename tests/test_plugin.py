@@ -29,9 +29,9 @@ def _minimal_config() -> MkDocsConfig:
     )
 
     # Validation populates defaults (theme.dirs, extra_css, etc.)
-    errors, warnings = cfg.validate()
+    errors, _warnings = cfg.validate()
     assert not errors, errors
-    return cfg
+    return cfg  # type: ignore
 
 
 # ---------------------------------------------------------------------------
@@ -39,36 +39,36 @@ def _minimal_config() -> MkDocsConfig:
 # ---------------------------------------------------------------------------
 
 
-def test_plugin_injects_overrides_and_css():
-    """The plugin should prepend its overrides dir and extra.css into the config."""
+def test_plugin_injects_overrides_dir():
+    """The plugin should prepend its overrides dir into the config."""
     plugin = IntilityBifrostPlugin()
     config = _minimal_config()
 
     original_dirs_len = len(config.theme.dirs)
-    original_css = list(config["extra_css"])
 
     result = plugin.on_config(config)
 
-    # Overrides dir is prepended (first entry = highest priority).
     overrides_dir = str(OVERRIDES_DIR.resolve())
     assert result.theme.dirs[0] == overrides_dir
     assert len(result.theme.dirs) == original_dirs_len + 1
-
-    # extra.css is prepended to extra_css.
-    assert result["extra_css"][0] == "assets/stylesheets/extra.css"
-    assert result["extra_css"][1:] == original_css
 
 
 def test_overrides_directory_exists():
     """The overrides directory should contain the expected theme files."""
     assert OVERRIDES_DIR.is_dir()
     assert (OVERRIDES_DIR / "main.html").is_file()
-    assert (OVERRIDES_DIR / "assets" / "stylesheets" / "extra.css").is_file()
     assert (OVERRIDES_DIR / "assets" / "stylesheets" / "bifrost.css").is_file()
-    assert (OVERRIDES_DIR / "assets" / "fonts" / "satoshi-variable.woff2").is_file()
-    assert (
-        OVERRIDES_DIR / "assets" / "fonts" / "satoshi-variable-italic.woff2"
-    ).is_file()
+
+
+def test_plugin_does_not_inject_extra_css():
+    """extra.css used to be auto-injected; ensure it no longer is."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    result = plugin.on_config(config)
+
+    paths = [str(entry) for entry in result["extra_css"]]
+    assert "assets/stylesheets/extra.css" not in paths
 
 
 def test_plugin_preserves_existing_extra_css():
@@ -81,12 +81,8 @@ def test_plugin_preserves_existing_extra_css():
 
     result = plugin.on_config(config)
 
-    assert result["extra_css"][0] == "assets/stylesheets/extra.css"
     assert "custom/user.css" in result["extra_css"]
     assert "custom/other.css" in result["extra_css"]
-    assert result["extra_css"].index("assets/stylesheets/extra.css") < result[
-        "extra_css"
-    ].index("custom/user.css")
 
 
 # ---------------------------------------------------------------------------
