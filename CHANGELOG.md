@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.1](https://github.com/intility/bifrost-mkdocs/compare/v0.7.0...v0.7.1) (2026-05-08)
+
+
+### Fixes
+
+* **theme:** detect Material's slate scheme as dark mode ([#37](https://github.com/intility/bifrost-mkdocs/issues/37)) ([82624b3](https://github.com/intility/bifrost-mkdocs/commit/82624b3b3b4043cfdfb37abce953252c5bd652a3))
+
+
+### Code refactoring
+
+* **css:** drop extra.css, layer Bifrost framework, strip important ([#39](https://github.com/intility/bifrost-mkdocs/issues/39)) ([6b868f7](https://github.com/intility/bifrost-mkdocs/commit/6b868f757666331c5014e3cb97277e0d7f3e5aa8))
+
 ## [0.7.0](https://github.com/intility/bifrost-mkdocs/compare/v0.6.1...v0.7.0) (2026-05-07)
 
 
