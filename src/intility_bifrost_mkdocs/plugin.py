@@ -164,17 +164,21 @@ def _inject_theme_features(config: MkDocsConfig) -> None:
 def _inject_theme_settings(config: MkDocsConfig) -> None:
     """Set Bifrost fonts and admonition icons when the user hasn't customized them."""
     # Fonts: only replace Material's default Roboto fonts.
-    font = config.theme.get("font") or {}
-    if isinstance(font, dict):
-        text_font = font.get("text", MATERIAL_DEFAULT_FONT_TEXT)
-        code_font = font.get("code", MATERIAL_DEFAULT_FONT_CODE)
+    # `font: false` disables Google Fonts entirely; respect that and don't
+    # re-enable fonts the user explicitly turned off.
+    font = config.theme.get("font")
+    if font is not False:
+        font = font or {}
+        if isinstance(font, dict):
+            text_font = font.get("text", MATERIAL_DEFAULT_FONT_TEXT)
+            code_font = font.get("code", MATERIAL_DEFAULT_FONT_CODE)
 
-        if text_font == MATERIAL_DEFAULT_FONT_TEXT:
-            font["text"] = BIFROST_FONT_TEXT
-        if code_font == MATERIAL_DEFAULT_FONT_CODE:
-            font["code"] = BIFROST_FONT_CODE
+            if text_font == MATERIAL_DEFAULT_FONT_TEXT:
+                font["text"] = BIFROST_FONT_TEXT
+            if code_font == MATERIAL_DEFAULT_FONT_CODE:
+                font["code"] = BIFROST_FONT_CODE
 
-        config.theme["font"] = font
+            config.theme["font"] = font
 
     # Admonition icons: only inject if user hasn't set any.
     icon = config.theme.get("icon") or {}
@@ -207,10 +211,12 @@ class IntilityBifrostPlugin(BasePlugin):
     """
 
     def on_config(self, config: MkDocsConfig) -> MkDocsConfig:
-        overrides_dir = Path(__file__).parent / "overrides"
+        overrides_dir = str((Path(__file__).parent / "overrides").resolve())
 
         # Insert our overrides as the highest-priority theme directory.
-        config.theme.dirs.insert(0, str(overrides_dir.resolve()))
+        # Guard against re-insertion if on_config runs more than once.
+        if overrides_dir not in config.theme.dirs:
+            config.theme.dirs.insert(0, overrides_dir)
 
         # Inject sensible defaults (never overwrites user-provided config).
         _inject_markdown_extensions(config)

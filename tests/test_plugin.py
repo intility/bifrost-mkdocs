@@ -306,3 +306,136 @@ def test_no_duplicate_mathjax_js():
 def test_mathjax_js_exists_in_overrides():
     """The mathjax.js file should exist in the overrides directory."""
     assert (OVERRIDES_DIR / "javascripts" / "mathjax.js").is_file()
+
+
+# ---------------------------------------------------------------------------
+# Critical extension configs (features that silently break if misconfigured)
+# ---------------------------------------------------------------------------
+
+
+def test_mermaid_custom_fence_configured():
+    """Mermaid diagrams rely on the superfences custom fence being registered."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    result = plugin.on_config(config)
+
+    fences = result.mdx_configs["pymdownx.superfences"]["custom_fences"]
+    mermaid = next((f for f in fences if f.get("name") == "mermaid"), None)
+    assert mermaid is not None, "mermaid custom fence not registered"
+    assert mermaid["class"] == "mermaid"
+    assert callable(mermaid["format"])
+
+
+def test_emoji_generator_configured():
+    """Emoji rendering needs both a generator and an index callable."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    result = plugin.on_config(config)
+
+    emoji = result.mdx_configs["pymdownx.emoji"]
+    assert callable(emoji["emoji_generator"])
+    assert callable(emoji["emoji_index"])
+
+
+# ---------------------------------------------------------------------------
+# Font edge cases
+# ---------------------------------------------------------------------------
+
+
+def test_partial_font_text_only_preserved():
+    """User setting only the text font still gets the Bifrost code font."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    config.theme["font"] = {"text": "Inter"}
+
+    result = plugin.on_config(config)
+
+    assert result.theme["font"]["text"] == "Inter"
+    assert result.theme["font"]["code"] == BIFROST_FONT_CODE
+
+
+def test_partial_font_code_only_preserved():
+    """User setting only the code font still gets the Bifrost text font."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    config.theme["font"] = {"code": "Fira Code"}
+
+    result = plugin.on_config(config)
+
+    assert result.theme["font"]["text"] == BIFROST_FONT_TEXT
+    assert result.theme["font"]["code"] == "Fira Code"
+
+
+def test_font_false_is_respected():
+    """`font: false` disables Google Fonts and must not be re-enabled."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    config.theme["font"] = False
+
+    result = plugin.on_config(config)
+
+    assert result.theme["font"] is False
+
+
+# ---------------------------------------------------------------------------
+# Idempotency (on_config may run more than once, e.g. during `mkdocs serve`)
+# ---------------------------------------------------------------------------
+
+
+def test_on_config_is_idempotent():
+    """Running on_config twice must not duplicate any injected config."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    plugin.on_config(config)
+    result = plugin.on_config(config)
+
+    overrides_dir = str(OVERRIDES_DIR.resolve())
+    assert result.theme.dirs.count(overrides_dir) == 1
+    assert result.markdown_extensions.count("admonition") == 1
+    assert result.theme["features"].count("navigation.instant") == 1
+
+    js_paths = [str(entry) for entry in result.extra_javascript]
+    assert js_paths.count("javascripts/mathjax.js") == 1
+    assert js_paths.count("javascripts/bifrost-theme.js") == 1
+
+
+# ---------------------------------------------------------------------------
+# End-to-end build (proves the entry point loads and the pipeline produces a site)
+# ---------------------------------------------------------------------------
+
+
+def test_full_site_build(tmp_path):
+    """A site using the plugin builds and references the Bifrost overrides."""
+    from mkdocs.commands.build import build
+    from mkdocs.config import load_config
+
+    docs_dir = tmp_path / "docs"
+    docs_dir.mkdir()
+    (docs_dir / "index.md").write_text("# Hello\n\nBody.\n", encoding="utf-8")
+
+    mkdocs_yml = tmp_path / "mkdocs.yml"
+    mkdocs_yml.write_text(
+        "site_name: Smoke Test\n"
+        "theme:\n"
+        "  name: material\n"
+        "plugins:\n"
+        "  - intility-bifrost\n"
+        "  - search\n",
+        encoding="utf-8",
+    )
+
+    # load_config raises if the `intility-bifrost` entry point can't be resolved.
+    config = load_config(str(mkdocs_yml))
+    build(config)
+
+    index_html = (tmp_path / "site" / "index.html").read_text(encoding="utf-8")
+    # bifrost.css comes from the overrides theme dir; bifrost-theme.js from the
+    # injected extra_javascript. Both present means the full pipeline ran.
+    assert "assets/stylesheets/bifrost.css" in index_html
+    assert "javascripts/bifrost-theme.js" in index_html

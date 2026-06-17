@@ -1,0 +1,39 @@
+# Lefthook Git Hooks Configuration
+min_version: 1.9.0
+assert_lefthook_installed: true
+colors: true
+output:
+  - summary
+  - execution
+  - execution_out
+  - execution_info
+
+# Pre-commit: fast quality checks on staged Python files
+pre-commit:
+  parallel: true
+  commands:
+    ruff-lint:
+      glob: "*.py"
+      run: uv run --extra dev ruff check {staged_files}
+      fail_text: "Linting failed! Run 'just lint-fix' to fix what's auto-fixable."
+
+    ruff-format:
+      glob: "*.py"
+      run: uv run --extra dev ruff format --check {staged_files}
+      fail_text: "Formatting issues found! Run 'just format' to fix them."
+
+# Pre-push: comprehensive checks before sharing
+pre-push:
+  parallel: true
+  commands:
+    pytest:
+      glob: "*.py"
+      run: uv run --extra dev pytest
+      interactive: true
+      fail_text: "Python tests failed! Run 'just test-py' to see errors."
+
+    js-test:
+      glob: "*.js"
+      run: node --test tests/javascripts/*.test.js
+      interactive: true
+      fail_text: "JS theme tests failed! Run 'just test-js' to see errors."
