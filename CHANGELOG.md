@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.2](https://github.com/intility/bifrost-mkdocs/compare/v0.7.1...v0.7.2) (2026-06-17)
+
+
+### Fixes
+
+* **deps:** pin mkdocs&lt;2 and raise material floor to 9.7.5 ([#49](https://github.com/intility/bifrost-mkdocs/issues/49)) ([7863d6a](https://github.com/intility/bifrost-mkdocs/commit/7863d6a8c18148192ce2af3cd95fa1d6f9671cc6))
+
 ## [0.7.1](https://github.com/intility/bifrost-mkdocs/compare/v0.7.0...v0.7.1) (2026-05-08)
 
 
