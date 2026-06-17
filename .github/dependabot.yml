@@ -6,6 +6,10 @@ updates:
       interval: "monthly"
       time: "09:00"
       timezone: "Europe/Oslo"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
 
   - package-ecosystem: "pip"
     directory: "/"
@@ -13,3 +17,14 @@ updates:
       interval: "monthly"
       time: "09:00"
       timezone: "Europe/Oslo"
+    groups:
+      python-production:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      python-development:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
