@@ -1,0 +1,198 @@
+/* Admonitions + collapsible details.
+ *
+ * Bifrost styling differs structurally from Material's (full border + tinted
+ * header + colored masked icon, vs Material's left accent bar), so these are
+ * genuine structural overrides. The icon image itself comes from Material's
+ * --md-admonition-icon--* variables (set by the plugin via theme.icon), we only
+ * recolor and reposition it.
+ */
+
+.md-typeset .admonition,
+.md-typeset details {
+    border: 1px solid;
+    border-radius: var(--bf-radius-s);
+    background-color: var(--bfc-base);
+    color: var(--bfc-base-c);
+    margin: 1.5625em 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.md-typeset .admonition-title,
+.md-typeset summary {
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+    font-family: var(--bifrost-font-heading);
+    font-weight: 600;
+    margin: 0;
+    /* 44px left padding makes room for the absolutely-positioned icon. */
+    padding: var(--bfs12) var(--bfs16) var(--bfs12) 44px;
+    border: none;
+    border-radius: 0;
+    position: relative;
+}
+
+.md-typeset .admonition > *:not(.admonition-title),
+.md-typeset details > *:not(summary) {
+    padding: 0 var(--bfs16);
+    margin: var(--bfs16) 0;
+}
+
+.md-typeset .admonition > *:last-child,
+.md-typeset details > *:last-child {
+    margin-bottom: var(--bfs16);
+}
+
+/* Shared icon setup; per-type rules below only set color + which icon. */
+.md-typeset .admonition-title::before,
+.md-typeset summary::before {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+}
+
+.md-typeset summary::after,
+.md-typeset details[open] > summary::after {
+    color: var(--bfc-base-c);
+}
+
+/* Per-type: border color + icon color + icon image.
+ * Grouped by the Bifrost token each type uses. */
+
+/* theme */
+.md-typeset .admonition.note,
+.md-typeset details.note,
+.md-typeset .admonition.info,
+.md-typeset details.info {
+    border-color: var(--bfc-theme);
+}
+
+.md-typeset .note > .admonition-title::before,
+.md-typeset .note > summary::before {
+    background-color: var(--bfc-theme);
+    mask-image: var(--md-admonition-icon--note);
+    -webkit-mask-image: var(--md-admonition-icon--note);
+}
+
+.md-typeset .info > .admonition-title::before,
+.md-typeset .info > summary::before {
+    background-color: var(--bfc-theme);
+    mask-image: var(--md-admonition-icon--info);
+    -webkit-mask-image: var(--md-admonition-icon--info);
+}
+
+/* theme-2 (warning family) */
+.md-typeset .admonition.warning,
+.md-typeset .admonition.attention,
+.md-typeset .admonition.caution,
+.md-typeset details.warning,
+.md-typeset details.attention,
+.md-typeset details.caution {
+    border-color: var(--bfc-theme-2);
+}
+
+.md-typeset .warning > .admonition-title::before,
+.md-typeset .warning > summary::before {
+    background-color: var(--bfc-theme-2);
+    mask-image: var(--md-admonition-icon--warning);
+    -webkit-mask-image: var(--md-admonition-icon--warning);
+}
+
+/* success (tip family) */
+.md-typeset .admonition.tip,
+.md-typeset details.tip,
+.md-typeset .admonition.success,
+.md-typeset details.success {
+    border-color: var(--bfc-success);
+}
+
+.md-typeset .tip > .admonition-title::before,
+.md-typeset .tip > summary::before {
+    background-color: var(--bfc-success);
+    mask-image: var(--md-admonition-icon--tip);
+    -webkit-mask-image: var(--md-admonition-icon--tip);
+}
+
+.md-typeset .success > .admonition-title::before,
+.md-typeset .success > summary::before {
+    background-color: var(--bfc-success);
+    mask-image: var(--md-admonition-icon--success);
+    -webkit-mask-image: var(--md-admonition-icon--success);
+}
+
+/* alert (failure family) */
+.md-typeset .admonition.failure,
+.md-typeset .admonition.danger,
+.md-typeset .admonition.error,
+.md-typeset .admonition.bug,
+.md-typeset details.failure,
+.md-typeset details.danger,
+.md-typeset details.error,
+.md-typeset details.bug {
+    border-color: var(--bfc-alert);
+}
+
+.md-typeset .danger > .admonition-title::before,
+.md-typeset .danger > summary::before {
+    background-color: var(--bfc-alert);
+    mask-image: var(--md-admonition-icon--danger);
+    -webkit-mask-image: var(--md-admonition-icon--danger);
+}
+
+.md-typeset .bug > .admonition-title::before,
+.md-typeset .bug > summary::before {
+    background-color: var(--bfc-alert);
+    mask-image: var(--md-admonition-icon--bug);
+    -webkit-mask-image: var(--md-admonition-icon--bug);
+}
+
+/* chill (abstract / question / example) */
+.md-typeset .admonition.abstract,
+.md-typeset details.abstract,
+.md-typeset .admonition.question,
+.md-typeset details.question,
+.md-typeset .admonition.example,
+.md-typeset details.example {
+    border-color: var(--bfc-chill);
+}
+
+.md-typeset .abstract > .admonition-title::before,
+.md-typeset .abstract > summary::before {
+    background-color: var(--bfc-chill);
+    mask-image: var(--md-admonition-icon--abstract);
+    -webkit-mask-image: var(--md-admonition-icon--abstract);
+}
+
+.md-typeset .question > .admonition-title::before,
+.md-typeset .question > summary::before {
+    background-color: var(--bfc-chill);
+    mask-image: var(--md-admonition-icon--question);
+    -webkit-mask-image: var(--md-admonition-icon--question);
+}
+
+.md-typeset .example > .admonition-title::before,
+.md-typeset .example > summary::before {
+    background-color: var(--bfc-chill);
+    mask-image: var(--md-admonition-icon--example);
+    -webkit-mask-image: var(--md-admonition-icon--example);
+}
+
+/* quote */
+.md-typeset .admonition.quote,
+.md-typeset details.quote {
+    border-color: var(--bfc-base-dimmed);
+}
+
+.md-typeset .quote > .admonition-title::before,
+.md-typeset .quote > summary::before {
+    background-color: var(--bfc-base-dimmed);
+    mask-image: var(--md-admonition-icon--quote);
+    -webkit-mask-image: var(--md-admonition-icon--quote);
+}

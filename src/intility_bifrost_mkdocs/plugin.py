@@ -4,6 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from mkdocs.config.defaults import MkDocsConfig
+from mkdocs.exceptions import PluginError
 from mkdocs.plugins import BasePlugin
 
 # ---------------------------------------------------------------------------
@@ -196,6 +197,54 @@ def _inject_extra_javascript(config: MkDocsConfig) -> None:
             config.extra_javascript.append(entry)
 
 
+def _discover_material_stylesheets() -> dict[str, str]:
+    """Find Material's hashed stylesheet filenames in the installed package.
+
+    Material ships ``main.<hash>.min.css`` and ``palette.<hash>.min.css`` with a
+    content hash that changes on every release. Our theme demotes Material into a
+    low-priority ``@layer`` by re-importing those stylesheets (see ``main.html``),
+    which means we must resolve the hashed names at build time rather than
+    hardcoding them. Discovering them here keeps the layering working across
+    Material upgrades automatically.
+
+    Returns a mapping with a ``"main"`` key and, when present, a ``"palette"``
+    key. Raises ``PluginError`` (failing the build with an actionable message)
+    if Material's main stylesheet cannot be located.
+    """
+    import material
+
+    stylesheets = (
+        Path(material.__file__).parent / "templates" / "assets" / "stylesheets"
+    )
+    main_matches = sorted(stylesheets.glob("main.*.min.css"))
+    palette_matches = sorted(stylesheets.glob("palette.*.min.css"))
+
+    if not main_matches:
+        raise PluginError(
+            "intility-bifrost: could not locate Material's 'main.*.min.css' in "
+            f"{stylesheets}. The Bifrost theme re-imports it into a cascade layer, "
+            "so this is required. mkdocs-material likely changed its asset layout; "
+            "please open an issue at https://github.com/intility/bifrost-mkdocs."
+        )
+
+    sheets = {"main": main_matches[0].name}
+    if palette_matches:
+        sheets["palette"] = palette_matches[0].name
+    return sheets
+
+
+def _inject_material_stylesheet_refs(config: MkDocsConfig) -> None:
+    """Expose Material's hashed stylesheet names to the template via ``extra``.
+
+    ``main.html`` reads ``config.extra.bifrost_material_css`` /
+    ``config.extra.bifrost_palette_css`` to emit layered ``@import`` rules.
+    """
+    sheets = _discover_material_stylesheets()
+    config.extra["bifrost_material_css"] = sheets["main"]
+    if "palette" in sheets:
+        config.extra["bifrost_palette_css"] = sheets["palette"]
+
+
 # ---------------------------------------------------------------------------
 # Plugin class
 # ---------------------------------------------------------------------------
@@ -223,5 +272,9 @@ class IntilityBifrostPlugin(BasePlugin):
         _inject_theme_features(config)
         _inject_theme_settings(config)
         _inject_extra_javascript(config)
+
+        # Resolve Material's hashed stylesheets so the template can re-import
+        # them into the `material` cascade layer.
+        _inject_material_stylesheet_refs(config)
 
         return config

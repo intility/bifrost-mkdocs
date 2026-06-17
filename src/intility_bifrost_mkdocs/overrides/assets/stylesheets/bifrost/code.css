@@ -1,0 +1,42 @@
+/* Code blocks + inline code + copy button.
+ *
+ * Backgrounds and syntax colors come from the mapped --md-code-* and
+ * --md-code-hl-* variables (tokens.css), so only structural bits live here.
+ */
+
+.md-typeset code {
+    padding: 0.1em 0.4em;
+    border-radius: var(--bf-radius-xs);
+    font-size: 0.9em;
+}
+
+.md-typeset pre > code {
+    background-color: transparent;
+}
+
+/* Copy / code-action buttons. Material applies these via JS after load, but
+ * since we win on layer order, plain selectors are enough. */
+.md-clipboard,
+.md-code__button {
+    color: var(--bfc-base-c-2);
+    background: transparent;
+    border: none;
+}
+
+.md-clipboard:hover,
+.md-clipboard:focus,
+.md-code__button:hover,
+.md-code__button:focus {
+    color: var(--bfc-theme);
+}
+
+.md-clipboard__message {
+    background-color: var(--bfc-base-3);
+    color: var(--bfc-base-c);
+    border: 1px solid var(--bfc-base-dimmed);
+}
+
+.md-clipboard__message::after {
+    background-color: var(--bfc-base-3);
+    color: var(--bfc-base-c);
+}

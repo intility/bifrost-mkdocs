@@ -1,0 +1,97 @@
+/* Header, navigation tabs, and sidebar navigation.
+ *
+ * Bifrost wants a neutral header/tab bar (base-2) rather than Material's
+ * primary-colored header, so those backgrounds are explicit overrides. Link
+ * and active-state colors mostly follow the mapped accent token.
+ */
+
+/* Header */
+.md-header {
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+    box-shadow: var(--bf-shadow);
+}
+
+.md-header__button {
+    color: var(--bfc-base-c);
+}
+
+.md-header__button:hover {
+    color: var(--bfc-theme);
+}
+
+.md-header__title {
+    color: var(--bfc-base-c);
+    font-family: var(--bifrost-font-heading);
+    font-weight: 700;
+}
+
+.md-header__source {
+    color: var(--bfc-base-c);
+}
+
+/* Navigation tabs */
+.md-tabs {
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+}
+
+.md-tabs__link {
+    color: var(--bfc-base-c-2);
+    font-weight: 500;
+}
+
+.md-tabs__link--active,
+.md-tabs__item--active .md-tabs__link,
+.md-tabs__link:hover,
+.md-tabs__link:focus {
+    color: var(--bfc-theme);
+}
+
+/* Sidebar */
+.md-sidebar,
+.md-sidebar__scrollwrap {
+    background-color: var(--bfc-base);
+}
+
+.md-nav {
+    font-size: var(--bf-font-size-m);
+    color: var(--bfc-base-c);
+}
+
+.md-nav__title {
+    color: var(--bfc-base-c);
+    font-weight: 700;
+    font-size: var(--bf-font-size-m);
+    background: none;
+    box-shadow: none;
+}
+
+.md-nav__link {
+    color: var(--bfc-base-c);
+    font-size: var(--bf-font-size-m);
+}
+
+.md-nav__link:hover,
+.md-nav__link:focus,
+.md-nav__link--active,
+.md-nav__item--active > .md-nav__link {
+    color: var(--bfc-theme);
+}
+
+.md-nav__link--active {
+    font-weight: 600;
+}
+
+/* Mobile drawer: Material tints the title bar with the primary color and adds
+ * item separators. Keep the tint neutral. */
+@media screen and (max-width: 76.1875em) {
+    .md-nav--primary .md-nav__title {
+        background-color: var(--bfc-base-2);
+        color: var(--bfc-base-c);
+    }
+
+    .md-nav--primary .md-nav__item {
+        border-top: 1px solid var(--bfc-base-dimmed);
+    }
+}

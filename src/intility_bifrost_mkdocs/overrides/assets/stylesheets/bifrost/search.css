@@ -1,0 +1,52 @@
+/* Search input + results. Backgrounds use base tokens; matches use the theme. */
+
+.md-search__form {
+    background-color: var(--bfc-base-3);
+}
+
+.md-search__input {
+    background-color: var(--bfc-base-3);
+    color: var(--bfc-base-c);
+    border: 1px solid var(--bfc-base-dimmed);
+    border-radius: var(--bf-radius-xs);
+}
+
+.md-search__input::placeholder {
+    color: var(--bfc-base-c-2);
+}
+
+.md-search__input:focus {
+    border-color: var(--bfc-theme);
+}
+
+.md-search__icon {
+    color: var(--bfc-base-c);
+}
+
+.md-search__output {
+    background-color: var(--bfc-base);
+    border-radius: var(--bf-radius-xs);
+    box-shadow: var(--bf-shadow);
+}
+
+.md-search-result__article {
+    background-color: var(--bfc-base);
+    border-bottom: 1px solid var(--bfc-base-dimmed);
+}
+
+.md-search-result__article:hover {
+    background-color: var(--bfc-base-2);
+}
+
+.md-search-result__title {
+    color: var(--bfc-base-c);
+}
+
+.md-search-result__teaser {
+    color: var(--bfc-base-c-2);
+}
+
+.md-search-result mark {
+    background-color: var(--bfc-theme-fade);
+    color: var(--bfc-theme);
+}

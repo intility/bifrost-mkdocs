@@ -1,0 +1,107 @@
+/* Tokens layer: fonts + Material-variable -> Bifrost-token mapping.
+ *
+ * This is the heart of the theme. Because this file lives in the
+ * `bifrost-overrides` layer (above `material`), every declaration here beats
+ * Material's own, regardless of selector specificity. So mapping Material's
+ * --md-* custom properties to Bifrost --bfc-* tokens recolors Material's entire
+ * UI in one place: structural component rules elsewhere are only needed where
+ * Material has no variable to point at.
+ *
+ * The --bfc-* tokens come from the Bifrost framework and switch automatically
+ * with .bf-lightmode / .bf-darkmode (set by bifrost-theme.js), so this mapping
+ * is scheme-agnostic: light/dark "just works" with no per-scheme rules.
+ */
+
+/* Brand display font. The framework expects Satoshi via var(--font-satoshi);
+ * we vendor the woff2 so it loads offline and is independent of the framework's
+ * own (remote) font import, which the sync step strips out. Open Sans (body)
+ * continues to load via Material's theme.font config. */
+@font-face {
+    font-family: "Satoshi";
+    src: url("../../vendor/fonts/satoshi-intility-variable.woff2") format("woff2");
+    font-weight: 300 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    /* Resolve the framework's font tokens. */
+    --font-satoshi: "Satoshi";
+    --font-open-sans: "Open Sans";
+
+    /* Single source of truth for theme fonts. */
+    --bifrost-font-body: var(--font-open-sans, "Open Sans"), "Segoe UI", sans-serif;
+    --bifrost-font-heading: var(--font-satoshi, "Satoshi"), "Segoe UI", sans-serif;
+
+    /* Local font-size scale (Bifrost only ships --bf-font-size-m by default). */
+    --bf-font-size-xs: 12px;
+    --bf-font-size-s: 13px;
+    --bf-font-size-m: 14px;
+    --bf-font-size-l: 16px;
+    --bf-font-size-xl: 18px;
+    --bf-font-size-h5: 18px;
+    --bf-font-size-h4: 20px;
+    --bf-font-size-h3: 24px;
+    --bf-font-size-h2: 29px;
+    --bf-font-size-h1: 35px;
+}
+
+/* Material core color variables -> Bifrost tokens. Replaces Material's blue
+ * accent everywhere it's used internally. */
+:root {
+    --md-default-bg-color: var(--bfc-base);
+    --md-default-fg-color: var(--bfc-base-c);
+    --md-primary-fg-color: var(--bfc-theme);
+    --md-primary-bg-color: var(--bfc-base);
+    --md-accent-fg-color: var(--bfc-theme);
+    --md-accent-bg-color: var(--bfc-theme-fade);
+
+    --md-default-fg-color--light: var(--bfc-base-c-2);
+    --md-default-fg-color--lighter: var(--bfc-base-dimmed);
+    --md-default-fg-color--lightest: var(--bfc-base-dimmed-2);
+    --md-default-fg-color--accent: var(--bfc-theme);
+
+    --md-typeset-color: var(--bfc-base-c);
+    --md-typeset-a-color: var(--bfc-theme);
+    --md-typeset-mark-color: var(--bfc-theme-fade);
+    --md-typeset-del-color: var(--bfc-alert);
+    --md-typeset-ins-color: var(--bfc-success);
+    --md-typeset-kbd-color: var(--bfc-base-c);
+    --md-typeset-kbd-accent-color: var(--bfc-theme);
+    --md-typeset-kbd-border-color: var(--bfc-base-dimmed);
+    --md-typeset-table-color: var(--bfc-base-c);
+    --md-typeset-button-color: var(--bfc-theme);
+
+    --md-focus-color: var(--bfc-theme);
+    --md-selection-color: var(--bfc-theme-fade);
+
+    --md-code-bg-color: var(--bfc-base-2);
+    --md-code-fg-color: var(--bfc-base-c);
+
+    --md-footer-bg-color: var(--bfc-base-2);
+    --md-footer-fg-color: var(--bfc-base-c);
+
+    --md-shadow-z1: var(--bf-shadow);
+    --md-shadow-z2: 0 0 12px var(--bfc-shadow);
+    --md-shadow-z3: 0 0 16px var(--bfc-shadow);
+}
+
+/* Syntax highlighting. Material maps every Pygments token to these 13
+ * variables internally, so pointing them at Bifrost tokens replaces what used
+ * to be ~600 lines of hand-written .highlight .* rules. Theme-aware for free
+ * via the --bfc-* tokens. */
+:root {
+    --md-code-hl-color: var(--bfc-theme-fade);
+    --md-code-hl-keyword-color: var(--bfc-theme);
+    --md-code-hl-function-color: var(--bfc-theme);
+    --md-code-hl-string-color: var(--bfc-success);
+    --md-code-hl-number-color: var(--bfc-theme);
+    --md-code-hl-comment-color: var(--bfc-base-c-2);
+    --md-code-hl-name-color: var(--bfc-base-c);
+    --md-code-hl-operator-color: var(--bfc-base-c-2);
+    --md-code-hl-punctuation-color: var(--bfc-base-c-2);
+    --md-code-hl-constant-color: var(--bfc-theme-2);
+    --md-code-hl-variable-color: var(--bfc-theme);
+    --md-code-hl-generic-color: var(--bfc-base-c);
+    --md-code-hl-special-color: var(--bfc-theme-2);
+}

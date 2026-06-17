@@ -2,7 +2,9 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from mkdocs.config.defaults import MkDocsConfig
+from mkdocs.exceptions import PluginError
 
 from intility_bifrost_mkdocs.plugin import (
     BIFROST_FONT_CODE,
@@ -11,6 +13,7 @@ from intility_bifrost_mkdocs.plugin import (
     DEFAULT_EXTENSIONS,
     DEFAULT_FEATURES,
     IntilityBifrostPlugin,
+    _discover_material_stylesheets,
 )
 
 OVERRIDES_DIR = (
@@ -406,6 +409,68 @@ def test_on_config_is_idempotent():
 
 
 # ---------------------------------------------------------------------------
+# Material stylesheet discovery (guards the cascade-layer setup)
+#
+# These tests are the safety net for Material upgrades: if a future
+# mkdocs-material release changes its asset layout, discovery fails here in CI
+# (e.g. on a Dependabot bump) rather than silently shipping a broken theme.
+# ---------------------------------------------------------------------------
+
+
+def test_discover_material_stylesheets_finds_main():
+    """Discovery must resolve Material's hashed main stylesheet."""
+    sheets = _discover_material_stylesheets()
+
+    assert "main" in sheets
+    assert sheets["main"].startswith("main.")
+    assert sheets["main"].endswith(".min.css")
+
+
+def test_discover_material_stylesheets_finds_palette():
+    """Material ships a palette stylesheet; discovery should find it too."""
+    sheets = _discover_material_stylesheets()
+
+    assert "palette" in sheets
+    assert sheets["palette"].startswith("palette.")
+    assert sheets["palette"].endswith(".min.css")
+
+
+def test_discover_raises_when_main_missing(monkeypatch, tmp_path):
+    """A clear PluginError must fire if Material's layout changes (empty dir)."""
+    import material
+
+    empty = tmp_path / "templates" / "assets" / "stylesheets"
+    empty.mkdir(parents=True)
+    monkeypatch.setattr(material, "__file__", str(tmp_path / "__init__.py"))
+
+    with pytest.raises(PluginError, match=r"main.*min\.css"):
+        _discover_material_stylesheets()
+
+
+def test_plugin_exposes_material_css_to_template():
+    """on_config must publish the discovered names via config.extra."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    result = plugin.on_config(config)
+
+    assert result["extra"]["bifrost_material_css"].startswith("main.")
+    assert result["extra"]["bifrost_palette_css"].startswith("palette.")
+
+
+def test_main_html_imports_material_into_layer():
+    """The template must re-import Material into the `material` cascade layer."""
+    main_html = (OVERRIDES_DIR / "main.html").read_text(encoding="utf-8")
+
+    assert "@layer material, bifrost-framework, bifrost-overrides;" in main_html
+    assert "layer(material)" in main_html
+    assert "config.extra.bifrost_material_css" in main_html
+    # super() must NOT be called in styles, or Material's unlayered <link> would
+    # win over everything and defeat the layering.
+    assert "{{ super() }}" not in main_html
+
+
+# ---------------------------------------------------------------------------
 # End-to-end build (proves the entry point loads and the pipeline produces a site)
 # ---------------------------------------------------------------------------
 
@@ -439,3 +504,8 @@ def test_full_site_build(tmp_path):
     # injected extra_javascript. Both present means the full pipeline ran.
     assert "assets/stylesheets/bifrost.css" in index_html
     assert "javascripts/bifrost-theme.js" in index_html
+    # The cascade-layer setup must render: layer order declared + Material
+    # re-imported into the `material` layer (not via a plain unlayered <link>).
+    assert "@layer material, bifrost-framework, bifrost-overrides;" in index_html
+    assert "layer(material)" in index_html
+    assert "assets/stylesheets/main." in index_html

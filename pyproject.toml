@@ -64,6 +64,7 @@ intility_bifrost_mkdocs = [
     "overrides/**/*.html",
     "overrides/**/*.css",
     "overrides/**/*.js",
+    "overrides/**/*.woff2",
 ]
 
 [tool.ruff]

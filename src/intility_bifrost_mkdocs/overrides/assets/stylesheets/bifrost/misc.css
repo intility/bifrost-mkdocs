@@ -1,0 +1,78 @@
+/* Tables, buttons, keyboard keys, tags, announcement bar, version badge. */
+
+/* Tables */
+.md-typeset table:not([class]) {
+    border: 1px solid var(--bfc-base-dimmed);
+    background-color: var(--bfc-base-3);
+    border-radius: var(--bf-radius-xs);
+    overflow: hidden;
+}
+
+.md-typeset table:not([class]) th {
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+    font-family: var(--bifrost-font-heading);
+    font-weight: 600;
+    border-bottom: 2px solid var(--bfc-base-dimmed);
+}
+
+.md-typeset table:not([class]) td {
+    border-top: 1px solid var(--bfc-base-dimmed);
+    color: var(--bfc-base-c);
+}
+
+.md-typeset table:not([class]) tr:hover {
+    background-color: var(--bfc-base-2);
+}
+
+/* Buttons */
+.md-typeset .md-button {
+    background-color: var(--bfc-theme);
+    color: var(--bfc-theme-c);
+    border: none;
+    padding: 0.625em 1.25em;
+    border-radius: var(--bf-radius-xs);
+    font-family: var(--bifrost-font-body);
+    font-weight: 500;
+    transition:
+        background-color 0.2s ease,
+        transform 0.1s ease;
+}
+
+.md-typeset .md-button:hover,
+.md-typeset .md-button:focus {
+    background-color: var(--bfc-theme-2);
+    color: var(--bfc-theme-c);
+    transform: translateY(-1px);
+}
+
+/* Keyboard keys */
+.md-typeset kbd {
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+    border: 1px solid var(--bfc-base-dimmed);
+    border-radius: var(--bf-radius-xs);
+    box-shadow: 0 1px 0 var(--bfc-base-dimmed);
+}
+
+/* Tags */
+.md-tag {
+    background-color: var(--bfc-theme-fade);
+    color: var(--bfc-theme-fade-c);
+    border-radius: var(--bf-radius-xs);
+}
+
+/* Announcement bar */
+.md-announce {
+    background-color: var(--bfc-theme-fade);
+    color: var(--bfc-theme-fade-c);
+}
+
+/* Version badge (inserted into the header by bifrost-theme.js). */
+.bf-header-version {
+    align-self: center;
+    flex-shrink: 0;
+    margin-left: 0.5rem;
+    line-height: 1;
+    font-family: var(--bifrost-font-body);
+}

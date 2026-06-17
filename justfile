@@ -90,6 +90,16 @@ test-js:
     node --test tests/javascripts/*.test.js
 
 # ---------------------------------------------------------------------------
+# Vendor
+# ---------------------------------------------------------------------------
+
+# Refresh the vendored Bifrost framework CSS + Satoshi font from their sources.
+# The CSS version is pinned in package.json (bump it, then run this).
+[group('vendor')]
+sync-bifrost-css:
+    ./scripts/sync-bifrost-css.sh
+
+# ---------------------------------------------------------------------------
 # Clean
 # ---------------------------------------------------------------------------
 

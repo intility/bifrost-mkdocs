@@ -1,0 +1,58 @@
+/* Footer + previous/next pagination links. */
+
+.md-footer {
+    flex-shrink: 0;
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+}
+
+.md-footer__inner {
+    padding: 0.4rem;
+}
+
+.md-footer__title {
+    background-color: var(--bfc-base-3);
+    color: var(--bfc-base-c);
+}
+
+.md-footer__link {
+    color: var(--bfc-base-c);
+    transition: background-color 0.2s ease;
+}
+
+.md-footer__link:hover,
+.md-footer__link:focus {
+    color: var(--bfc-theme);
+    background-color: var(--bfc-base-2);
+}
+
+.md-footer__direction {
+    color: var(--bfc-base-c-2);
+    font-size: var(--bf-font-size-s);
+}
+
+.md-footer-meta {
+    background-color: var(--bfc-base-3);
+}
+
+.md-footer-meta__inner {
+    color: var(--bfc-base-c);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.md-footer-meta.md-typeset a {
+    color: var(--bfc-theme);
+}
+
+.md-footer-meta.md-typeset a:hover,
+.md-footer-meta.md-typeset a:focus {
+    color: var(--bfc-theme-2);
+    text-decoration: underline;
+}
+
+.md-copyright {
+    color: var(--bfc-base-c);
+}

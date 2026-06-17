@@ -1,0 +1,48 @@
+name: Sync vendored CSS
+
+# When Dependabot bumps the @intility/bifrost-css pin in package.json, the
+# committed vendored CSS goes stale. This regenerates it and commits back onto
+# the PR so it goes green on its own. Human PRs that touch package.json are
+# expected to run `just sync-bifrost-css` locally; tests/test_vendored.py fails
+# the build if the committed CSS doesn't match the pin.
+
+on:
+  pull_request:
+    paths:
+      - 'package.json'
+      - 'scripts/sync-bifrost-css.sh'
+      - '.github/workflows/sync-vendored-css.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-vendored-css-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  sync:
+    name: Regenerate vendored CSS
+    # Only auto-commit on Dependabot's own PRs (in-repo branch, so the default
+    # token can push back).
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Regenerate vendored assets
+        run: ./scripts/sync-bifrost-css.sh
+
+      - name: Commit if changed
+        run: |
+          if [ -n "$(git status --porcelain src/intility_bifrost_mkdocs/overrides/assets/vendor)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add src/intility_bifrost_mkdocs/overrides/assets/vendor
+            git commit -m "chore: sync vendored bifrost-css to match package.json"
+            git push
+          else
+            echo "Vendored assets already in sync."
+          fi

@@ -1,0 +1,25 @@
+/* Content tabs (pymdownx.tabbed, alternate style).
+ *
+ * This used to be the worst part of the file: ~250 lines of selector ladders
+ * and hardcoded #__tabbed_1_1 IDs fighting Material's tab styling. With Material
+ * demoted to a lower layer, plain selectors win, and the active-indicator color
+ * already follows the mapped --md-accent-fg-color token.
+ */
+
+.md-typeset .tabbed-labels > label {
+    color: var(--bfc-base-c-2);
+    font-weight: 500;
+}
+
+.md-typeset .tabbed-labels > label:hover {
+    color: var(--bfc-theme);
+}
+
+.md-typeset .tabbed-set > input:checked + label {
+    color: var(--bfc-theme);
+    font-weight: 600;
+}
+
+.md-typeset .tabbed-content {
+    border-color: var(--bfc-base-dimmed);
+}
