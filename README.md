@@ -69,11 +69,15 @@ All defaults are injected only when the user hasn't provided their own config, s
 
 ## Local development
 
+This project uses [mise](https://mise.jdx.dev/) for tooling and
+[just](https://github.com/casey/just) as a task runner:
+
 ```bash
-uv venv .venv
-source .venv/bin/activate
-uv pip install -e ".[dev]"
-mkdocs serve
+mise install   # installs uv, Python, Node, just and lefthook
+just setup     # syncs dev dependencies and installs git hooks
+just dev       # serve the docs site locally
 ```
 
-This installs the plugin in editable mode with dev dependencies (ruff, pytest, livereload, git-revision-date plugin). The demo site at `docs/index.md` uses the plugin directly.
+Run `just` to see all available recipes. The demo site at `docs/index.md` uses
+the plugin directly. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full
+workflow.
