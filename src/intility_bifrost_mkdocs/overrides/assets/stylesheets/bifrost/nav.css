@@ -1,11 +1,6 @@
-/* Header, navigation tabs, and sidebar navigation.
- *
- * Bifrost wants a neutral header/tab bar (base-2) rather than Material's
- * primary-colored header, so those backgrounds are explicit overrides. Link
- * and active-state colors mostly follow the mapped accent token.
- */
+/* Header, navigation tabs, and sidebar. Neutral base-2 backgrounds replace
+ * Material's primary-colored header; states follow the mapped accent token. */
 
-/* Header */
 .md-header {
     background-color: var(--bfc-base-2);
     color: var(--bfc-base-c);
@@ -22,7 +17,6 @@
 
 .md-header__title {
     color: var(--bfc-base-c);
-    font-family: var(--bifrost-font-heading);
     font-weight: 700;
 }
 
@@ -30,10 +24,15 @@
     color: var(--bfc-base-c);
 }
 
-/* Navigation tabs */
 .md-tabs {
     background-color: var(--bfc-base-2);
     color: var(--bfc-base-c);
+}
+
+/* Material spaces the content 1.5rem below the tabs bar (30px at this 20px
+ * root), which reads too airy. Tighten the gap under the tabs. */
+.md-main__inner {
+    margin-top: 0.75rem;
 }
 
 .md-tabs__link {
@@ -48,7 +47,6 @@
     color: var(--bfc-theme);
 }
 
-/* Sidebar */
 .md-sidebar,
 .md-sidebar__scrollwrap {
     background-color: var(--bfc-base);
@@ -75,7 +73,7 @@
 .md-nav__link:hover,
 .md-nav__link:focus,
 .md-nav__link--active,
-.md-nav__item--active > .md-nav__link {
+.md-nav__item--active>.md-nav__link {
     color: var(--bfc-theme);
 }
 
@@ -83,8 +81,7 @@
     font-weight: 600;
 }
 
-/* Mobile drawer: Material tints the title bar with the primary color and adds
- * item separators. Keep the tint neutral. */
+/* Mobile drawer: keep Material's primary-tinted title bar neutral. */
 @media screen and (max-width: 76.1875em) {
     .md-nav--primary .md-nav__title {
         background-color: var(--bfc-base-2);

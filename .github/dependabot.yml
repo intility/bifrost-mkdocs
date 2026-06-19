@@ -29,8 +29,6 @@ updates:
           - "minor"
           - "patch"
 
-  # Tracks the vendored Bifrost CSS framework pin in package.json. The
-  # sync-vendored-css workflow regenerates the committed CSS on these PRs.
   - package-ecosystem: "npm"
     directory: "/"
     schedule:

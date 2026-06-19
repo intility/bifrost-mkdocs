@@ -1,4 +1,4 @@
-/* @intility/bifrost-css 6.7.0 — vendored, do not edit. Run scripts/sync-bifrost-css.sh. */
+/* @intility/bifrost-css 6.10.0 — vendored, do not edit. Run scripts/sync-bifrost-css.sh. */
 @charset "UTF-8";
 /* global bifrost css, bundled in @intility/bifrost-css package */
 /* font imports needs to at the top of output bundle */
@@ -6,7 +6,8 @@
 /* all bifrost css, except react-specific (tooltip, select, datepicker) */
 /* global bifrost css, included in both @intility/bifrost-react and @intility/bifrost-css packages */
 :root {
-  --bf-underline-offset: 0.214em;
+  /* ~3px at smallest font size (12px) */
+  --bf-underline-offset: 0.25em;
   --font-satoshi: "Satoshi";
   --font-open-sans: "Open Sans";
 }
@@ -170,19 +171,24 @@ while changing theme */
 
 /* link, title-link, and neutral-link styles */
 .bf-link:is(:hover, :active),
-:where(.bf-content, .bf-elements) a:is(:hover, :active) {
-  text-decoration-thickness: 0.142em;
-  text-decoration-style: solid;
+a:where([href]):is(:hover, :active) {
+  /* ~2px at smallest font size (12px) */
+  text-decoration-thickness: 0.1667em;
 }
 
-:where(.bf-content, .bf-elements) a,
+:where(.bf-content, .bf-elements) a:where([href]),
 .bf-link {
   cursor: pointer;
   color: var(--bfc-base-c-theme);
+}
+
+a:where([href]),
+.bf-link {
+  /* ~1px at smallest font size (12px) */
+  text-decoration-thickness: 0.0833em;
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-underline-offset: var(--bf-underline-offset);
-  text-decoration-thickness: 0.0714em;
 }
 
 .bf-title-link {
@@ -195,6 +201,7 @@ while changing theme */
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-underline-offset: var(--bf-underline-offset);
+  text-decoration-thickness: 0.1667em;
 }
 
 .bf-neutral-link,
@@ -207,6 +214,7 @@ while changing theme */
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-underline-offset: var(--bf-underline-offset);
+  text-decoration-thickness: 0.1667em;
 }
 
 /* link styling for buttons */
@@ -353,7 +361,7 @@ body,
 
 :where(.bf-content, .bf-elements) code,
 .bf-code {
-  font-family: Consolas, monospace;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   background-color: color-mix(in lch, var(--bfc-base-c-inverted) 10%, transparent);
   padding: 0 0.2rem;
   margin: 0 0.1rem;
@@ -2169,9 +2177,12 @@ svg:where(.bf-it-logo, .bf-intility-logo) {
 .bf-legend,
 :where(.bf-content, .bf-elements) legend {
   font-size: var(--bf-font-size-h3);
-  color: var(--bfc-base-c-2);
   padding: 0;
   margin: 0;
+}
+
+.bf-legend {
+  color: var(--bfc-base-c-2);
 }
 
 :where(.bf-content) legend {
@@ -2183,6 +2194,10 @@ svg:where(.bf-it-logo, .bf-intility-logo) {
   font-size: var(--bf-font-size-m);
   font-weight: 600;
   display: block;
+}
+
+.bf-label {
+  width: fit-content;
 }
 
 .bf-label-disabled,
@@ -2441,7 +2456,7 @@ todo: remove in 6.0 */
 }
 
 .bf-button-neutral {
-  --bf-button-border-color: var(--bfc-neutral);
+  --bf-button-border-color: var(--bfc-base-c-wcag);
 }
 
 .bf-button-inverted {
@@ -2752,6 +2767,23 @@ button.bf-button-expand.bf-neutral-link:focus-visible {
   backdrop-filter: grayscale(1) contrast(1000) invert(1);
 }
 
+/* Inactive state styling */
+.bf-checkbox-inactive {
+  --bf-checkbox-unchecked-icon-color: var(--bfc-base-c-wcag);
+  --bf-checkbox-checked-icon-color: var(--bfc-base-c-wcag);
+  --bf-checkbox-button-border-color: var(--bfc-base-c-wcag);
+  --bf-checkbox-button-hover-border-color: var(--bfc-base-c-wcag);
+}
+.bf-checkbox-inactive .bf-switch {
+  --bf-checkbox-checked-icon-color: var(--bfc-base);
+  background-color: var(--bfc-base);
+  /* paint border as a shadow to retain size */
+  box-shadow: inset 0 0 0 1px var(--bfc-base-c-wcag);
+}
+.bf-checkbox-inactive .bf-switch-thumb {
+  background-color: var(--bfc-base-c-wcag);
+}
+
 /* button style */
 .bf-checkbox-button {
   --bf-checkbox-padding-x: 16px;
@@ -2884,7 +2916,6 @@ button.bf-button-expand.bf-neutral-link:focus-visible {
 .bf-checkboxcard {
   --bf-checkboxcard-icon-space: 1.8125rem; /* 29px (21px icon + 8px padding) */
   --bf-checkboxcard-border-color: var(--bfc-base-c-dimmed);
-  --bf-checkboxcard-hover-border-color: var(--bfc-base-dimmed-3);
   font-size: var(--bf-font-size-m);
   background-color: var(--bfc-base-3);
   border: 1px solid var(--bf-checkboxcard-border-color);
@@ -2896,7 +2927,6 @@ button.bf-button-expand.bf-neutral-link:focus-visible {
 
 .bf-checkbox-alert {
   --bf-checkboxcard-border-color: var(--bfc-base-c-alert);
-  --bf-checkboxcard-hover-border-color: var(--bfc-base-c-alert);
 }
 
 .bf-switch-wrapper.bf-checkboxcard {
@@ -2905,7 +2935,6 @@ button.bf-button-expand.bf-neutral-link:focus-visible {
 
 .bf-checkboxcard:hover:not(:has(input:disabled)) {
   background-color: var(--bfc-base-2);
-  border-color: var(--bf-checkboxcard-hover-border-color);
 }
 
 .bf-checkboxcard input {
@@ -3395,7 +3424,7 @@ fieldset legend.bf-label.bf-fieldgroup-legend {
 }
 
 .bf-accordion-noborder {
-  /* todo: remove in 6.0 */
+  /* todo: remove in 7.0 */
   --bf-accordion-radius: 0px;
   border: none;
 }
@@ -3436,12 +3465,14 @@ fieldset legend.bf-label.bf-fieldgroup-legend {
   outline: none;
 }
 
-.bf-accordion-item:last-child .bf-accordion-item-title,
-.bf-accordion-item:last-child .bf-accordion-item-content {
+.bf-accordion-item:last-child > .bf-accordion-item-title,
+.bf-accordion-item:last-child > .bf-accordion-item-content,
+.bf-accordion-item:last-child > * > * > .bf-accordion-item-content {
   border-bottom: 0;
 }
 
-.bf-accordion-item:where(:last-child) .bf-accordion-item-content {
+.bf-accordion-item:where(:last-child) > .bf-accordion-item-content,
+.bf-accordion-item:where(:last-child) > * > * > .bf-accordion-item-content {
   border-bottom-left-radius: var(--bf-accordion-radius);
   border-bottom-right-radius: var(--bf-accordion-radius);
 }
@@ -3511,31 +3542,32 @@ fieldset legend.bf-label.bf-fieldgroup-legend {
   background-color: transparent;
 }
 
-.bf-accordion-styled .bf-accordion-item {
+.bf-accordion-styled > .bf-accordion-item {
   border: 1px solid var(--bfc-base-c-dimmed);
   border-radius: var(--bf-accordion-radius);
   background-color: var(--bfc-base-3);
 }
 
-.bf-accordion-styled .bf-accordion-item-content {
+.bf-accordion-styled > * > .bf-accordion-item-content,
+.bf-accordion-styled > * > * > * > .bf-accordion-item-content {
   border-top: var(--bf-border);
   border-bottom-left-radius: var(--bf-accordion-radius);
   border-bottom-right-radius: var(--bf-accordion-radius);
 }
 
-.bf-accordion-styled.bf-accordion-noborder .bf-accordion-item {
+.bf-accordion-styled.bf-accordion-noborder > .bf-accordion-item {
   border: none;
 }
 
-.bf-accordion-styled .bf-accordion-item + .bf-accordion-item {
+.bf-accordion-styled > .bf-accordion-item + .bf-accordion-item {
   margin-top: var(--bfs12);
 }
 
-.bf-accordion-styled .bf-accordion-item-title > button {
+.bf-accordion-styled > * > .bf-accordion-item-title > button {
   min-height: calc(3.3125rem - 1px); /* 53px - 1px border-top from content */
 }
 
-.bf-accordion-styled .bf-accordion-item:has(.bf-accordion-item-title > button:hover) {
+.bf-accordion-styled > .bf-accordion-item:has(.bf-accordion-item-title > button:hover) {
   box-shadow: var(--bf-shadow);
 }
 
@@ -3546,7 +3578,7 @@ fieldset legend.bf-label.bf-fieldgroup-legend {
   border-right: none;
 }
 
-.bf-accordion-compact.bf-accordion-styled .bf-accordion-item {
+.bf-accordion-compact.bf-accordion-styled > .bf-accordion-item {
   border: none;
 }
 
@@ -3556,7 +3588,7 @@ fieldset legend.bf-label.bf-fieldgroup-legend {
     border-right: none;
     border-radius: 0;
   }
-  .bf-accordion-responsive.bf-accordion-styled .bf-accordion-item {
+  .bf-accordion-responsive.bf-accordion-styled > .bf-accordion-item {
     border: none;
     border-radius: 0;
   }
@@ -3584,7 +3616,7 @@ fieldset legend.bf-label.bf-fieldgroup-legend {
   padding: 5px;
 }
 
-.bf-accordion-action:hover .bf-accordion-action-circle {
+.bf-accordion-action:hover > .bf-accordion-action-circle {
   background-color: var(--bfc-base-dimmed-2);
 }
 

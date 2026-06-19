@@ -1,42 +1,143 @@
-/* Code blocks + inline code + copy button.
- *
- * Backgrounds and syntax colors come from the mapped --md-code-* and
- * --md-code-hl-* variables (tokens.css), so only structural bits live here.
- */
+/* Code blocks + inline code + copy button, matching the Bifrost Highlighter
+ * (https://bifrost.intility.com/react/highlighter). Backgrounds and syntax
+ * colors come from the mapped --md-code-* / --md-code-hl-* vars (tokens.css);
+ * only structural bits live here. */
 
+/* Inline code: translucent wash (inverted base at 10%) rather than Material's
+ * solid fill, matching `:where(.bf-content) code`. */
 .md-typeset code {
-    padding: 0.1em 0.4em;
+    background-color: color-mix(in lch, var(--bfc-base-c-inverted) 10%, transparent);
+    padding: 0 0.2rem;
+    margin: 0 0.1rem;
     border-radius: var(--bf-radius-xs);
     font-size: 0.9em;
 }
 
-.md-typeset pre > code {
+.md-typeset pre>code {
     background-color: transparent;
+    margin: 0;
 }
 
-/* Copy / code-action buttons. Material applies these via JS after load, but
- * since we win on layer order, plain selectors are enough. */
-.md-clipboard,
+/* Tight 8px padding matching .bf-highlighter-body; the gutter keeps the same
+ * vertical padding and the .hll bleed is re-aligned to it. */
+.md-typeset .highlight pre>code {
+    padding: var(--bfs8);
+}
+
+.md-typeset .highlight .linenos {
+    padding: var(--bfs8) 0 var(--bfs8) var(--bfs8);
+}
+
+.md-typeset .highlight .hll {
+    margin: 0 calc(-1 * var(--bfs8));
+    padding: 0 var(--bfs8);
+}
+
+.md-typeset .highlight {
+    background-color: var(--bfc-base-2);
+    border: var(--bf-border);
+    border-radius: var(--bf-radius);
+    overflow: hidden;
+    /* Own the block margin here. Material relocates it onto .md-content__inner >
+     * .highlight only for top-level blocks; nested ones keep it on the inner
+     * <pre>, where overflow:hidden + border block collapsing and trap it as dead
+     * space inside the card. Zeroing the <pre> (below) keeps spacing outside. */
+    margin-block: 1em;
+}
+
+.md-typeset .highlight pre {
+    margin: 0;
+}
+
+/* Inside a content tab Material zeroes the block's margins, flushing it to the
+ * tab-label underline; float it below with a small gap. */
+.md-typeset .tabbed-block>.highlight:first-child {
+    margin-top: var(--bfs12);
+}
+
+/* Header bar (titled fences), mirroring .bf-section-header. */
+.md-typeset .highlight span.filename {
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+    border-bottom: var(--bf-border);
+    border-radius: 0;
+    padding: var(--rem8) var(--bfs16);
+    font-size: var(--bf-font-size-m);
+    font-weight: 600;
+    margin-top: 0;
+}
+
+/* Line-number gutter: muted, non-selectable digits. */
+.md-typeset .highlight .linenos,
+.md-typeset .highlight .linenodiv pre {
+    color: var(--bfc-base-c-wcag);
+}
+
+.md-typeset .highlight .linenos a {
+    color: inherit;
+}
+
+/* Drop Material's inset shadow so the gutter blends into the body. */
+.md-typeset .highlight .linenodiv {
+    box-shadow: none;
+}
+
+/* Copy / code-action buttons. Material injects these into a .md-code__nav with
+ * its own rounded fill; we strip that and make a flat icon that gains a
+ * circular background on hover/focus and a theme border only while active. The
+ * circular shape and transparent 1px border are reserved up front so the hover
+ * fill is round and the active border doesn't shift the icon. */
+.md-code__nav {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+
 .md-code__button {
+    /* 28px, matching Bifrost's copy button. Use the px token, not 1.75rem:
+     * MkDocs runs a 20px root, so the rem would render 35px. */
+    width: var(--bfs28);
+    height: var(--bfs28);
+    display: grid;
+    place-items: center;
+    color: var(--bfc-base-c-2);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--bf-radius-full);
+}
+
+.md-clipboard {
     color: var(--bfc-base-c-2);
     background: transparent;
     border: none;
 }
 
-.md-clipboard:hover,
-.md-clipboard:focus,
 .md-code__button:hover,
-.md-code__button:focus {
+.md-code__button:focus,
+.md-clipboard:hover,
+.md-clipboard:focus {
     color: var(--bfc-theme);
 }
 
-.md-clipboard__message {
-    background-color: var(--bfc-base-3);
-    color: var(--bfc-base-c);
-    border: 1px solid var(--bfc-base-dimmed);
+.md-code__button:hover,
+.md-code__button:focus {
+    background: var(--bfc-base-1);
 }
 
-.md-clipboard__message::after {
-    background-color: var(--bfc-base-3);
-    color: var(--bfc-base-c);
+.md-code__button--active {
+    border-color: var(--bfc-theme);
+}
+
+/* Copy confirmation toast. Material's .md-dialog already sits bottom-right where
+ * Bifrost's FloatingMessage lives, so we only restyle the surface. */
+.md-dialog {
+    background-color: var(--bfc-theme-fade);
+    border-radius: var(--bf-radius-m);
+    padding: var(--bfs16);
+    box-shadow: var(--bf-shadow);
+}
+
+.md-dialog__inner {
+    color: var(--bfc-theme-fade-c);
+    font-size: var(--bf-font-size-m);
 }

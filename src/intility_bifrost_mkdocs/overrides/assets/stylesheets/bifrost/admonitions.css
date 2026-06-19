@@ -1,198 +1,284 @@
-/* Admonitions + collapsible details.
- *
- * Bifrost styling differs structurally from Material's (full border + tinted
- * header + colored masked icon, vs Material's left accent bar), so these are
- * genuine structural overrides. The icon image itself comes from Material's
- * --md-admonition-icon--* variables (set by the plugin via theme.icon), we only
- * recolor and reposition it.
- */
+/* Admonitions + collapsible details, styled as Bifrost Message components.
+ * `!!!` renders as a faded-tint block; `???` as a bordered box with a faded
+ * header bar. Each type sets an --adm-fade / --adm-fade-c pair that the shared
+ * rules consume. Icons come from Material's --md-admonition-icon--* vars. */
 
-.md-typeset .admonition,
-.md-typeset details {
-    border: 1px solid;
-    border-radius: var(--bf-radius-s);
-    background-color: var(--bfc-base);
-    color: var(--bfc-base-c);
+.md-typeset .admonition {
+    --adm-fade: var(--bfc-theme-fade);
+    --adm-fade-c: var(--bfc-theme-fade-c);
+    background-color: var(--adm-fade);
+    color: var(--adm-fade-c);
+    border: none;
+    border-radius: var(--bf-radius-m);
     margin: 1.5625em 0;
-    padding: 0;
+    padding: var(--bfs16);
     overflow: hidden;
 }
 
-.md-typeset .admonition-title,
-.md-typeset summary {
-    background-color: var(--bfc-base-2);
-    color: var(--bfc-base-c);
-    font-family: var(--bifrost-font-heading);
+.md-typeset .admonition-title {
+    display: flex;
+    align-items: center;
+    gap: var(--bfs8);
+    /* Tight so the icon centers on the glyphs, not on a 1.6 line box. */
+    line-height: 1.2;
+    background-color: transparent;
+    color: inherit;
     font-weight: 600;
-    margin: 0;
-    /* 44px left padding makes room for the absolutely-positioned icon. */
-    padding: var(--bfs12) var(--bfs16) var(--bfs12) 44px;
+    margin: 0 0 var(--bfs8);
+    padding: 0;
     border: none;
     border-radius: 0;
+}
+
+.md-typeset .admonition>.admonition-title+* {
+    margin-top: 0;
+}
+
+.md-typeset .admonition>*:last-child {
+    margin-bottom: 0;
+}
+
+.md-typeset details {
+    --adm-fade: var(--bfc-theme-fade);
+    --adm-fade-c: var(--bfc-theme-fade-c);
+    border: var(--bf-border);
+    border-radius: var(--bf-radius-m);
+    margin: 1.5625em 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--bfc-base-3);
+    color: var(--bfc-base-c-1);
+}
+
+.md-typeset details>summary {
+    display: flex;
+    align-items: center;
+    gap: var(--bfs8);
+    background-color: var(--adm-fade);
+    color: var(--adm-fade-c);
+    /* <summary> isn't a <p>, so it misses base.css's paragraph sizing and falls
+     * back to Material's .64rem. Pin it to the shared text size. */
+    font-size: var(--bf-font-size-m);
+    line-height: 1.2;
+    font-weight: 600;
+    margin: 0;
+    padding: 15px var(--bfs12);
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    list-style: none;
     position: relative;
 }
 
-.md-typeset .admonition > *:not(.admonition-title),
-.md-typeset details > *:not(summary) {
-    padding: 0 var(--bfs16);
-    margin: var(--bfs16) 0;
+.md-typeset details>summary::-webkit-details-marker {
+    display: none;
 }
 
-.md-typeset .admonition > *:last-child,
-.md-typeset details > *:last-child {
+/* Material's focus-visible polyfill adds `.focus-visible` (with a blue outline)
+ * even on click, which overflow:hidden clips into a box-hugging border. Kill it
+ * and show a clean inset ring only for real keyboard focus. */
+.md-typeset details>summary:focus,
+.md-typeset details>summary.focus-visible {
+    outline: none;
+}
+
+.md-typeset details>summary:focus-visible {
+    outline: 2px dotted var(--bfc-base-c);
+    outline-offset: -2px;
+}
+
+/* Drop Material's :focus-within box-shadow ring (appears on mouse click). */
+.md-typeset details:focus-within {
+    box-shadow: none;
+}
+
+.md-typeset details:has(> summary:hover) {
+    box-shadow: var(--bf-shadow);
+}
+
+.md-typeset details>*:not(summary) {
+    margin: var(--bfs16) var(--bfs16) 0;
+}
+
+.md-typeset details>*:last-child:not(summary) {
     margin-bottom: var(--bfs16);
 }
 
-/* Shared icon setup; per-type rules below only set color + which icon. */
+/* Move the chevron to the left of the header (Bifrost order: chevron, icon,
+ * text). Material renders it absolutely on the right. */
+.md-typeset details>summary::after {
+    position: static;
+    order: -1;
+    margin: 0;
+    /* Slightly larger than the filled type icon so the thin chevron balances. */
+    width: 1.25em;
+    height: 1.25em;
+    background-color: var(--adm-fade-c);
+}
+
 .md-typeset .admonition-title::before,
-.md-typeset summary::before {
-    position: absolute;
-    left: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 16px;
-    height: 16px;
+.md-typeset details>summary::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    /* Flow inline as a flex item, overriding Material's absolute positioning. */
+    position: static;
     mask-repeat: no-repeat;
     mask-size: contain;
+    mask-position: center;
     -webkit-mask-repeat: no-repeat;
     -webkit-mask-size: contain;
+    -webkit-mask-position: center;
 }
 
-.md-typeset summary::after,
-.md-typeset details[open] > summary::after {
-    color: var(--bfc-base-c);
+/* State colors: each type maps to a Bifrost state pair. */
+
+.md-typeset .note,
+.md-typeset .info,
+.md-typeset .todo {
+    --adm-fade: var(--bfc-theme-fade);
+    --adm-fade-c: var(--bfc-theme-fade-c);
 }
 
-/* Per-type: border color + icon color + icon image.
- * Grouped by the Bifrost token each type uses. */
-
-/* theme */
-.md-typeset .admonition.note,
-.md-typeset details.note,
-.md-typeset .admonition.info,
-.md-typeset details.info {
-    border-color: var(--bfc-theme);
+.md-typeset .abstract,
+.md-typeset .question,
+.md-typeset .example,
+.md-typeset .important {
+    --adm-fade: var(--bfc-chill-fade);
+    --adm-fade-c: var(--bfc-chill-fade-c);
 }
 
-.md-typeset .note > .admonition-title::before,
-.md-typeset .note > summary::before {
-    background-color: var(--bfc-theme);
+.md-typeset .tip,
+.md-typeset .success {
+    --adm-fade: var(--bfc-success-fade);
+    --adm-fade-c: var(--bfc-success-fade-c);
+}
+
+.md-typeset .warning {
+    --adm-fade: var(--bfc-warning-fade);
+    --adm-fade-c: var(--bfc-warning-fade-c);
+}
+
+.md-typeset .attention {
+    --adm-fade: var(--bfc-attn-fade);
+    --adm-fade-c: var(--bfc-attn-fade-c);
+}
+
+.md-typeset .failure,
+.md-typeset .danger,
+.md-typeset .error,
+.md-typeset .bug,
+.md-typeset .caution {
+    --adm-fade: var(--bfc-alert-fade);
+    --adm-fade-c: var(--bfc-alert-fade-c);
+}
+
+.md-typeset .quote {
+    --adm-fade: var(--bfc-neutral-fade);
+    --adm-fade-c: var(--bfc-neutral-fade-c);
+}
+
+/* Icons: one masked FontAwesome SVG per type. */
+.md-typeset .note>.admonition-title::before,
+.md-typeset .note>summary::before {
     mask-image: var(--md-admonition-icon--note);
     -webkit-mask-image: var(--md-admonition-icon--note);
 }
 
-.md-typeset .info > .admonition-title::before,
-.md-typeset .info > summary::before {
-    background-color: var(--bfc-theme);
+.md-typeset .info>.admonition-title::before,
+.md-typeset .info>summary::before {
     mask-image: var(--md-admonition-icon--info);
     -webkit-mask-image: var(--md-admonition-icon--info);
 }
 
-/* theme-2 (warning family) */
-.md-typeset .admonition.warning,
-.md-typeset .admonition.attention,
-.md-typeset .admonition.caution,
-.md-typeset details.warning,
-.md-typeset details.attention,
-.md-typeset details.caution {
-    border-color: var(--bfc-theme-2);
+.md-typeset .todo>.admonition-title::before,
+.md-typeset .todo>summary::before {
+    mask-image: var(--md-admonition-icon--todo);
+    -webkit-mask-image: var(--md-admonition-icon--todo);
 }
 
-.md-typeset .warning > .admonition-title::before,
-.md-typeset .warning > summary::before {
-    background-color: var(--bfc-theme-2);
-    mask-image: var(--md-admonition-icon--warning);
-    -webkit-mask-image: var(--md-admonition-icon--warning);
-}
-
-/* success (tip family) */
-.md-typeset .admonition.tip,
-.md-typeset details.tip,
-.md-typeset .admonition.success,
-.md-typeset details.success {
-    border-color: var(--bfc-success);
-}
-
-.md-typeset .tip > .admonition-title::before,
-.md-typeset .tip > summary::before {
-    background-color: var(--bfc-success);
-    mask-image: var(--md-admonition-icon--tip);
-    -webkit-mask-image: var(--md-admonition-icon--tip);
-}
-
-.md-typeset .success > .admonition-title::before,
-.md-typeset .success > summary::before {
-    background-color: var(--bfc-success);
-    mask-image: var(--md-admonition-icon--success);
-    -webkit-mask-image: var(--md-admonition-icon--success);
-}
-
-/* alert (failure family) */
-.md-typeset .admonition.failure,
-.md-typeset .admonition.danger,
-.md-typeset .admonition.error,
-.md-typeset .admonition.bug,
-.md-typeset details.failure,
-.md-typeset details.danger,
-.md-typeset details.error,
-.md-typeset details.bug {
-    border-color: var(--bfc-alert);
-}
-
-.md-typeset .danger > .admonition-title::before,
-.md-typeset .danger > summary::before {
-    background-color: var(--bfc-alert);
-    mask-image: var(--md-admonition-icon--danger);
-    -webkit-mask-image: var(--md-admonition-icon--danger);
-}
-
-.md-typeset .bug > .admonition-title::before,
-.md-typeset .bug > summary::before {
-    background-color: var(--bfc-alert);
-    mask-image: var(--md-admonition-icon--bug);
-    -webkit-mask-image: var(--md-admonition-icon--bug);
-}
-
-/* chill (abstract / question / example) */
-.md-typeset .admonition.abstract,
-.md-typeset details.abstract,
-.md-typeset .admonition.question,
-.md-typeset details.question,
-.md-typeset .admonition.example,
-.md-typeset details.example {
-    border-color: var(--bfc-chill);
-}
-
-.md-typeset .abstract > .admonition-title::before,
-.md-typeset .abstract > summary::before {
-    background-color: var(--bfc-chill);
+.md-typeset .abstract>.admonition-title::before,
+.md-typeset .abstract>summary::before {
     mask-image: var(--md-admonition-icon--abstract);
     -webkit-mask-image: var(--md-admonition-icon--abstract);
 }
 
-.md-typeset .question > .admonition-title::before,
-.md-typeset .question > summary::before {
-    background-color: var(--bfc-chill);
+.md-typeset .question>.admonition-title::before,
+.md-typeset .question>summary::before {
     mask-image: var(--md-admonition-icon--question);
     -webkit-mask-image: var(--md-admonition-icon--question);
 }
 
-.md-typeset .example > .admonition-title::before,
-.md-typeset .example > summary::before {
-    background-color: var(--bfc-chill);
+.md-typeset .example>.admonition-title::before,
+.md-typeset .example>summary::before {
     mask-image: var(--md-admonition-icon--example);
     -webkit-mask-image: var(--md-admonition-icon--example);
 }
 
-/* quote */
-.md-typeset .admonition.quote,
-.md-typeset details.quote {
-    border-color: var(--bfc-base-dimmed);
+.md-typeset .important>.admonition-title::before,
+.md-typeset .important>summary::before {
+    mask-image: var(--md-admonition-icon--important);
+    -webkit-mask-image: var(--md-admonition-icon--important);
 }
 
-.md-typeset .quote > .admonition-title::before,
-.md-typeset .quote > summary::before {
-    background-color: var(--bfc-base-dimmed);
+.md-typeset .tip>.admonition-title::before,
+.md-typeset .tip>summary::before {
+    mask-image: var(--md-admonition-icon--tip);
+    -webkit-mask-image: var(--md-admonition-icon--tip);
+}
+
+.md-typeset .success>.admonition-title::before,
+.md-typeset .success>summary::before {
+    mask-image: var(--md-admonition-icon--success);
+    -webkit-mask-image: var(--md-admonition-icon--success);
+}
+
+.md-typeset .warning>.admonition-title::before,
+.md-typeset .warning>summary::before {
+    mask-image: var(--md-admonition-icon--warning);
+    -webkit-mask-image: var(--md-admonition-icon--warning);
+}
+
+.md-typeset .attention>.admonition-title::before,
+.md-typeset .attention>summary::before {
+    mask-image: var(--md-admonition-icon--attention);
+    -webkit-mask-image: var(--md-admonition-icon--attention);
+}
+
+.md-typeset .failure>.admonition-title::before,
+.md-typeset .failure>summary::before {
+    mask-image: var(--md-admonition-icon--failure);
+    -webkit-mask-image: var(--md-admonition-icon--failure);
+}
+
+.md-typeset .danger>.admonition-title::before,
+.md-typeset .danger>summary::before {
+    mask-image: var(--md-admonition-icon--danger);
+    -webkit-mask-image: var(--md-admonition-icon--danger);
+}
+
+.md-typeset .error>.admonition-title::before,
+.md-typeset .error>summary::before {
+    mask-image: var(--md-admonition-icon--error);
+    -webkit-mask-image: var(--md-admonition-icon--error);
+}
+
+.md-typeset .bug>.admonition-title::before,
+.md-typeset .bug>summary::before {
+    mask-image: var(--md-admonition-icon--bug);
+    -webkit-mask-image: var(--md-admonition-icon--bug);
+}
+
+.md-typeset .caution>.admonition-title::before,
+.md-typeset .caution>summary::before {
+    mask-image: var(--md-admonition-icon--caution);
+    -webkit-mask-image: var(--md-admonition-icon--caution);
+}
+
+.md-typeset .quote>.admonition-title::before,
+.md-typeset .quote>summary::before {
     mask-image: var(--md-admonition-icon--quote);
     -webkit-mask-image: var(--md-admonition-icon--quote);
 }

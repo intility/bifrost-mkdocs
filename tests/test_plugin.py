@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
 import pytest
@@ -7,12 +8,13 @@ from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.exceptions import PluginError
 
 from intility_bifrost_mkdocs.plugin import (
-    BIFROST_FONT_CODE,
-    BIFROST_FONT_TEXT,
+    BIFROST_LAYERS_CSS,
     DEFAULT_ADMONITION_ICONS,
     DEFAULT_EXTENSIONS,
     DEFAULT_FEATURES,
+    DEFAULT_TOP_ICON,
     IntilityBifrostPlugin,
+    _build_layer_bootstrap_css,
     _discover_material_stylesheets,
 )
 
@@ -114,7 +116,6 @@ def test_default_extension_configs_injected():
     result = plugin.on_config(config)
 
     assert result.mdx_configs.get("toc", {}).get("permalink") is True
-    assert result.mdx_configs.get("pymdownx.arithmatex", {}).get("generic") is True
     assert (
         result.mdx_configs.get("pymdownx.highlight", {}).get("anchor_linenums") is True
     )
@@ -184,15 +185,14 @@ def test_no_duplicate_features():
 # ---------------------------------------------------------------------------
 
 
-def test_bifrost_fonts_replace_material_defaults():
-    """Material's default Roboto fonts should be replaced with Bifrost fonts."""
+def test_default_fonts_disable_google_fonts():
+    """With no user font, Google Fonts are disabled (Bifrost styles fonts via CSS)."""
     plugin = IntilityBifrostPlugin()
     config = _minimal_config()
 
     result = plugin.on_config(config)
 
-    assert result.theme["font"]["text"] == BIFROST_FONT_TEXT
-    assert result.theme["font"]["code"] == BIFROST_FONT_CODE
+    assert result.theme["font"] is False
 
 
 def test_user_fonts_preserved():
@@ -237,21 +237,31 @@ def test_user_admonition_icons_preserved():
     assert result.theme["icon"]["admonition"]["note"] == "material/pencil"
 
 
-# ---------------------------------------------------------------------------
-# Extra JavaScript (MathJax)
-# ---------------------------------------------------------------------------
-
-
-def test_mathjax_js_injected():
-    """MathJax JS entries should be added to extra_javascript."""
+def test_top_icon_injected():
+    """The back-to-top icon should default to a Font Awesome arrow."""
     plugin = IntilityBifrostPlugin()
     config = _minimal_config()
 
     result = plugin.on_config(config)
 
-    paths = [str(entry) for entry in result.extra_javascript]
-    assert "javascripts/mathjax.js" in paths
-    assert "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js" in paths
+    assert result.theme["icon"]["top"] == DEFAULT_TOP_ICON
+
+
+def test_user_top_icon_preserved():
+    """A user-provided back-to-top icon should not be overwritten."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    config.theme["icon"] = {"top": "material/arrow-up"}
+
+    result = plugin.on_config(config)
+
+    assert result.theme["icon"]["top"] == "material/arrow-up"
+
+
+# ---------------------------------------------------------------------------
+# Extra JavaScript
+# ---------------------------------------------------------------------------
 
 
 def test_bifrost_theme_js_injected():
@@ -281,34 +291,24 @@ def test_existing_extra_javascript_preserved():
 
     paths = [str(entry) for entry in result.extra_javascript]
     assert "custom/app.js" in paths
-    assert "javascripts/mathjax.js" in paths
+    assert "javascripts/bifrost-theme.js" in paths
 
 
-def test_no_duplicate_mathjax_js():
-    """MathJax entries should not be duplicated if already present."""
+def test_no_duplicate_extra_javascript():
+    """Default JS entries should not be duplicated if already present."""
     plugin = IntilityBifrostPlugin()
     config = _minimal_config()
 
-    config.extra_javascript.append("javascripts/mathjax.js")
+    config.extra_javascript.append("javascripts/bifrost-theme.js")
 
     result = plugin.on_config(config)
 
-    mathjax_count = sum(
+    theme_js_count = sum(
         1
         for entry in result.extra_javascript
-        if (isinstance(entry, str) and entry == "javascripts/mathjax.js")
+        if (isinstance(entry, str) and entry == "javascripts/bifrost-theme.js")
     )
-    assert mathjax_count == 1
-
-
-# ---------------------------------------------------------------------------
-# Overrides file checks
-# ---------------------------------------------------------------------------
-
-
-def test_mathjax_js_exists_in_overrides():
-    """The mathjax.js file should exist in the overrides directory."""
-    assert (OVERRIDES_DIR / "javascripts" / "mathjax.js").is_file()
+    assert theme_js_count == 1
 
 
 # ---------------------------------------------------------------------------
@@ -348,7 +348,7 @@ def test_emoji_generator_configured():
 
 
 def test_partial_font_text_only_preserved():
-    """User setting only the text font still gets the Bifrost code font."""
+    """User setting only the text font keeps that font (fonts stay enabled)."""
     plugin = IntilityBifrostPlugin()
     config = _minimal_config()
 
@@ -357,11 +357,10 @@ def test_partial_font_text_only_preserved():
     result = plugin.on_config(config)
 
     assert result.theme["font"]["text"] == "Inter"
-    assert result.theme["font"]["code"] == BIFROST_FONT_CODE
 
 
 def test_partial_font_code_only_preserved():
-    """User setting only the code font still gets the Bifrost text font."""
+    """User setting only the code font keeps that font (fonts stay enabled)."""
     plugin = IntilityBifrostPlugin()
     config = _minimal_config()
 
@@ -369,7 +368,6 @@ def test_partial_font_code_only_preserved():
 
     result = plugin.on_config(config)
 
-    assert result.theme["font"]["text"] == BIFROST_FONT_TEXT
     assert result.theme["font"]["code"] == "Fira Code"
 
 
@@ -404,7 +402,6 @@ def test_on_config_is_idempotent():
     assert result.theme["features"].count("navigation.instant") == 1
 
     js_paths = [str(entry) for entry in result.extra_javascript]
-    assert js_paths.count("javascripts/mathjax.js") == 1
     assert js_paths.count("javascripts/bifrost-theme.js") == 1
 
 
@@ -447,24 +444,69 @@ def test_discover_raises_when_main_missing(monkeypatch, tmp_path):
         _discover_material_stylesheets()
 
 
-def test_plugin_exposes_material_css_to_template():
-    """on_config must publish the discovered names via config.extra."""
-    plugin = IntilityBifrostPlugin()
+def test_layer_bootstrap_css_content():
+    """The generated bootstrap declares layer order and imports Material's CSS.
+
+    @import paths must be bare filenames so the browser resolves them relative
+    to the bootstrap stylesheet (its siblings), keeping them page-independent.
+    """
     config = _minimal_config()
 
-    result = plugin.on_config(config)
+    css = _build_layer_bootstrap_css(config)
 
-    assert result["extra"]["bifrost_material_css"].startswith("main.")
-    assert result["extra"]["bifrost_palette_css"].startswith("palette.")
+    # The @layer statement must come first, before any @import (otherwise
+    # browsers drop the following @import rules).
+    assert css.index("@layer material, bifrost-framework, bifrost-overrides;") == 0
+    assert '@import "main.' in css
+    assert "layer(material)" in css
+    # Bare filenames, not page-relative or absolute URLs.
+    assert "url(" not in css
+    assert "assets/stylesheets/" not in css
+    assert "../" not in css
 
 
-def test_main_html_imports_material_into_layer():
-    """The template must re-import Material into the `material` cascade layer."""
-    main_html = (OVERRIDES_DIR / "main.html").read_text(encoding="utf-8")
+def test_on_files_generates_layer_bootstrap():
+    """on_files must emit the bootstrap stylesheet as a real site file."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+    config = plugin.on_config(config)
 
-    assert "@layer material, bifrost-framework, bifrost-overrides;" in main_html
-    assert "layer(material)" in main_html
-    assert "config.extra.bifrost_material_css" in main_html
+    from mkdocs.structure.files import Files
+
+    # File.generated tags the file with the plugin that created it, which mkdocs
+    # only sets during event dispatch; emulate it for this isolated call.
+    config.plugins._current_plugin = "intility-bifrost"
+
+    files = plugin.on_files(Files([]), config=config)
+
+    generated = files.get_file_from_path(BIFROST_LAYERS_CSS)
+    assert generated is not None
+    assert "@layer material, bifrost-framework, bifrost-overrides;" in (
+        generated.content_string
+    )
+
+
+def test_main_html_links_layer_bootstrap():
+    """The template loads the bootstrap via a stable <link>, not inline <style>.
+
+    Material's navigation.instant re-appends per-page inline <style> @imports on
+    every navigation, which breaks the cascade-layer order. A <link> stays
+    identical across pages and is kept, so it must not be inlined.
+    """
+    raw = (OVERRIDES_DIR / "main.html").read_text(encoding="utf-8")
+    # Strip Jinja comments so prose explaining the mechanism doesn't trip the
+    # "not inlined" assertions below.
+    main_html = re.sub(r"\{#.*?#\}", "", raw, flags=re.DOTALL)
+
+    assert BIFROST_LAYERS_CSS in main_html
+    # The layer setup must not be inlined in the template (it belongs in the
+    # generated stylesheet so instant navigation keeps it stable).
+    assert "@layer" not in main_html
+    assert "layer(material)" not in main_html
+    # bifrost-layers.css must precede bifrost.css so the order is declared first.
+    assert main_html.index(BIFROST_LAYERS_CSS) < main_html.index(
+        "assets/stylesheets/bifrost.css"
+    )
     # super() must NOT be called in styles, or Material's unlayered <link> would
     # win over everything and defeat the layering.
     assert "{{ super() }}" not in main_html
@@ -504,8 +546,13 @@ def test_full_site_build(tmp_path):
     # injected extra_javascript. Both present means the full pipeline ran.
     assert "assets/stylesheets/bifrost.css" in index_html
     assert "javascripts/bifrost-theme.js" in index_html
-    # The cascade-layer setup must render: layer order declared + Material
-    # re-imported into the `material` layer (not via a plain unlayered <link>).
-    assert "@layer material, bifrost-framework, bifrost-overrides;" in index_html
-    assert "layer(material)" in index_html
-    assert "assets/stylesheets/main." in index_html
+    # The cascade-layer bootstrap is loaded via a <link> (not inline <style>),
+    # so instant navigation keeps it stable across pages.
+    assert BIFROST_LAYERS_CSS in index_html
+    assert "@layer" not in index_html
+
+    # The generated bootstrap re-imports Material into the `material` layer.
+    layers_css = (tmp_path / "site" / BIFROST_LAYERS_CSS).read_text(encoding="utf-8")
+    assert "@layer material, bifrost-framework, bifrost-overrides;" in layers_css
+    assert "layer(material)" in layers_css
+    assert '@import "main.' in layers_css

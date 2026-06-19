@@ -1,8 +1,8 @@
 # Admonitions
 
-Extensions: `admonition`, `pymdownx.details`
+Extensions: `admonition`, `pymdownx.details`, `github-callouts`
 
-Material for MkDocs supports two syntaxes for admonitions: the standard `!!!` syntax and GitHub-style alert blocks using `> [!TYPE]`.
+Two syntaxes produce admonitions: the standard `!!!` syntax (from the `admonition` extension) and GitHub-style alert blocks using `> [!TYPE]` (from the `github-callouts` extension).
 
 ## GitHub Alert Syntax
 

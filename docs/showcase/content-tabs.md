@@ -21,7 +21,7 @@ Feature: `content.tabs.link` (syncs tab selection across the page)
     Content for the third tab. You can nest any Markdown content inside tabs,
     including code blocks, admonitions, and lists.
 
-**Syntax:**
+### Syntax
 
 ```markdown
 === "Tab One"
@@ -72,7 +72,7 @@ A common use case is showing the same example in multiple languages:
     }
     ```
 
-**Syntax:**
+### Syntax
 
 ````markdown
 === "Python"

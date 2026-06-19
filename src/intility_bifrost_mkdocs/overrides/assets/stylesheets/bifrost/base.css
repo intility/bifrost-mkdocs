@@ -1,13 +1,6 @@
-/* Base layer: typography, headings, and page-level layout.
- *
- * Colors come from the token mapping (tokens.css), so this file is mostly
- * about fonts, sizes, and structure Material doesn't tokenize. Single-class
- * selectors are enough because everything here sits in the bifrost-overrides
- * layer, above Material.
- */
+/* Typography, headings, and page-level layout. Colors come from tokens.css. */
 
 body {
-    font-family: var(--bifrost-font-body);
     font-size: var(--bf-font-size-m);
     line-height: 1.6;
 }
@@ -17,15 +10,12 @@ body {
     line-height: 1.6;
 }
 
-/* Headings use the Satoshi display font. Material has no separate heading-font
- * variable (it reuses the text font), so this is a deliberate structural rule. */
 .md-typeset h1,
 .md-typeset h2,
 .md-typeset h3,
 .md-typeset h4,
 .md-typeset h5,
 .md-typeset h6 {
-    font-family: var(--bifrost-font-heading);
     font-weight: 700;
     color: var(--bfc-base-c);
     margin-top: 1.5em;
@@ -71,7 +61,13 @@ body {
     line-height: 1.6;
 }
 
-/* Links */
+/* The Bifrost framework underlines every a[href], which wrongly underlines
+ * Material's chrome (nav, tabs, breadcrumbs). Restore the no-underline default;
+ * prose links re-enable underline on hover below. */
+a {
+    text-decoration: none;
+}
+
 .md-typeset a {
     color: var(--bfc-theme);
     text-decoration: none;
@@ -89,11 +85,10 @@ body {
 
 .md-typeset .headerlink:hover,
 .md-typeset .headerlink:focus,
-.md-typeset :target > .headerlink {
+.md-typeset :target>.headerlink {
     color: var(--bfc-theme);
 }
 
-/* Rules and quotes */
 .md-typeset hr {
     border-bottom: 1px solid var(--bfc-base-dimmed);
 }
@@ -103,7 +98,6 @@ body {
     color: var(--bfc-base-c-2);
 }
 
-/* Focus visibility (accessibility). */
 :focus-visible {
     outline: 2px solid var(--bfc-theme);
     outline-offset: 2px;
@@ -131,7 +125,6 @@ body {
     flex: 1 0 auto;
 }
 
-/* Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;

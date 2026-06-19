@@ -6,6 +6,11 @@ from typing import Any
 from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.exceptions import PluginError
 from mkdocs.plugins import BasePlugin
+from mkdocs.structure.files import File, Files
+
+# Path (relative to the docs site root) of the generated cascade-layer
+# bootstrap stylesheet. See `_build_layer_bootstrap_css` and `main.html`.
+BIFROST_LAYERS_CSS = "assets/stylesheets/bifrost-layers.css"
 
 # ---------------------------------------------------------------------------
 # Default markdown extensions the plugin injects.
@@ -19,7 +24,6 @@ DEFAULT_EXTENSIONS: list[str] = [
     "footnotes",
     "md_in_html",
     "toc",
-    "pymdownx.arithmatex",
     "pymdownx.betterem",
     "pymdownx.caret",
     "pymdownx.details",
@@ -35,6 +39,9 @@ DEFAULT_EXTENSIONS: list[str] = [
     "pymdownx.tasklist",
     "pymdownx.tilde",
     "tables",
+    # Stamps `.bf-table` onto generated tables so Bifrost's framework CSS
+    # styles them. See intility_bifrost_mkdocs/table_ext.py.
+    "intility_bifrost_mkdocs.table_ext",
 ]
 
 # ---------------------------------------------------------------------------
@@ -58,40 +65,60 @@ DEFAULT_FEATURES: list[str] = [
 ]
 
 # ---------------------------------------------------------------------------
-# Default fonts (Bifrost branding).
+# Fonts (Bifrost branding).
 # ---------------------------------------------------------------------------
-BIFROST_FONT_TEXT = "Open Sans"
-BIFROST_FONT_CODE = "JetBrains Mono"
-
-# Material's defaults that we replace when the user hasn't customized them.
+# Bifrost ships Satoshi (vendored) for all text and JetBrains Mono (vendored)
+# for code, both applied via CSS (see tokens.css). No Google Fonts are needed,
+# so we disable them unless the user picked their own font.
+#
+# Material's defaults, used to detect whether the user customized the font.
 MATERIAL_DEFAULT_FONT_TEXT = "Roboto"
 MATERIAL_DEFAULT_FONT_CODE = "Roboto Mono"
 
 # ---------------------------------------------------------------------------
 # Default admonition icons.
 # ---------------------------------------------------------------------------
+# Icons mirror Bifrost's Message component, which demonstrates circle-info
+# (theme), heart (attn), circle-exclamation (warning) and triangle-exclamation
+# (alert). The remaining types reuse that circle/triangle family for a
+# consistent look. Each type also maps to a Bifrost state in admonitions.css.
 DEFAULT_ADMONITION_ICONS: dict[str, str] = {
-    "note": "fontawesome/solid/note-sticky",
-    "abstract": "fontawesome/solid/clipboard",
+    # theme
+    "note": "fontawesome/solid/circle-info",
     "info": "fontawesome/solid/circle-info",
-    "tip": "fontawesome/solid/lightbulb",
-    "success": "fontawesome/solid/check",
+    "todo": "fontawesome/solid/circle-info",
+    # chill
+    "abstract": "fontawesome/solid/circle-info",
+    "example": "fontawesome/solid/circle-info",
     "question": "fontawesome/solid/circle-question",
-    "warning": "fontawesome/solid/triangle-exclamation",
-    "failure": "fontawesome/solid/bomb",
-    "danger": "fontawesome/solid/skull",
-    "bug": "fontawesome/solid/robot",
-    "example": "fontawesome/solid/flask",
+    # success
+    "tip": "fontawesome/solid/circle-check",
+    "success": "fontawesome/solid/circle-check",
+    # warning
+    "warning": "fontawesome/solid/circle-exclamation",
+    # attn
+    "attention": "fontawesome/solid/heart",
+    # alert (caution lives here too: `!!! caution` and GitHub `[!CAUTION]`)
+    "failure": "fontawesome/solid/triangle-exclamation",
+    "danger": "fontawesome/solid/triangle-exclamation",
+    "error": "fontawesome/solid/triangle-exclamation",
+    "bug": "fontawesome/solid/triangle-exclamation",
+    "caution": "fontawesome/solid/triangle-exclamation",
+    # chill (GitHub `[!IMPORTANT]`)
+    "important": "fontawesome/solid/circle-exclamation",
+    # neutral
     "quote": "fontawesome/solid/quote-left",
 }
+
+# Back-to-top button icon. Material defaults to a Material Design arrow; use a
+# Font Awesome one to stay consistent with the rest of the theme's icons.
+DEFAULT_TOP_ICON = "fontawesome/solid/arrow-up"
 
 # ---------------------------------------------------------------------------
 # Default extra JavaScript.
 # ---------------------------------------------------------------------------
 DEFAULT_EXTRA_JS: list[str] = [
     "javascripts/bifrost-theme.js",
-    "javascripts/mathjax.js",
-    "https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js",
 ]
 
 
@@ -107,7 +134,6 @@ def _default_mdx_configs() -> dict[str, dict[str, Any]]:
 
     return {
         "toc": {"permalink": True},
-        "pymdownx.arithmatex": {"generic": True},
         "pymdownx.betterem": {"smart_enable": "all"},
         "pymdownx.emoji": {
             "emoji_generator": to_svg,
@@ -164,9 +190,10 @@ def _inject_theme_features(config: MkDocsConfig) -> None:
 
 def _inject_theme_settings(config: MkDocsConfig) -> None:
     """Set Bifrost fonts and admonition icons when the user hasn't customized them."""
-    # Fonts: only replace Material's default Roboto fonts.
-    # `font: false` disables Google Fonts entirely; respect that and don't
-    # re-enable fonts the user explicitly turned off.
+    # Fonts: Bifrost styles all text (vendored Satoshi) and code (system
+    # monospace) via CSS, so no Google Fonts are needed. Disable them by
+    # default. `font: false` (the user's or ours) is respected, and a user who
+    # set their own font keeps it.
     font = config.theme.get("font")
     if font is not False:
         font = font or {}
@@ -174,22 +201,23 @@ def _inject_theme_settings(config: MkDocsConfig) -> None:
             text_font = font.get("text", MATERIAL_DEFAULT_FONT_TEXT)
             code_font = font.get("code", MATERIAL_DEFAULT_FONT_CODE)
 
-            if text_font == MATERIAL_DEFAULT_FONT_TEXT:
-                font["text"] = BIFROST_FONT_TEXT
-            if code_font == MATERIAL_DEFAULT_FONT_CODE:
-                font["code"] = BIFROST_FONT_CODE
+            customized = (
+                text_font != MATERIAL_DEFAULT_FONT_TEXT
+                or code_font != MATERIAL_DEFAULT_FONT_CODE
+            )
+            config.theme["font"] = font if customized else False
 
-            config.theme["font"] = font
-
-    # Admonition icons: only inject if user hasn't set any.
+    # Icons: only inject defaults the user hasn't set.
     icon = config.theme.get("icon") or {}
     if not icon.get("admonition"):
         icon["admonition"] = dict(DEFAULT_ADMONITION_ICONS)
-        config.theme["icon"] = icon
+    if not icon.get("top"):
+        icon["top"] = DEFAULT_TOP_ICON
+    config.theme["icon"] = icon
 
 
 def _inject_extra_javascript(config: MkDocsConfig) -> None:
-    """Add MathJax JS entries if not already present."""
+    """Add default extra JavaScript entries if not already present."""
     existing = {str(entry) for entry in config.extra_javascript}
 
     for entry in DEFAULT_EXTRA_JS:
@@ -233,16 +261,34 @@ def _discover_material_stylesheets() -> dict[str, str]:
     return sheets
 
 
-def _inject_material_stylesheet_refs(config: MkDocsConfig) -> None:
-    """Expose Material's hashed stylesheet names to the template via ``extra``.
+def _build_layer_bootstrap_css(config: MkDocsConfig) -> str:
+    """Build the contents of the cascade-layer bootstrap stylesheet.
 
-    ``main.html`` reads ``config.extra.bifrost_material_css`` /
-    ``config.extra.bifrost_palette_css`` to emit layered ``@import`` rules.
+    This stylesheet declares the layer order and re-imports Material's CSS into
+    the low-priority ``material`` layer. It is emitted as a real file (see
+    ``on_files``) and loaded via a plain ``<link>`` rather than an inline
+    ``<style>``.
+
+    Why a file instead of inline ``<style>`` in ``main.html``: Material's
+    ``navigation.instant`` rewrites ``href``/``src`` *attributes* to absolute
+    URLs before diffing ``<head>``, so a ``<link>`` stays byte-identical across
+    pages and is kept untouched on navigation. It cannot normalise a URL living
+    inside inline ``<style>`` text, so a page-relative ``@import`` there makes
+    the element differ per page; instant navigation then re-appends it on every
+    visit, which breaks the cascade-layer order and flashes unstyled content.
+
+    The ``@import`` paths are written *bare* (filename only) so the browser
+    resolves them relative to this stylesheet's own URL, i.e. its siblings in
+    ``assets/stylesheets/`` -- making them page-independent.
     """
     sheets = _discover_material_stylesheets()
-    config.extra["bifrost_material_css"] = sheets["main"]
-    if "palette" in sheets:
-        config.extra["bifrost_palette_css"] = sheets["palette"]
+
+    lines = ["@layer material, bifrost-framework, bifrost-overrides;"]
+    lines.append(f'@import "{sheets["main"]}" layer(material);')
+    if config.theme.get("palette") and "palette" in sheets:
+        lines.append(f'@import "{sheets["palette"]}" layer(material);')
+
+    return "\n".join(lines) + "\n"
 
 
 # ---------------------------------------------------------------------------
@@ -254,9 +300,8 @@ class IntilityBifrostPlugin(BasePlugin):
     """MkDocs plugin that applies the Intility Bifrost theme to Material for MkDocs.
 
     Injects Bifrost theme overrides, sensible default markdown extensions, theme
-    features, fonts, icons, and MathJax configuration. Users only need to add
-    ``intility-bifrost`` to their plugins list for a fully configured Bifrost
-    experience.
+    features, fonts, and icons. Users only need to add ``intility-bifrost`` to
+    their plugins list for a fully configured Bifrost experience.
     """
 
     def on_config(self, config: MkDocsConfig) -> MkDocsConfig:
@@ -273,8 +318,24 @@ class IntilityBifrostPlugin(BasePlugin):
         _inject_theme_settings(config)
         _inject_extra_javascript(config)
 
-        # Resolve Material's hashed stylesheets so the template can re-import
-        # them into the `material` cascade layer.
-        _inject_material_stylesheet_refs(config)
+        # Fail fast at config time with an actionable message if Material's
+        # stylesheets can't be located; the bootstrap file generated in
+        # `on_files` depends on them.
+        _discover_material_stylesheets()
 
         return config
+
+    def on_files(self, files: Files, *, config: MkDocsConfig) -> Files:
+        """Emit the cascade-layer bootstrap stylesheet as a real file.
+
+        Loaded via a stable ``<link>`` in ``main.html`` so Material's instant
+        navigation never re-appends it (see ``_build_layer_bootstrap_css``).
+        """
+        files.append(
+            File.generated(
+                config,
+                BIFROST_LAYERS_CSS,
+                content=_build_layer_bootstrap_css(config),
+            )
+        )
+        return files

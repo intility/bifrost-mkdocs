@@ -29,9 +29,7 @@ See the [Feature Showcase](showcase/index.md) for a live demonstration of every 
       - search
     ```
 
-3. **Start writing docs.** The plugin handles the rest: markdown extensions, theme features, fonts, icons, and MathJax are all configured automatically.
-
-That's it. No need to copy 40+ lines of extension config.
+3. **Start writing docs.** The plugin configures the markdown extensions, theme features, fonts, and icons for you.
 
 ## Overriding Defaults
 
@@ -68,17 +66,26 @@ The badge renders using Bifrost's `bf-badge` styling and only appears when `vers
 
 ### Add Pages
 
-1. Create markdown files in the `docs/` directory
-2. Update the `nav` section in `mkdocs.yaml`:
+The bundled [awesome-nav](https://lukasgeiter.github.io/mkdocs-awesome-nav/) plugin builds the navigation from `.nav.yml` files placed next to your content, so there's no central `nav:` block to maintain. Enable it once in `mkdocs.yml`:
 
 ```yaml
+plugins:
+  - intility-bifrost
+  - search
+  - awesome-nav
+```
+
+Then create markdown files in `docs/` and drop a `.nav.yml` alongside them to set the order and titles:
+
+```yaml
+# docs/.nav.yml
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
-  - User Guide:
-      - Installation: guide/installation.md
-      - Configuration: guide/configuration.md
+  - User Guide: guide
 ```
+
+A `.nav.yml` inside a subdirectory (for example `docs/guide/.nav.yml`) orders that section. Without awesome-nav, list pages in a standard MkDocs `nav:` block instead.
 
 ## Resources
 

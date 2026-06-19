@@ -13,26 +13,15 @@
 {% endblock %}
 
 {#
-  Demote Material into a low-priority cascade layer.
-
-  Material ships its CSS unlayered, so unlayered rules always beat any @layer.
-  We replace Material's plain <link> tags with @import ... layer(material) so the
-  Bifrost framework and our overrides (declared in bifrost.css) win without a
-  specificity war. The hashed filenames are resolved by the plugin and exposed
-  via config.extra.* (see plugin.py:_inject_material_stylesheet_refs).
-
-  The layer order is declared here, on first appearance, so it governs the whole
-  document even though bifrost.css is a separate stylesheet:
-    material < bifrost-framework < bifrost-overrides
+  Demote Material into a low-priority cascade layer. bifrost-layers.css declares
+  the layer order (material < bifrost-framework < bifrost-overrides) and
+  re-imports Material's CSS into the `material` layer, so our overrides win
+  without a specificity war. The plugin generates it and serves it as a real
+  <link> (not inline <style>) to survive instant navigation; see plugin.py for
+  the full rationale. It must precede bifrost.css so the order is declared first.
 #}
 {% block styles %}
-  <style>
-    @layer material, bifrost-framework, bifrost-overrides;
-    @import url("{{ ('assets/stylesheets/' ~ config.extra.bifrost_material_css) | url }}") layer(material);
-    {%- if config.theme.palette and config.extra.bifrost_palette_css %}
-    @import url("{{ ('assets/stylesheets/' ~ config.extra.bifrost_palette_css) | url }}") layer(material);
-    {%- endif %}
-  </style>
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/bifrost-layers.css' | url }}">
   {% include "partials/icons.html" %}
   <link rel="stylesheet" href="{{ 'assets/stylesheets/bifrost.css' | url }}">
 {% endblock %}

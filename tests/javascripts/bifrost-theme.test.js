@@ -26,6 +26,10 @@ const {
   syncBifrostTheme,
   readVersion,
   insertVersionBadge,
+  isMacPlatform,
+  searchHotkeyLabel,
+  isSearchHotkey,
+  insertSearchHint,
   BIFROST_THEMES,
 } = require(MODULE_PATH);
 
@@ -252,4 +256,109 @@ test('insertVersionBadge is a no-op without version, doc, or topic', () => {
   assert.equal(insertVersionBadge(doc, null, '1.0.0'), null);
   assert.equal(insertVersionBadge(doc, topic, null), null);
   assert.equal(topic.appended.length, 0);
+});
+
+// ---------------------------------------------------------------------------
+// Search hotkey: platform detection + label
+// ---------------------------------------------------------------------------
+
+test('isMacPlatform detects mac via platform string', () => {
+  assert.equal(isMacPlatform({ platform: 'MacIntel' }), true);
+  assert.equal(isMacPlatform({ platform: 'iPhone' }), true);
+});
+
+test('isMacPlatform detects mac via userAgent fallback', () => {
+  assert.equal(isMacPlatform({ platform: '', userAgent: 'Mozilla/5.0 (Macintosh)' }), true);
+});
+
+test('isMacPlatform is false for windows/linux and missing navigator', () => {
+  assert.equal(isMacPlatform({ platform: 'Win32' }), false);
+  assert.equal(isMacPlatform({ platform: 'Linux x86_64' }), false);
+  assert.equal(isMacPlatform(null), false);
+});
+
+test('searchHotkeyLabel reflects platform', () => {
+  assert.equal(searchHotkeyLabel(true), '⌘ K');
+  assert.equal(searchHotkeyLabel(false), 'Ctrl K');
+});
+
+// ---------------------------------------------------------------------------
+// isSearchHotkey: modifier gating per platform
+// ---------------------------------------------------------------------------
+
+test('isSearchHotkey matches Cmd+K only on mac', () => {
+  assert.equal(isSearchHotkey({ key: 'k', metaKey: true }, true), true);
+  assert.equal(isSearchHotkey({ key: 'K', metaKey: true }, true), true);
+  // Ctrl+K should not trigger on mac (it is a native input binding there).
+  assert.equal(isSearchHotkey({ key: 'k', ctrlKey: true }, true), false);
+});
+
+test('isSearchHotkey matches Ctrl+K only off mac', () => {
+  assert.equal(isSearchHotkey({ key: 'k', ctrlKey: true }, false), true);
+  assert.equal(isSearchHotkey({ key: 'k', metaKey: true }, false), false);
+});
+
+test('isSearchHotkey ignores other keys and bare k, and missing event', () => {
+  assert.equal(isSearchHotkey({ key: 'j', metaKey: true }, true), false);
+  assert.equal(isSearchHotkey({ key: 'k' }, true), false);
+  assert.equal(isSearchHotkey(null, true), false);
+});
+
+// ---------------------------------------------------------------------------
+// insertSearchHint
+// ---------------------------------------------------------------------------
+
+function makeForm({ alreadyHinted = false } = {}) {
+  const appended = [];
+  return {
+    querySelector(selector) {
+      if (selector === '.bf-search-hint' && alreadyHinted) return { existing: true };
+      return null;
+    },
+    appendChild(child) {
+      appended.push(child);
+      return child;
+    },
+    appended,
+  };
+}
+
+function makeHintDoc() {
+  return {
+    createElement(_tag) {
+      return {
+        className: '',
+        textContent: '',
+        _attrs: {},
+        setAttribute(name, value) { this._attrs[name] = value; },
+      };
+    },
+  };
+}
+
+test('insertSearchHint appends a kbd with the platform label', () => {
+  const doc = makeHintDoc();
+  const form = makeForm();
+  const hint = insertSearchHint(doc, form, true);
+  assert.ok(hint);
+  assert.equal(hint.className, 'bf-search-hint');
+  assert.equal(hint.textContent, '⌘ K');
+  assert.equal(hint._attrs['aria-hidden'], 'true');
+  assert.equal(form.appended.length, 1);
+});
+
+test('insertSearchHint uses Ctrl K off mac', () => {
+  const hint = insertSearchHint(makeHintDoc(), makeForm(), false);
+  assert.equal(hint.textContent, 'Ctrl K');
+});
+
+test('insertSearchHint skips when a hint already exists', () => {
+  const form = makeForm({ alreadyHinted: true });
+  assert.equal(insertSearchHint(makeHintDoc(), form, true), null);
+  assert.equal(form.appended.length, 0);
+});
+
+test('insertSearchHint is a no-op without doc or form', () => {
+  assert.equal(insertSearchHint(null, makeForm(), true), null);
+  assert.equal(insertSearchHint(makeHintDoc(), null, true), null);
 });

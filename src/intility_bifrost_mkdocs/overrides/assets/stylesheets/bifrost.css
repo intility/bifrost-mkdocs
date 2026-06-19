@@ -1,31 +1,27 @@
 /* Bifrost MkDocs theme. See https://bifrost.intility.com
  *
- * This file is a thin manifest. The cascade-layer order is declared in
- * main.html (material < bifrost-framework < bifrost-overrides); here we fill
- * the upper two layers.
- *
- * To add or adjust styling:
- *   1. Reach for a token first: map a Material --md-* variable to a Bifrost
- *      --bfc-* token in bifrost/tokens.css. That recolors Material's own UI
- *      with no per-component rules.
- *   2. If Material has no variable for it, add a single-class rule to the
- *      matching component partial below. You don't need specificity ladders:
- *      everything here lives in the bifrost-overrides layer, above Material.
- */
+ * Thin manifest. Layer order (material < bifrost-framework < bifrost-overrides)
+ * is declared in main.html; here we fill the upper two. To style something,
+ * prefer mapping a Material --md-* var to a Bifrost token in tokens.css; only
+ * add a component rule when Material has no variable for it. */
+
+/* Sub-layer order, declared FIRST: a @layer statement placed *after* an @import
+ * silently drops every following @import, so it must precede the imports. */
+@layer bifrost-overrides.tokens, bifrost-overrides.base, bifrost-overrides.components;
 
 /* Bifrost CSS framework (vendored; refresh with `just sync-bifrost-css`). */
 @import url("../vendor/bifrost-all.css") layer(bifrost-framework);
 
-/* Sub-layer order within bifrost-overrides. Declaring it here means source
- * order within and between the partials below never matters. */
-@layer bifrost-overrides.tokens, bifrost-overrides.base, bifrost-overrides.components;
-
 @import url("bifrost/tokens.css") layer(bifrost-overrides.tokens);
 @import url("bifrost/base.css") layer(bifrost-overrides.base);
 @import url("bifrost/admonitions.css") layer(bifrost-overrides.components);
+@import url("bifrost/cards.css") layer(bifrost-overrides.components);
+@import url("bifrost/checkbox.css") layer(bifrost-overrides.components);
 @import url("bifrost/code.css") layer(bifrost-overrides.components);
 @import url("bifrost/nav.css") layer(bifrost-overrides.components);
 @import url("bifrost/tabs.css") layer(bifrost-overrides.components);
 @import url("bifrost/search.css") layer(bifrost-overrides.components);
+@import url("bifrost/table.css") layer(bifrost-overrides.components);
+@import url("bifrost/mermaid.css") layer(bifrost-overrides.components);
 @import url("bifrost/footer.css") layer(bifrost-overrides.components);
 @import url("bifrost/misc.css") layer(bifrost-overrides.components);

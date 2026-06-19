@@ -1,0 +1,17 @@
+nav:
+  - index.md
+  - Typography: typography.md
+  - Smart Symbols: smart-symbols.md
+  - Keyboard Keys: keyboard-keys.md
+  - Lists: lists.md
+  - Tables: tables.md
+  - Admonitions: admonitions.md
+  - Code Blocks: code-blocks.md
+  - Content Tabs: content-tabs.md
+  - Diagrams: diagrams.md
+  - Footnotes: footnotes.md
+  - Abbreviations: abbreviations.md
+  - Attributes: attributes.md
+  - Icons & Emojis: icons-emojis.md
+  - Grid Cards: grid-cards.md
+  - Snippets: snippets.md

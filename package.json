@@ -7,6 +7,6 @@
     "test": "node --test tests/javascripts/*.test.js"
   },
   "dependencies": {
-    "@intility/bifrost-css": "6.7.0"
+    "@intility/bifrost-css": "6.10.0"
   }
 }

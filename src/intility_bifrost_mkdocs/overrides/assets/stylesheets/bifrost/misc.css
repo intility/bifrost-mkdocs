@@ -1,53 +1,49 @@
-/* Tables, buttons, keyboard keys, tags, announcement bar, version badge. */
+/* Back-to-top button, keyboard keys, tags, announcement bar, version badge. */
 
-/* Tables */
-.md-typeset table:not([class]) {
-    border: 1px solid var(--bfc-base-dimmed);
+/* The vendored Bifrost reset zeroes <button> margins from a layer above
+ * Material, dropping Material's margin-inline-start:50% centering while the
+ * -50% transform survives, so the button drifts off-screen. Restore it. */
+.md-top {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--bfs8);
+    margin-inline-start: 50%;
     background-color: var(--bfc-base-3);
-    border-radius: var(--bf-radius-xs);
-    overflow: hidden;
-}
-
-.md-typeset table:not([class]) th {
-    background-color: var(--bfc-base-2);
     color: var(--bfc-base-c);
-    font-family: var(--bifrost-font-heading);
+    border: 1px solid var(--bfc-base-c-theme);
+    border-radius: var(--rem24);
+    box-shadow: var(--bf-shadow);
+    padding: var(--bfs4) var(--bfs12);
+    font-size: var(--bf-font-size-s);
     font-weight: 600;
-    border-bottom: 2px solid var(--bfc-base-dimmed);
 }
 
-.md-typeset table:not([class]) td {
-    border-top: 1px solid var(--bfc-base-dimmed);
+/* The arrow SVG has no intrinsic size cap; tie it to the font size and drop
+ * Material's inline vertical-align nudge (the flex row centers it). */
+.md-top svg {
+    width: 1em;
+    height: 1em;
+    vertical-align: unset;
+}
+
+.md-top:hover,
+.md-top:focus {
+    background-color: var(--bfc-base-3);
     color: var(--bfc-base-c);
+    box-shadow: var(--bf-shadow), inset 0 0 0 2px var(--bfc-base-c-theme);
 }
 
-.md-typeset table:not([class]) tr:hover {
-    background-color: var(--bfc-base-2);
-}
-
-/* Buttons */
-.md-typeset .md-button {
-    background-color: var(--bfc-theme);
-    color: var(--bfc-theme-c);
-    border: none;
-    padding: 0.625em 1.25em;
-    border-radius: var(--bf-radius-xs);
-    font-family: var(--bifrost-font-body);
-    font-weight: 500;
-    transition:
-        background-color 0.2s ease,
-        transform 0.1s ease;
-}
-
-.md-typeset .md-button:hover,
-.md-typeset .md-button:focus {
-    background-color: var(--bfc-theme-2);
-    color: var(--bfc-theme-c);
-    transform: translateY(-1px);
-}
-
-/* Keyboard keys */
-.md-typeset kbd {
+/* Keyboard keys. .bf-search-hint is the search ⌘K hint injected by
+ * bifrost-theme.js; it lives outside .md-typeset, so the box metrics Material
+ * normally supplies (display, font-size, padding) are declared here too, to
+ * keep every <kbd> on the site identical. */
+.md-typeset kbd,
+.bf-search-hint {
+    display: inline-block;
+    padding: 0 0.6666666667em;
+    font-size: 0.75em;
+    vertical-align: text-top;
+    word-break: break-word;
     background-color: var(--bfc-base-2);
     color: var(--bfc-base-c);
     border: 1px solid var(--bfc-base-dimmed);
@@ -55,14 +51,12 @@
     box-shadow: 0 1px 0 var(--bfc-base-dimmed);
 }
 
-/* Tags */
 .md-tag {
     background-color: var(--bfc-theme-fade);
     color: var(--bfc-theme-fade-c);
     border-radius: var(--bf-radius-xs);
 }
 
-/* Announcement bar */
 .md-announce {
     background-color: var(--bfc-theme-fade);
     color: var(--bfc-theme-fade-c);
@@ -74,5 +68,4 @@
     flex-shrink: 0;
     margin-left: 0.5rem;
     line-height: 1;
-    font-family: var(--bifrost-font-body);
 }

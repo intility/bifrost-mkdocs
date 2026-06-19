@@ -1,45 +1,151 @@
-/* Search input + results. Backgrounds use base tokens; matches use the theme. */
+/* Search input + results.
+ *
+ * The input matches Bifrost's `.bf-input` spec (see vendored bifrost-all.css):
+ * base-3 surface, base-c-wcag border, radius-s, font-size-l, base-c hover, and
+ * the inverted-border + inset-ring focus. Results follow the theme's
+ * interactive convention (base-2 surfaces, no theme text), leaving the matched
+ * <mark> as the sole theme accent.
+ *
+ * The Cmd/Ctrl+K hint <kbd> is injected into .md-search__form by
+ * bifrost-theme.js (Material renders no hint of its own). */
+
+/* INPUT -------------------------------------------------------------------- */
 
 .md-search__form {
+    position: relative;
     background-color: var(--bfc-base-3);
+    border-radius: var(--bf-radius-s);
 }
 
 .md-search__input {
     background-color: var(--bfc-base-3);
     color: var(--bfc-base-c);
-    border: 1px solid var(--bfc-base-dimmed);
-    border-radius: var(--bf-radius-xs);
+    border: 1px solid var(--bfc-base-c-wcag);
+    border-radius: var(--bf-radius-s);
+    font-size: var(--bf-font-size-l);
 }
 
 .md-search__input::placeholder {
     color: var(--bfc-base-c-2);
 }
 
+.md-search__input:hover {
+    border-color: var(--bfc-base-c);
+}
+
 .md-search__input:focus {
-    border-color: var(--bfc-theme);
+    border-color: var(--bfc-base-c-inverted);
+    box-shadow: inset 0 0 0 1px var(--bfc-base-c-inverted);
+    outline: none;
 }
 
 .md-search__icon {
     color: var(--bfc-base-c);
 }
 
+/* Cmd/Ctrl+K hint. Appearance is shared with other <kbd> in misc.css; only its
+ * placement is search-specific. It sits at the trailing edge and shows only in
+ * the idle, empty state, hiding once the field has a value so it never overlaps
+ * Material's share/reset icons. */
+
+.bf-search-hint {
+    position: absolute;
+    top: 50%;
+    right: 0.8rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.md-search__form:focus-within .bf-search-hint,
+.md-search__form:has(.md-search__input:not(:placeholder-shown)) .bf-search-hint {
+    display: none;
+}
+
+/* The shortcut is meaningless once search collapses to a touch-driven overlay. */
+@media screen and (max-width: 59.9375em) {
+    .bf-search-hint {
+        display: none;
+    }
+}
+
+/* RESULTS ------------------------------------------------------------------ */
+
 .md-search__output {
     background-color: var(--bfc-base);
-    border-radius: var(--bf-radius-xs);
+    border-radius: var(--bf-radius-s);
     box-shadow: var(--bf-shadow);
+}
+
+.md-search-result__meta {
+    color: var(--bfc-base-c-2);
 }
 
 .md-search-result__article {
     background-color: var(--bfc-base);
     border-bottom: 1px solid var(--bfc-base-dimmed);
+    /* Reclaim the 2.2rem gutter Material reserves for the result icon, which we
+     * hide below, and give every row a touch more side breathing room so left
+     * edges stay aligned with the page-title band. */
+    padding-inline: 1.2rem;
+    /* Subordinate the injected body (see the body rule below). Headings set
+     * their own size, so only paragraphs/code/lists inherit this; `code` is
+     * 0.9em so it scales down with it automatically. */
+    font-size: var(--bf-font-size-s);
 }
 
-.md-search-result__article:hover {
+/* Hover and keyboard selection (Material moves focus onto the result <a>):
+ * surface change only, no theme text. */
+.md-search-result__article:hover,
+.md-search-result__link:focus .md-search-result__article {
     background-color: var(--bfc-base-2);
 }
 
-.md-search-result__title {
+/* Drop the per-result document icon; type size alone carries the hierarchy. */
+.md-search-result__icon {
+    display: none;
+}
+
+/* Result titles are bare, class-less headings that would otherwise inherit
+ * Bifrost's large heading size. This rule sits in the components layer (after
+ * base), so it beats base.css's `.md-typeset h1` regardless of specificity.
+ * Section titles get a compact size; the page <h1> is bumped up below. */
+.md-search-result__article :where(h1, h2, h3, h4, h5, h6) {
     color: var(--bfc-base-c);
+    font-size: var(--bf-font-size-l);
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0;
+}
+
+/* Page-title rows are their own shaded band (one <h1>, no body). Give them
+ * vertical breathing room and a larger title so each group reads as a header. */
+.md-search-result__article:has(h1) {
+    padding-block: 0.5rem;
+}
+
+/* Section rows (everything that isn't the page-title band) otherwise sit flush
+ * against the band's bottom border; lift the title off the line and separate
+ * consecutive sections. */
+.md-search-result__article:not(:has(h1)) {
+    padding-top: 0.6rem;
+}
+
+.md-search-result__article h1 {
+    font-size: var(--bf-font-size-h3);
+}
+
+/* Tame the injected teaser body: Material drops the matched section's full
+ * rendered HTML (paragraphs, code blocks, lists) straight into the article.
+ * Dim it, tighten block spacing, and rein in list indentation so each result
+ * stays a compact preview rather than a full article. */
+.md-search-result__article :where(p, pre, ol, ul) {
+    color: var(--bfc-base-c-2);
+    margin: 0.35rem 0;
+}
+
+.md-search-result__article :where(ol, ul) {
+    padding-left: 1.2rem;
 }
 
 .md-search-result__teaser {

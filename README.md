@@ -59,9 +59,9 @@ Adding `intility-bifrost` to your plugins list gives you:
 - **Bifrost design system** - Colors, typography, and component styling matching the Intility design system
 - **Light/dark mode** - Automatic theme switching with Bifrost color variables
 - **Theme colors** - teal, purple, pink, yellow (set via `primary` in your palette config)
-- **Typography** - Satoshi for headings, Open Sans for body, JetBrains Mono for code
-- **23 markdown extensions** - Admonitions, code highlighting, tabs, mermaid diagrams, math (MathJax), emoji, task lists, and more
-- **13 theme features** - Instant navigation, search suggestions, code copy buttons, etc.
+- **Typography** - Satoshi for all text, JetBrains Mono for code (both self-hosted, no Google Fonts)
+- **Markdown extensions** - Admonitions, code highlighting, tabs, mermaid diagrams, emoji, task lists, and more
+- **Theme features** - Instant navigation, search suggestions, code copy buttons, and more
 - **Admonition icons** - Custom FontAwesome icons for all admonition types
 - **Bundled plugins** - `mkdocs-awesome-nav` and `mkdocs-git-revision-date-localized-plugin` are installed alongside; opt in by adding them to your `plugins:` list
 

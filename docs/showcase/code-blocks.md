@@ -34,6 +34,33 @@ Features: `content.code.copy`, `content.code.annotate`
     ```
     ````
 
+## Titled Code Block
+
+A `title="…"` fence renders a header bar (language label or filename) with the
+copy button, matching the [Bifrost Highlighter](https://bifrost.intility.com/react/highlighter).
+
+=== "Result"
+
+    ```python title="fibonacci.py"
+    def fibonacci(n: int) -> list[int]:
+        """Generate the first n Fibonacci numbers."""
+        if n <= 0:
+            return []
+        sequence = [0, 1]
+        for _ in range(2, n):
+            sequence.append(sequence[-1] + sequence[-2])
+        return sequence[:n]
+    ```
+
+=== "Markdown"
+
+    ````markdown
+    ```python title="fibonacci.py"
+    def fibonacci(n: int) -> list[int]:
+        ...
+    ```
+    ````
+
 ## Line Numbers and Highlighted Lines
 
 === "Result"
