@@ -1,8 +1,8 @@
-# Admonitions
+# Messages
 
 Extensions: `admonition`, `pymdownx.details`, `github-callouts`
 
-Two syntaxes produce admonitions: the standard `!!!` syntax (from the `admonition` extension) and GitHub-style alert blocks using `> [!TYPE]` (from the `github-callouts` extension).
+Admonitions render as Bifrost **Message** components. Two syntaxes produce them: the standard `!!!` syntax (from the `admonition` extension) and GitHub-style alert blocks using `> [!TYPE]` (from the `github-callouts` extension).
 
 ## GitHub Alert Syntax
 
@@ -42,7 +42,7 @@ Two syntaxes produce admonitions: the standard `!!!` syntax (from the `admonitio
     > Actions that are irreversible or could cause data loss.
     ```
 
-## All 12 Admonition Types
+## All 12 Message Types
 
 === "Result"
 
@@ -122,7 +122,7 @@ Two syntaxes produce admonitions: the standard `!!!` syntax (from the `admonitio
         A citation or noteworthy statement.
     ```
 
-## Collapsible Admonitions
+## Collapsible Messages
 
 === "Result"
 
@@ -131,7 +131,7 @@ Two syntaxes produce admonitions: the standard `!!!` syntax (from the `admonitio
         You can put any content here, including code blocks and lists.
 
     ???+ tip "Expanded by default (click to collapse)"
-        This admonition starts open but can be collapsed by clicking the header.
+        This message starts open but can be collapsed by clicking the header.
 
 === "Markdown"
 
@@ -140,7 +140,7 @@ Two syntaxes produce admonitions: the standard `!!!` syntax (from the `admonitio
         This content is hidden until the reader clicks.
 
     ???+ tip "Expanded by default (click to collapse)"
-        This admonition starts open but can be collapsed.
+        This message starts open but can be collapsed.
     ```
 
 ## Syntax Comparison

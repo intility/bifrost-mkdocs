@@ -141,35 +141,25 @@ body {
 
 /* Syntax highlighting. Material maps every Pygments token to these 13
  * variables internally, so pointing them at Bifrost tokens replaces what used
- * to be ~600 lines of hand-written .highlight .* rules. Theme-aware for free
- * via the --bfc-* tokens. */
+ * to be ~600 lines of hand-written .highlight .* rules. Values mirror the
+ * Bifrost Highlighter's Prism theme (highlighter.css): fixed semantic colors,
+ * not the active palette. Each --bfc-base-c-* token already switches per mode,
+ * so one :root block covers light and dark. */
 :root {
+    /* Highlighted-line (.hll) wash; no Bifrost token equivalent. */
     --md-code-hl-color: var(--bfc-theme-fade);
-    /* Highlighted-line (.hll) wash; Material froze it as translucent blue. */
     --md-code-hl-color--light: var(--bfc-theme-fade);
-    --md-code-hl-keyword-color: var(--bfc-theme);
-    --md-code-hl-function-color: var(--bfc-theme);
-    --md-code-hl-string-color: var(--bfc-success);
-    --md-code-hl-number-color: var(--bfc-theme);
-}
 
-/* String color is the one syntax token that needs explicit per-mode values:
- * Bifrost's --bfc-success is a status color and stays constant across modes,
- * which leaves green strings low-contrast on the light code background. Every
- * other syntax color maps to a token that already switches (theme/theme-2/
- * chill/base-*), so this is the only mode-scoped exception. */
-.bf-lightmode {
-    --md-code-hl-string-color: hsl(157, 95%, 27%);
-}
-
-.bf-darkmode {
-    --md-code-hl-string-color: var(--bfc-success);
-    --md-code-hl-comment-color: var(--bfc-base-c-2);
+    --md-code-hl-keyword-color: var(--bfc-base-c-chill);
+    --md-code-hl-function-color: var(--bfc-base-c-warning);
+    --md-code-hl-number-color: var(--bfc-base-c-success);
+    --md-code-hl-string-color: color-mix(in srgb, var(--bfc-base-c-alert), var(--bfc-base-c) 50%);
+    --md-code-hl-operator-color: var(--bfc-base-c-chill);
+    --md-code-hl-variable-color: var(--bfc-base-c-brand);
+    --md-code-hl-constant-color: var(--bfc-base-c-chill);
     --md-code-hl-name-color: var(--bfc-base-c);
-    --md-code-hl-operator-color: var(--bfc-base-c-2);
     --md-code-hl-punctuation-color: var(--bfc-base-c-2);
-    --md-code-hl-constant-color: var(--bfc-theme-2);
-    --md-code-hl-variable-color: var(--bfc-theme);
+    --md-code-hl-comment-color: var(--bfc-base-c-2);
     --md-code-hl-generic-color: var(--bfc-base-c);
-    --md-code-hl-special-color: var(--bfc-theme-2);
+    --md-code-hl-special-color: color-mix(in srgb, var(--bfc-base-c-alert), var(--bfc-base-c) 20%);
 }

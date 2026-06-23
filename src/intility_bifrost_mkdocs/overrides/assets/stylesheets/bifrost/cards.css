@@ -52,11 +52,15 @@
     padding-inline: var(--bfs16);
 }
 
+/* margin-top:0 drops Material's `.md-typeset li p` top margin, which would
+ * otherwise stack on the padding and make the top gap taller than the bottom. */
 .md-typeset .grid.cards> :is(ol, ul)>li>hr+* {
+    margin-top: 0;
     padding-top: var(--bfs16);
 }
 
 .md-typeset .grid.cards> :is(ol, ul)>li> :last-child {
+    margin-bottom: 0;
     padding-bottom: var(--bfs16);
 }
 

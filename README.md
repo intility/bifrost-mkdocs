@@ -11,7 +11,7 @@
         <img src="https://img.shields.io/badge/python-v3.10+-blue.svg?logo=python&logoColor=white&label=python" alt="Python version">
     </a>
     <a href="https://squidfunk.github.io/mkdocs-material/">
-        <img src="https://img.shields.io/badge/mkdocs--material-9.7.0+-blue.svg?logo=materialformkdocs&logoColor=white&label=mkdocs-material" alt="MkDocs Material version">
+        <img src="https://img.shields.io/badge/mkdocs--material-9.7.5+-blue.svg?logo=materialformkdocs&logoColor=white&label=mkdocs-material" alt="MkDocs Material version">
     </a>
     <a href="https://github.com/intility/bifrost-mkdocs/blob/main/LICENSE">
         <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
@@ -20,9 +20,11 @@
 
 ## Description
 
-A pip-installable MkDocs plugin that applies Intility's Bifrost design system to Material for MkDocs. The plugin is batteries-included: colors, typography, component styling, markdown extensions, theme features, and admonition icons are all configured automatically.
+A pip-installable MkDocs plugin that applies Intility's Bifrost design system to Material for MkDocs. The plugin is batteries-included: colors, typography, component styling, markdown extensions, theme features, and message icons are all configured automatically.
 
 ## Installation
+
+Start from the [bifrost-mkdocs-template](https://github.com/intility/bifrost-mkdocs-template) for a preconfigured project, or add the plugin to an existing one:
 
 ```bash
 uv pip install intility-bifrost-mkdocs
@@ -36,13 +38,13 @@ Add `intility-bifrost` to your `mkdocs.yml` plugins:
 theme:
   name: material
   palette:
-    - scheme: default       # or 'light' — both map to Bifrost light mode
-      primary: teal         # Options: teal, purple, pink, yellow
+    - scheme: light
+      primary: &bifrost_theme teal  # Options: teal, purple, pink, yellow
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
-    - scheme: slate         # or 'dark' — both map to Bifrost dark mode
-      primary: teal
+    - scheme: dark
+      primary: *bifrost_theme
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
@@ -52,6 +54,8 @@ plugins:
   - search
 ```
 
+The `&bifrost_theme` anchor sets the color once and reuses it for both modes.
+
 ## What it provides
 
 Adding `intility-bifrost` to your plugins list gives you:
@@ -60,9 +64,10 @@ Adding `intility-bifrost` to your plugins list gives you:
 - **Light/dark mode** - Automatic theme switching with Bifrost color variables
 - **Theme colors** - teal, purple, pink, yellow (set via `primary` in your palette config)
 - **Typography** - Satoshi for all text, JetBrains Mono for code (both self-hosted, no Google Fonts)
-- **Markdown extensions** - Admonitions, code highlighting, tabs, mermaid diagrams, emoji, task lists, and more
-- **Theme features** - Instant navigation, search suggestions, code copy buttons, and more
-- **Admonition icons** - Custom FontAwesome icons for all admonition types
+- **Markdown extensions** - Messages, code highlighting, tabs, mermaid diagrams, emoji, task lists, and more
+- **Theme features** - Instant navigation, search suggestions (with a `⌘ K` / `Ctrl K` hotkey), code copy buttons, and more
+- **Message icons** - Custom FontAwesome icons for all message types
+- **Version badge** - Set `extra.version` in `mkdocs.yml` to show a Bifrost-styled version badge in the header
 - **Bundled plugins** - `mkdocs-awesome-nav` and `mkdocs-git-revision-date-localized-plugin` are installed alongside; opt in by adding them to your `plugins:` list
 
 All defaults are injected only when the user hasn't provided their own config, so you can override anything by setting it explicitly in your `mkdocs.yml`.

@@ -81,7 +81,7 @@ MATERIAL_DEFAULT_FONT_CODE = "Roboto Mono"
 # Icons mirror Bifrost's Message component, which demonstrates circle-info
 # (theme), heart (attn), circle-exclamation (warning) and triangle-exclamation
 # (alert). The remaining types reuse that circle/triangle family for a
-# consistent look. Each type also maps to a Bifrost state in admonitions.css.
+# consistent look. Each type also maps to a Bifrost state in messages.css.
 DEFAULT_ADMONITION_ICONS: dict[str, str] = {
     # theme
     "note": "fontawesome/solid/circle-info",

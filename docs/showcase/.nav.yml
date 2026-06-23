@@ -5,13 +5,13 @@ nav:
   - Keyboard Keys: keyboard-keys.md
   - Lists: lists.md
   - Tables: tables.md
-  - Admonitions: admonitions.md
-  - Code Blocks: code-blocks.md
-  - Content Tabs: content-tabs.md
+  - Messages: messages.md
+  - Highlighter: highlighter.md
+  - Tabs: tabs.md
   - Diagrams: diagrams.md
   - Footnotes: footnotes.md
   - Abbreviations: abbreviations.md
   - Attributes: attributes.md
   - Icons & Emojis: icons-emojis.md
-  - Grid Cards: grid-cards.md
+  - Cards: cards.md
   - Snippets: snippets.md

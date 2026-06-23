@@ -68,7 +68,7 @@ Layout under `src/intility_bifrost_mkdocs/overrides/`:
 - `assets/stylesheets/bifrost.css` — a thin manifest that imports the framework
   and the override partials into their layers.
 - `assets/stylesheets/bifrost/` — the override partials, one per concern
-  (`tokens`, `base`, `admonitions`, `code`, `nav`, `tabs`, `search`, `footer`,
+  (`tokens`, `base`, `messages`, `highlighter`, `nav`, `tabs`, `search`, `footer`,
   `misc`).
 
 ### Adding an override

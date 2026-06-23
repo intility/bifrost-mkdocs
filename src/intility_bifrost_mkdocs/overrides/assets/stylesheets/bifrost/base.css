@@ -61,6 +61,20 @@ body {
     line-height: 1.6;
 }
 
+/* Theme-tinted list markers, matching Bifrost's .bf-ul/.bf-ol. Material forces
+ * disc at every level; Bifrost uses hollow circles for nested unordered lists. */
+.md-typeset :is(ul, ol) ::marker {
+    color: var(--bfc-base-c-theme);
+}
+
+.md-typeset ul ul {
+    list-style-type: circle;
+}
+
+.md-typeset ol ::marker {
+    font-weight: 600;
+}
+
 /* The Bifrost framework underlines every a[href], which wrongly underlines
  * Material's chrome (nav, tabs, breadcrumbs). Restore the no-underline default;
  * prose links re-enable underline on hover below. */

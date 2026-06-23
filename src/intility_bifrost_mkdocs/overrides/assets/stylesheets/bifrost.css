@@ -14,10 +14,10 @@
 
 @import url("bifrost/tokens.css") layer(bifrost-overrides.tokens);
 @import url("bifrost/base.css") layer(bifrost-overrides.base);
-@import url("bifrost/admonitions.css") layer(bifrost-overrides.components);
+@import url("bifrost/messages.css") layer(bifrost-overrides.components);
 @import url("bifrost/cards.css") layer(bifrost-overrides.components);
 @import url("bifrost/checkbox.css") layer(bifrost-overrides.components);
-@import url("bifrost/code.css") layer(bifrost-overrides.components);
+@import url("bifrost/highlighter.css") layer(bifrost-overrides.components);
 @import url("bifrost/nav.css") layer(bifrost-overrides.components);
 @import url("bifrost/tabs.css") layer(bifrost-overrides.components);
 @import url("bifrost/search.css") layer(bifrost-overrides.components);

@@ -1,4 +1,4 @@
-# Grid Cards
+# Cards
 
 Extension: `md_in_html`
 

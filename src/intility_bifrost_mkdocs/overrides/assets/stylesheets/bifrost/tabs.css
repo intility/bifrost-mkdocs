@@ -1,18 +1,61 @@
-/* Content tabs (pymdownx.tabbed). The active-indicator color already follows
- * the mapped --md-accent-fg-color token. */
+/* Content tabs (pymdownx.tabbed, alternate style) with content.tabs.link.
+ *
+ * Bifrost's basic tabs (.bf-tab) are neutral: inactive labels --bfc-base-c-2,
+ * the active label --bfc-base-c with a --bfc-base-c indicator bar, regular
+ * weight, tight to the text. tokens.css already maps Material's tab colours
+ * this way, so the colours need no help here.
+ *
+ * The catch: content.tabs.link wraps each label in an <a> at runtime (adding
+ * .tabbed-labels--linked), and that <a> picks up Bifrost's teal link colour and
+ * underline, making the tabs read as links. Force the <a> back to inherit the
+ * label colour and drop the underline so the neutral mapping shows through.
+ * (These overrides live in the top bifrost-overrides cascade layer.) */
+
+.md-typeset .tabbed-labels--linked>label>a {
+    color: inherit;
+    text-decoration-line: none;
+}
+
+.md-typeset .tabbed-labels {
+    /* 16px gap between tabs, and a 1px base-c-dimmed baseline (Material's
+     * default is a near-invisible --lightest inset shadow). */
+    gap: 16px;
+    box-shadow: 0 -1px var(--bfc-base-c-dimmed) inset;
+}
 
 .md-typeset .tabbed-labels>label {
-    color: var(--bfc-base-c-2);
-    font-weight: 500;
+    /* Regular weight at the medium font size (Material default is 700/.64rem),
+     * inherited by the inner <a>. */
+    font-size: var(--bf-font-size-m);
+    font-weight: 400;
 }
 
+/* No horizontal padding so the indicator hugs the label text. content.tabs.link
+ * moves the padding onto the inner <a>, so pad whichever box is the real one and
+ * zero the linked outer label to avoid doubling. */
+.md-typeset .tabbed-labels>label,
+.md-typeset .tabbed-labels--linked>label>a {
+    padding: var(--rem8) 0;
+}
+
+.md-typeset .tabbed-labels--linked>label {
+    padding: 0;
+}
+
+/* Hover: faint base-c-dimmed underline (Bifrost recolours the 2px transparent
+ * border-bottom Material already puts on the label). The active tab is
+ * unaffected: its dark ::before indicator paints over this border. */
 .md-typeset .tabbed-labels>label:hover {
-    color: var(--bfc-theme);
+    border-bottom-color: var(--bfc-base-c-dimmed);
 }
 
-.md-typeset .tabbed-set>input:checked+label {
-    color: var(--bfc-theme);
-    font-weight: 600;
+/* Material hides the overflow scroll-controls with opacity:0 (not display:none),
+ * and their .tabbed-button keeps pointer-events:auto, so a hidden prev/next
+ * control still overlaps and eats clicks on the first/last tab's edge. Vanilla
+ * Material masks this with wide label padding; our tabs are tight, so the
+ * ~1.2rem control covers ~half of a short tab. Disable the button while hidden. */
+.md-typeset .tabbed-control[hidden] .tabbed-button {
+    pointer-events: none;
 }
 
 .md-typeset .tabbed-content {

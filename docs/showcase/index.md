@@ -11,13 +11,13 @@ This section demonstrates every enabled Markdown extension and Material for MkDo
 | [Keyboard Keys](keyboard-keys.md) | `keys` |
 | [Lists](lists.md) | `tasklist`, `def_list` |
 | [Tables](tables.md) | `tables` |
-| [Admonitions](admonitions.md) | `admonition`, `details`, `github-callouts` |
-| [Code Blocks](code-blocks.md) | `highlight`, `superfences`, `inlinehilite` |
-| [Content Tabs](content-tabs.md) | `tabbed` |
+| [Messages](messages.md) | `admonition`, `details`, `github-callouts` |
+| [Highlighter](highlighter.md) | `highlight`, `superfences`, `inlinehilite` |
+| [Tabs](tabs.md) | `tabbed` |
 | [Diagrams](diagrams.md) | `superfences` (mermaid) |
 | [Footnotes](footnotes.md) | `footnotes` |
 | [Abbreviations](abbreviations.md) | `abbr` |
 | [Attributes](attributes.md) | `attr_list` |
 | [Icons & Emojis](icons-emojis.md) | `emoji` |
-| [Grid Cards](grid-cards.md) | `md_in_html` |
+| [Cards](cards.md) | `md_in_html` |
 | [Snippets](snippets.md) | `snippets` |

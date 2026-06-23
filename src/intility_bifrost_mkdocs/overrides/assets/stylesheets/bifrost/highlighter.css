@@ -18,6 +18,19 @@
     margin: 0;
 }
 
+/* Control-flow keywords, JS/TS only. The Bifrost Highlighter (Prism) splits
+ * keywords into attn for control-flow (return/if/for) and chill for everything
+ * else, but only for grammars that emit keyword.control-flow: JavaScript and
+ * TypeScript. Pygments mirrors this split as .k (control-flow) vs .kd/.kn/.kr
+ * (declarations), so scope it to those languages. Python, Go, etc. use flat
+ * keywords in Prism (all chill), so they keep the keyword var unchanged. */
+.md-typeset .language-javascript.highlight .k,
+.md-typeset .language-typescript.highlight .k,
+.md-typeset .language-jsx.highlight .k,
+.md-typeset .language-tsx.highlight .k {
+    color: var(--bfc-base-c-attn);
+}
+
 /* Tight 8px padding matching .bf-highlighter-body; the gutter keeps the same
  * vertical padding and the .hll bleed is re-aligned to it. */
 .md-typeset .highlight pre>code {
@@ -37,11 +50,14 @@
     background-color: var(--bfc-base-2);
     border: var(--bf-border);
     border-radius: var(--bf-radius);
-    overflow: hidden;
+    /* No overflow:hidden here. It would clip code-annotation popovers, whose
+     * .md-tooltip is position:absolute against the inner <pre> and only escapes
+     * the block if no ancestor between it and <pre> clips. Corner rounding is
+     * handled per-element instead: the header rounds its own top corners, and
+     * the 8px code padding keeps .hll bleed clear of the radius. */
     /* Own the block margin here. Material relocates it onto .md-content__inner >
      * .highlight only for top-level blocks; nested ones keep it on the inner
-     * <pre>, where overflow:hidden + border block collapsing and trap it as dead
-     * space inside the card. Zeroing the <pre> (below) keeps spacing outside. */
+     * <pre>. Zeroing the <pre> (below) keeps spacing outside. */
     margin-block: 1em;
 }
 
@@ -60,7 +76,9 @@
     background-color: var(--bfc-base-2);
     color: var(--bfc-base-c);
     border-bottom: var(--bf-border);
-    border-radius: 0;
+    /* Round to the container's inner radius (outer minus the 1px border) so the
+     * header nests cleanly now that .highlight no longer clips. */
+    border-radius: calc(var(--bf-radius) - 1px) calc(var(--bf-radius) - 1px) 0 0;
     padding: var(--rem8) var(--bfs16);
     font-size: var(--bf-font-size-m);
     font-weight: 600;
@@ -139,5 +157,27 @@
 
 .md-dialog__inner {
     color: var(--bfc-theme-fade-c);
+    font-size: var(--bf-font-size-m);
+}
+
+/* Code-annotation popover, styled as a Bifrost dropdown surface: elevated base,
+ * theme border, radius, and shadow. Material's .md-tooltip is position:absolute
+ * and now escapes the block since .highlight dropped overflow:hidden. */
+.md-tooltip {
+    background-color: var(--bfc-base-1);
+    color: var(--bfc-base-c);
+    border: var(--bf-border);
+    border-radius: var(--bf-radius);
+    box-shadow: var(--bf-shadow);
+    /* Material hardcodes --md-tooltip-width to 20rem for annotations, so every
+     * popover is a fixed 400px box. Shrink to content instead, capping at the
+     * old width so long notes still wrap. The marker-aligned left position is
+     * unaffected (it tracks --md-tooltip-x, not the width). */
+    width: fit-content;
+    max-width: min(20rem, calc(100vw - 1.6rem));
+}
+
+.md-tooltip__inner {
+    padding: var(--bfs8) var(--bfs12);
     font-size: var(--bf-font-size-m);
 }

@@ -18,6 +18,8 @@
 .md-header__title {
     color: var(--bfc-base-c);
     font-weight: 700;
+    /* Material's 1rem left margin reads too airy next to the round logo. */
+    margin-left: 0.4rem;
 }
 
 .md-header__source {
@@ -79,6 +81,61 @@
 
 .md-nav__link--active {
     font-weight: 600;
+}
+
+/* Table of contents (secondary sidebar): Bifrost title-link styling, theme
+ * colored with an underline on hover only. See bifrost.intility.com/design/list.
+ * Material's scroll-spy "--active" marker tracks the heading at the top of the
+ * viewport (not the clicked link), so it is left flat to avoid highlighting a
+ * section the reader didn't pick. */
+.md-nav--secondary .md-nav__link,
+.md-nav--secondary .md-nav__link:hover,
+.md-nav--secondary .md-nav__link:focus,
+.md-nav--secondary .md-nav__link--active,
+.md-nav--secondary .md-nav__item--active>.md-nav__link {
+    color: var(--bfc-base-c-theme);
+    font-weight: 400;
+}
+
+/* Material gives .md-ellipsis overflow:hidden for single-line truncation, but TOC
+ * entries wrap instead of truncating, so the clip never trims text here, it only
+ * cuts the bottom off the hover underline (offset + thickness fall past the tight
+ * line box). overflow:clip + a margin lets the underline paint in full while a
+ * long unbreakable heading still clips horizontally. */
+.md-nav--secondary .md-ellipsis {
+    overflow: clip;
+    overflow-clip-margin: 0.5em;
+}
+
+/* Underline the text span only, never the connector marker. The marker is a
+ * ::before on the link (a sibling before .md-ellipsis), so scoping the underline
+ * to .md-ellipsis keeps it off the marker's inline-block box. Hover only: :focus
+ * (even :focus-visible on some browsers/OS settings) sticks after a mouse click,
+ * which read as random items staying underlined. */
+.md-nav--secondary .md-nav__link:hover .md-ellipsis {
+    text-decoration-line: underline;
+    text-decoration-thickness: 0.1667em;
+    text-underline-offset: var(--bf-underline-offset);
+}
+
+/* Nested TOC items get Bifrost's connector markers, rendered inline right before
+ * the link text with a small fixed gap so the marker always hugs the text, on top
+ * of the per-level indent Material already reserves (padding-left 1.4rem, 2rem ...).
+ * 2nd level: rotated '¬' corner arrow; 3rd level and deeper: '−' dash. */
+.md-nav--secondary .md-nav .md-nav__link::before {
+    content: "¬";
+    display: inline-block;
+    margin-right: 0.25rem;
+    color: var(--bfc-base-c-2);
+    rotate: 180deg;
+    scale: 1.3;
+    transform-origin: 50% 53%;
+}
+
+.md-nav--secondary .md-nav .md-nav .md-nav__link::before {
+    content: "−";
+    rotate: unset;
+    scale: unset;
 }
 
 /* Mobile drawer: keep Material's primary-tinted title bar neutral. */

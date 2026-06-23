@@ -16,7 +16,7 @@ The marker must be on its own line. Paths are resolved relative to the directory
 
 ## Including Part of a File Into a Block
 
-Indent the marker to pull a file into another block, such as an admonition, and append a line range to include only a slice. The example below includes lines 3 through 8 of the changelog:
+Indent the marker to pull a file into another block, such as a message, and append a line range to include only a slice. The example below includes lines 3 through 8 of the changelog:
 
 === "Result"
 
