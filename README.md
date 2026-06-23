@@ -32,29 +32,23 @@ uv pip install intility-bifrost-mkdocs
 
 ## Usage
 
-Add `intility-bifrost` to your `mkdocs.yml` plugins:
+Set the theme to `material` and add `intility-bifrost` to your `mkdocs.yml` plugins:
 
 ```yaml
 theme:
   name: material
-  palette:
-    - scheme: light
-      primary: &bifrost_theme teal  # Options: teal, purple, pink, yellow
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - scheme: dark
-      primary: *bifrost_theme
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
 
 plugins:
   - intility-bifrost
   - search
 ```
 
-The `&bifrost_theme` anchor sets the color once and reuses it for both modes.
+That's the whole setup. The plugin configures the markdown extensions, theme
+features, fonts, icons, and a light/dark palette toggle for you.
+
+To pick a different theme color, set a version badge, or build navigation from
+`.nav.yml` files, see the
+**[Quick Start](https://intility.github.io/bifrost-mkdocs/)** in the docs.
 
 ## What it provides
 

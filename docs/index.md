@@ -20,7 +20,7 @@ See the [Feature Showcase](showcase/index.md) for a live demonstration of every 
 
 3. **Start writing docs.** The plugin configures the markdown extensions, theme features, fonts, and icons for you.
 
-That's all you need. Everything else (markdown extensions, theme features, fonts, icons) is injected automatically and can be overridden by setting it yourself. Add a [color scheme and dark-mode toggle](#change-the-color-scheme) when you want them.
+That's all you need. Everything else (markdown extensions, theme features, fonts, icons, and a teal light/dark palette toggle) is injected automatically and can be overridden by setting it yourself. To use a [different color](#change-the-color-scheme), set your own `palette`.
 
 ## Overriding Defaults
 
@@ -36,7 +36,7 @@ markdown_extensions:
 
 ### Change the Color Scheme
 
-Add a `palette` to your theme config. This sets the Bifrost theme color and enables the light/dark mode toggle:
+The plugin injects a teal light/dark palette by default. To use a different color, set your own `palette` (this also lets you customize the toggle icons and labels):
 
 ```yaml
 theme:
@@ -54,7 +54,7 @@ theme:
         name: Switch to light mode
 ```
 
-The `&bifrost_theme` anchor defines the color once and reuses it for both modes. Without a palette the site still works; it just uses the default color and has no mode toggle.
+The `&bifrost_theme` anchor defines the color once and reuses it for both modes. A user-defined `palette` replaces the injected default entirely, so include both modes if you want to keep the toggle.
 
 ### Version Badge
 

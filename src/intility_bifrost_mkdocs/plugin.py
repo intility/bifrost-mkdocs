@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import copy
 from pathlib import Path
 from typing import Any
 
@@ -62,6 +63,32 @@ DEFAULT_FEATURES: list[str] = [
     "content.code.copy",
     "content.code.annotate",
     "content.tabs.link",
+]
+
+# ---------------------------------------------------------------------------
+# Default palette: a light/dark toggle on the teal theme.
+# ---------------------------------------------------------------------------
+# Mirrors the quick start in the docs so the minimal config (just the plugin)
+# ships with a working light/dark toggle. `scheme` uses light/dark rather than
+# Material's default/slate; bifrost-theme.js maps those onto Bifrost's
+# light/dark classes and Bifrost's cascade layers handle the colors.
+DEFAULT_PALETTE: list[dict[str, Any]] = [
+    {
+        "scheme": "light",
+        "primary": "teal",
+        "toggle": {
+            "icon": "material/brightness-7",
+            "name": "Switch to dark mode",
+        },
+    },
+    {
+        "scheme": "dark",
+        "primary": "teal",
+        "toggle": {
+            "icon": "material/brightness-4",
+            "name": "Switch to light mode",
+        },
+    },
 ]
 
 # ---------------------------------------------------------------------------
@@ -186,6 +213,16 @@ def _inject_theme_features(config: MkDocsConfig) -> None:
             features.append(feature)
 
     config.theme["features"] = features
+
+
+def _inject_palette(config: MkDocsConfig) -> None:
+    """Set a default light/dark palette (with toggle) if the user hasn't.
+
+    Gives the minimal config a working light/dark toggle. A user-defined
+    ``palette`` (even a single-entry one) is left untouched.
+    """
+    if not config.theme.get("palette"):
+        config.theme["palette"] = copy.deepcopy(DEFAULT_PALETTE)
 
 
 def _inject_theme_settings(config: MkDocsConfig) -> None:
@@ -315,6 +352,7 @@ class IntilityBifrostPlugin(BasePlugin):
         # Inject sensible defaults (never overwrites user-provided config).
         _inject_markdown_extensions(config)
         _inject_theme_features(config)
+        _inject_palette(config)
         _inject_theme_settings(config)
         _inject_extra_javascript(config)
 

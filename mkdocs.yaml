@@ -16,17 +16,6 @@ theme:
   language: en
   logo: assets/bifrost-logo.svg
   favicon: assets/bifrost-logo.svg
-  palette:
-    - scheme: light
-      primary: &bifrost_theme teal # Options: teal, purple, pink, yellow
-      toggle:
-        icon: material/brightness-7
-        name: Switch to dark mode
-    - scheme: dark
-      primary: *bifrost_theme
-      toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
 
 plugins:
   - intility-bifrost
@@ -36,6 +25,3 @@ plugins:
   - git-revision-date-localized:
       enable_creation_date: true
       type: timeago
-
-# Navigation is defined with awesome-nav via .nav.yml files in docs/ and
-# docs/showcase/ instead of an explicit nav: block here.

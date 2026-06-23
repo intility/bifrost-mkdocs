@@ -12,6 +12,7 @@ from intility_bifrost_mkdocs.plugin import (
     DEFAULT_ADMONITION_ICONS,
     DEFAULT_EXTENSIONS,
     DEFAULT_FEATURES,
+    DEFAULT_PALETTE,
     DEFAULT_TOP_ICON,
     IntilityBifrostPlugin,
     _build_layer_bootstrap_css,
@@ -257,6 +258,46 @@ def test_user_top_icon_preserved():
     result = plugin.on_config(config)
 
     assert result.theme["icon"]["top"] == "material/arrow-up"
+
+
+# ---------------------------------------------------------------------------
+# Palette
+# ---------------------------------------------------------------------------
+
+
+def test_default_palette_injected():
+    """The minimal config should get a light/dark palette with a toggle."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    result = plugin.on_config(config)
+
+    palette = result.theme["palette"]
+    assert [entry["scheme"] for entry in palette] == ["light", "dark"]
+    assert all("toggle" in entry for entry in palette)
+
+
+def test_user_palette_preserved():
+    """A user-provided palette should not be overwritten."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    config.theme["palette"] = [{"scheme": "slate", "primary": "purple"}]
+
+    result = plugin.on_config(config)
+
+    assert result.theme["palette"] == [{"scheme": "slate", "primary": "purple"}]
+
+
+def test_default_palette_not_shared_across_configs():
+    """Injected palette must be a copy, not the shared module constant."""
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    result = plugin.on_config(config)
+    result.theme["palette"][0]["primary"] = "pink"
+
+    assert DEFAULT_PALETTE[0]["primary"] == "teal"
 
 
 # ---------------------------------------------------------------------------
