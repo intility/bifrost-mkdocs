@@ -69,6 +69,7 @@ Adding `intility-bifrost` to your plugins list gives you:
 - **Message icons** - Custom FontAwesome icons for all message types
 - **Version badge** - Set `extra.version` in `mkdocs.yml` to show a Bifrost-styled version badge in the header
 - **Bundled plugins** - `mkdocs-awesome-nav` and `mkdocs-git-revision-date-localized-plugin` are installed alongside; opt in by adding them to your `plugins:` list
+- **GitHub-style alerts** - `markdown-callouts` is bundled and auto-enabled, so `> [!NOTE]` blocks render as Bifrost Messages
 
 All defaults are injected only when the user hasn't provided their own config, so you can override anything by setting it explicitly in your `mkdocs.yml`.
 
