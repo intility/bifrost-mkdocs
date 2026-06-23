@@ -57,6 +57,55 @@
     return badge;
   }
 
+  function isMacPlatform(nav) {
+    if (!nav) return false;
+    var platform = nav.platform || '';
+    var ua = nav.userAgent || '';
+    return /Mac|iPhone|iPad|iPod/.test(platform) || /Mac/.test(ua);
+  }
+
+  function searchHotkeyLabel(isMac) {
+    return isMac ? '⌘ K' : 'Ctrl K';
+  }
+
+  function isSearchHotkey(event, isMac) {
+    if (!event) return false;
+    if ((event.key || '').toLowerCase() !== 'k') return false;
+    return isMac ? event.metaKey === true : event.ctrlKey === true;
+  }
+
+  function insertSearchHint(doc, form, isMac) {
+    if (!doc || !form) return null;
+    if (form.querySelector && form.querySelector('.bf-search-hint')) {
+      return null;
+    }
+    var hint = doc.createElement('kbd');
+    hint.className = 'bf-search-hint';
+    hint.textContent = searchHotkeyLabel(isMac);
+    hint.setAttribute('aria-hidden', 'true');
+    form.appendChild(hint);
+    return hint;
+  }
+
+  function openSearch(doc) {
+    if (!doc) return null;
+    var toggle = doc.getElementById ? doc.getElementById('__search') : null;
+    if (toggle && !toggle.checked) {
+      toggle.checked = true;
+      if (typeof toggle.dispatchEvent === 'function' && typeof Event === 'function') {
+        toggle.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+    var input = doc.querySelector
+      ? doc.querySelector('[data-md-component=search-query]')
+      : null;
+    if (input && typeof input.focus === 'function') {
+      input.focus();
+      if (typeof input.select === 'function') input.select();
+    }
+    return input;
+  }
+
   function init() {
     var html = document.documentElement;
     var body = document.body;
@@ -66,6 +115,15 @@
     if (version) {
       insertVersionBadge(document, document.querySelector('.md-header__topic'), version);
     }
+
+    var isMac = isMacPlatform(typeof navigator !== 'undefined' ? navigator : null);
+    insertSearchHint(document, document.querySelector('.md-search__form'), isMac);
+    document.addEventListener('keydown', function (event) {
+      if (isSearchHotkey(event, isMac)) {
+        event.preventDefault();
+        openSearch(document);
+      }
+    });
 
     var observer = new MutationObserver(function () {
       syncBifrostTheme(html, body);
@@ -89,6 +147,10 @@
       syncBifrostTheme: syncBifrostTheme,
       readVersion: readVersion,
       insertVersionBadge: insertVersionBadge,
+      isMacPlatform: isMacPlatform,
+      searchHotkeyLabel: searchHotkeyLabel,
+      isSearchHotkey: isSearchHotkey,
+      insertSearchHint: insertSearchHint,
       BIFROST_THEMES: BIFROST_THEMES,
       DARK_SCHEMES: DARK_SCHEMES,
       DEFAULT_THEME: DEFAULT_THEME,

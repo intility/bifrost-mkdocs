@@ -1,0 +1,31 @@
+/* Mermaid 11 compatibility for sequence diagrams.
+ *
+ * Material ships its Mermaid styling as a themeCSS string targeting selectors
+ * from an older Mermaid. Mermaid 11 renamed/namespaced some sequence-diagram
+ * elements (lifelines gained `.actor-line`, arrowheads gained `mermaid-<id>-*`
+ * ids), so Material's rules no longer reach them and they fall back to Mermaid's
+ * built-in purple/grey theme. Re-point them at Material's Mermaid vars (mapped
+ * to Bifrost tokens in tokens.css).
+ *
+ * !important is required: a layered !important is the only way to beat Mermaid's
+ * normal, unlayered <style> injected inside each SVG. */
+
+.mermaid svg line.actor-line {
+    stroke: var(--md-mermaid-sequence-actor-line-color) !important;
+}
+
+/* Solid (filled) arrowheads. */
+.mermaid svg marker[id$="-arrowhead"] path,
+.mermaid svg marker[id$="-filled-head"] path,
+.mermaid svg marker[id$="-solidTopArrowHead"] path,
+.mermaid svg marker[id$="-solidBottomArrowHead"] path {
+    fill: var(--md-mermaid-sequence-message-line-color) !important;
+    stroke: none;
+}
+
+/* Open (stroked) arrowheads. */
+.mermaid svg marker[id$="-stickTopArrowHead"] path,
+.mermaid svg marker[id$="-stickBottomArrowHead"] path,
+.mermaid svg marker[id$="-crosshead"] path {
+    stroke: var(--md-mermaid-sequence-message-line-color) !important;
+}

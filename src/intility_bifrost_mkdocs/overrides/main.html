@@ -12,8 +12,17 @@
   <title>{% if page.title and not page.is_homepage %}{{ page.title | striptags }} - {% endif %}{{ config.site_name }}</title>
 {% endblock %}
 
+{#
+  Demote Material into a low-priority cascade layer. bifrost-layers.css declares
+  the layer order (material < bifrost-framework < bifrost-overrides) and
+  re-imports Material's CSS into the `material` layer, so our overrides win
+  without a specificity war. The plugin generates it and serves it as a real
+  <link> (not inline <style>) to survive instant navigation; see plugin.py for
+  the full rationale. It must precede bifrost.css so the order is declared first.
+#}
 {% block styles %}
-  {{ super() }}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/bifrost-layers.css' | url }}">
+  {% include "partials/icons.html" %}
   <link rel="stylesheet" href="{{ 'assets/stylesheets/bifrost.css' | url }}">
 {% endblock %}
 

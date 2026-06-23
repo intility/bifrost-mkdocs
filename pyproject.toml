@@ -64,6 +64,9 @@ intility_bifrost_mkdocs = [
     "overrides/**/*.html",
     "overrides/**/*.css",
     "overrides/**/*.js",
+    "overrides/**/*.woff2",
+    # Bundled-font licenses must ship alongside the woff2 (SIL OFL requirement).
+    "overrides/**/fonts/*.txt",
 ]
 
 [tool.ruff]

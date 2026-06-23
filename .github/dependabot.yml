@@ -28,3 +28,14 @@ updates:
         update-types:
           - "minor"
           - "patch"
+
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      time: "09:00"
+      timezone: "Europe/Oslo"
+    groups:
+      npm:
+        patterns:
+          - "*"

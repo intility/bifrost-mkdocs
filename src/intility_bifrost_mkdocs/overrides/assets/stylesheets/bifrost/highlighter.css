@@ -1,0 +1,183 @@
+/* Code blocks + inline code + copy button, matching the Bifrost Highlighter
+ * (https://bifrost.intility.com/react/highlighter). Backgrounds and syntax
+ * colors come from the mapped --md-code-* / --md-code-hl-* vars (tokens.css);
+ * only structural bits live here. */
+
+/* Inline code: translucent wash (inverted base at 10%) rather than Material's
+ * solid fill, matching `:where(.bf-content) code`. */
+.md-typeset code {
+    background-color: color-mix(in lch, var(--bfc-base-c-inverted) 10%, transparent);
+    padding: 0 0.2rem;
+    margin: 0 0.1rem;
+    border-radius: var(--bf-radius-xs);
+    font-size: 0.9em;
+}
+
+.md-typeset pre>code {
+    background-color: transparent;
+    margin: 0;
+}
+
+/* Control-flow keywords, JS/TS only. The Bifrost Highlighter (Prism) splits
+ * keywords into attn for control-flow (return/if/for) and chill for everything
+ * else, but only for grammars that emit keyword.control-flow: JavaScript and
+ * TypeScript. Pygments mirrors this split as .k (control-flow) vs .kd/.kn/.kr
+ * (declarations), so scope it to those languages. Python, Go, etc. use flat
+ * keywords in Prism (all chill), so they keep the keyword var unchanged. */
+.md-typeset .language-javascript.highlight .k,
+.md-typeset .language-typescript.highlight .k,
+.md-typeset .language-jsx.highlight .k,
+.md-typeset .language-tsx.highlight .k {
+    color: var(--bfc-base-c-attn);
+}
+
+/* Tight 8px padding matching .bf-highlighter-body; the gutter keeps the same
+ * vertical padding and the .hll bleed is re-aligned to it. */
+.md-typeset .highlight pre>code {
+    padding: var(--bfs8);
+}
+
+.md-typeset .highlight .linenos {
+    padding: var(--bfs8) 0 var(--bfs8) var(--bfs8);
+}
+
+.md-typeset .highlight .hll {
+    margin: 0 calc(-1 * var(--bfs8));
+    padding: 0 var(--bfs8);
+}
+
+.md-typeset .highlight {
+    background-color: var(--bfc-base-2);
+    border: var(--bf-border);
+    border-radius: var(--bf-radius);
+    /* No overflow:hidden here. It would clip code-annotation popovers, whose
+     * .md-tooltip is position:absolute against the inner <pre> and only escapes
+     * the block if no ancestor between it and <pre> clips. Corner rounding is
+     * handled per-element instead: the header rounds its own top corners, and
+     * the 8px code padding keeps .hll bleed clear of the radius. */
+    /* Own the block margin here. Material relocates it onto .md-content__inner >
+     * .highlight only for top-level blocks; nested ones keep it on the inner
+     * <pre>. Zeroing the <pre> (below) keeps spacing outside. */
+    margin-block: 1em;
+}
+
+.md-typeset .highlight pre {
+    margin: 0;
+}
+
+/* Inside a content tab Material zeroes the block's margins, flushing it to the
+ * tab-label underline; float it below with a small gap. */
+.md-typeset .tabbed-block>.highlight:first-child {
+    margin-top: var(--bfs12);
+}
+
+/* Header bar (titled fences), mirroring .bf-section-header. */
+.md-typeset .highlight span.filename {
+    background-color: var(--bfc-base-2);
+    color: var(--bfc-base-c);
+    border-bottom: var(--bf-border);
+    /* Round to the container's inner radius (outer minus the 1px border) so the
+     * header nests cleanly now that .highlight no longer clips. */
+    border-radius: calc(var(--bf-radius) - 1px) calc(var(--bf-radius) - 1px) 0 0;
+    padding: var(--rem8) var(--bfs16);
+    font-size: var(--bf-font-size-m);
+    font-weight: 600;
+    margin-top: 0;
+}
+
+/* Line-number gutter: muted, non-selectable digits. */
+.md-typeset .highlight .linenos,
+.md-typeset .highlight .linenodiv pre {
+    color: var(--bfc-base-c-wcag);
+}
+
+.md-typeset .highlight .linenos a {
+    color: inherit;
+}
+
+/* Drop Material's inset shadow so the gutter blends into the body. */
+.md-typeset .highlight .linenodiv {
+    box-shadow: none;
+}
+
+/* Copy / code-action buttons. Material injects these into a .md-code__nav with
+ * its own rounded fill; we strip that and make a flat icon that gains a
+ * circular background on hover/focus and a theme border only while active. The
+ * circular shape and transparent 1px border are reserved up front so the hover
+ * fill is round and the active border doesn't shift the icon. */
+.md-code__nav {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+
+.md-code__button {
+    /* 28px, matching Bifrost's copy button. Use the px token, not 1.75rem:
+     * MkDocs runs a 20px root, so the rem would render 35px. */
+    width: var(--bfs28);
+    height: var(--bfs28);
+    display: grid;
+    place-items: center;
+    color: var(--bfc-base-c-2);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--bf-radius-full);
+}
+
+.md-clipboard {
+    color: var(--bfc-base-c-2);
+    background: transparent;
+    border: none;
+}
+
+.md-code__button:hover,
+.md-code__button:focus,
+.md-clipboard:hover,
+.md-clipboard:focus {
+    color: var(--bfc-theme);
+}
+
+.md-code__button:hover,
+.md-code__button:focus {
+    background: var(--bfc-base-1);
+}
+
+.md-code__button--active {
+    border-color: var(--bfc-theme);
+}
+
+/* Copy confirmation toast. Material's .md-dialog already sits bottom-right where
+ * Bifrost's FloatingMessage lives, so we only restyle the surface. */
+.md-dialog {
+    background-color: var(--bfc-theme-fade);
+    border-radius: var(--bf-radius-m);
+    padding: var(--bfs16);
+    box-shadow: var(--bf-shadow);
+}
+
+.md-dialog__inner {
+    color: var(--bfc-theme-fade-c);
+    font-size: var(--bf-font-size-m);
+}
+
+/* Code-annotation popover, styled as a Bifrost dropdown surface: elevated base,
+ * theme border, radius, and shadow. Material's .md-tooltip is position:absolute
+ * and now escapes the block since .highlight dropped overflow:hidden. */
+.md-tooltip {
+    background-color: var(--bfc-base-1);
+    color: var(--bfc-base-c);
+    border: var(--bf-border);
+    border-radius: var(--bf-radius);
+    box-shadow: var(--bf-shadow);
+    /* Material hardcodes --md-tooltip-width to 20rem for annotations, so every
+     * popover is a fixed 400px box. Shrink to content instead, capping at the
+     * old width so long notes still wrap. The marker-aligned left position is
+     * unaffected (it tracks --md-tooltip-x, not the width). */
+    width: fit-content;
+    max-width: min(20rem, calc(100vw - 1.6rem));
+}
+
+.md-tooltip__inner {
+    padding: var(--bfs8) var(--bfs12);
+    font-size: var(--bf-font-size-m);
+}

@@ -3,7 +3,6 @@ site_description: Intility Bifrost theme plugin for MkDocs Material
 site_author: Intility
 site_url: https://intility.github.io/bifrost-mkdocs
 
-
 copyright: Copyright &copy; 2026 Intility
 
 extra:
@@ -15,14 +14,16 @@ extra:
 theme:
   name: material
   language: en
+  logo: assets/bifrost-logo.svg
+  favicon: assets/bifrost-logo.svg
   palette:
     - scheme: light
-      primary: teal # Bifrost theme: teal, purple, pink, or yellow
+      primary: &bifrost_theme teal # Options: teal, purple, pink, yellow
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - scheme: dark
-      primary: teal 
+      primary: *bifrost_theme
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
@@ -31,27 +32,10 @@ plugins:
   - intility-bifrost
   - search:
       lang: en
+  - awesome-nav
   - git-revision-date-localized:
       enable_creation_date: true
       type: timeago
 
-nav:
-  - Home: index.md
-  - Feature Showcase:
-      - showcase/index.md
-      - Typography: showcase/typography.md
-      - Smart Symbols: showcase/smart-symbols.md
-      - Keyboard Keys: showcase/keyboard-keys.md
-      - Buttons: showcase/buttons.md
-      - Lists: showcase/lists.md
-      - Tables: showcase/tables.md
-      - Admonitions: showcase/admonitions.md
-      - Code Blocks: showcase/code-blocks.md
-      - Content Tabs: showcase/content-tabs.md
-      - Diagrams: showcase/diagrams.md
-      - Math: showcase/math.md
-      - Footnotes: showcase/footnotes.md
-      - Abbreviations: showcase/abbreviations.md
-      - Icons & Emojis: showcase/icons-emojis.md
-      - Grid Cards: showcase/grid-cards.md
-  - Changelog: changelog.md
+# Navigation is defined with awesome-nav via .nav.yml files in docs/ and
+# docs/showcase/ instead of an explicit nav: block here.

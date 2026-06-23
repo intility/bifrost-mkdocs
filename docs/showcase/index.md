@@ -9,15 +9,15 @@ This section demonstrates every enabled Markdown extension and Material for MkDo
 | [Typography](typography.md) | `caret`, `mark`, `tilde`, `betterem` |
 | [Smart Symbols](smart-symbols.md) | `smartsymbols` |
 | [Keyboard Keys](keyboard-keys.md) | `keys` |
-| [Buttons](buttons.md) | `attr_list` |
 | [Lists](lists.md) | `tasklist`, `def_list` |
 | [Tables](tables.md) | `tables` |
-| [Admonitions](admonitions.md) | `admonition`, `details` |
-| [Code Blocks](code-blocks.md) | `highlight`, `superfences`, `inlinehilite` |
-| [Content Tabs](content-tabs.md) | `tabbed` |
+| [Messages](messages.md) | `admonition`, `details`, `github-callouts` |
+| [Highlighter](highlighter.md) | `highlight`, `superfences`, `inlinehilite` |
+| [Tabs](tabs.md) | `tabbed` |
 | [Diagrams](diagrams.md) | `superfences` (mermaid) |
-| [Math](math.md) | `arithmatex` + MathJax |
 | [Footnotes](footnotes.md) | `footnotes` |
 | [Abbreviations](abbreviations.md) | `abbr` |
+| [Attributes](attributes.md) | `attr_list` |
 | [Icons & Emojis](icons-emojis.md) | `emoji` |
-| [Grid Cards](grid-cards.md) | `md_in_html` |
+| [Cards](cards.md) | `md_in_html` |
+| [Snippets](snippets.md) | `snippets` |

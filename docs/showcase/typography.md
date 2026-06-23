@@ -29,6 +29,20 @@ Extensions: `pymdownx.caret`, `pymdownx.mark`, `pymdownx.tilde`, `pymdownx.bette
     ^^superscript **bold**^^
     ```
 
+## Headings
+
+Headings build the page structure and the table of contents. The TOC in the
+right sidebar nests one level per heading depth, so a section like this one
+shows the connector markers at every level.
+
+### Second-level heading
+
+A `###` heading nests under its `##` parent in the table of contents.
+
+#### Third-level heading
+
+A `####` heading nests one level deeper, demonstrating the third-level marker.
+
 ## Extension Reference
 
 | Syntax | Result | Extension |

@@ -1,0 +1,21 @@
+/* Tables. The look comes from the vendored .bf-table rules; table_ext.py stamps
+ * `class="bf-table bfc-base-3-bg"` onto each table and wraps it in Material's
+ * responsive structure (.md-typeset__scrollwrap > .md-typeset__table > table).
+ * This file only reconciles that wrapper. */
+
+/* On mobile the wrapper is inline-block, collapsing a width:100% table to its
+ * content width; force block so .bf-table spans the column. scrollwrap clips
+ * only on x, so the radius is safe. */
+.md-typeset__table {
+    display: block;
+}
+
+/* Inside a content tab, mirror the code block: drop the scrollwrap's negative
+ * inline margin (it full-bleeds the table) and float it below the labels. */
+.md-typeset .tabbed-block>.md-typeset__scrollwrap {
+    margin-inline: 0;
+}
+
+.md-typeset .tabbed-block>.md-typeset__scrollwrap:first-child {
+    margin-top: var(--bfs12);
+}

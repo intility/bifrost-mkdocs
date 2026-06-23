@@ -1,0 +1,165 @@
+/* Tokens layer: fonts + Material-variable -> Bifrost-token mapping.
+ *
+ * This is the heart of the theme. Because this file lives in the
+ * `bifrost-overrides` layer (above `material`), every declaration here beats
+ * Material's own, regardless of selector specificity. So mapping Material's
+ * --md-* custom properties to Bifrost --bfc-* tokens recolors Material's entire
+ * UI in one place: structural component rules elsewhere are only needed where
+ * Material has no variable to point at.
+ *
+ * The --bfc-* tokens come from the Bifrost framework and switch automatically
+ * with .bf-lightmode / .bf-darkmode (set by bifrost-theme.js), so this mapping
+ * is scheme-agnostic: light/dark "just works" with no per-scheme rules.
+ */
+
+/* All fonts are vendored as woff2 so they load offline and render identically
+ * for every reader, independent of the OS's installed fonts. Google Fonts are
+ * disabled in plugin.py (font: false), so no remote web fonts load: text is
+ * Satoshi, code is JetBrains Mono (the Consolas/Monaco system stack stays only
+ * as a fallback for the unlikely case the woff2 fails to load). */
+@font-face {
+    font-family: "Satoshi";
+    src: url("../../vendor/fonts/satoshi-intility-variable.woff2") format("woff2");
+    font-weight: 300 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("../../vendor/fonts/jetbrains-mono-variable.woff2") format("woff2");
+    font-weight: 100 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    /* The vendored framework references these two tokens for its own
+     * components; point both at Satoshi so the framework matches. */
+    --font-satoshi: "Satoshi";
+    --font-open-sans: "Satoshi";
+
+    /* Theme fonts: Satoshi for all text, JetBrains Mono for code. Both are
+     * vendored above; the trailing system fonts are fallbacks only. */
+    --bifrost-font: "Satoshi", "Segoe UI", sans-serif;
+    --bifrost-font-code: "JetBrains Mono", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+
+    /* Local font-size scale (Bifrost only ships --bf-font-size-m by default). */
+    --bf-font-size-xs: 12px;
+    --bf-font-size-s: 13px;
+    --bf-font-size-m: 14px;
+    --bf-font-size-l: 16px;
+    --bf-font-size-xl: 18px;
+    --bf-font-size-h5: 18px;
+    --bf-font-size-h4: 20px;
+    --bf-font-size-h3: 24px;
+    --bf-font-size-h2: 29px;
+    --bf-font-size-h1: 35px;
+}
+
+/* Drive Material's text/code typography from the tokens above. Material declares
+ * --md-text-font-family / --md-code-font-family on `body` (not :root), and a
+ * declaration on body beats a value inherited from :root regardless of cascade
+ * layer, so we must override at the same level. This is what actually applies
+ * Satoshi to body text and JetBrains Mono to code across all of Material. */
+body {
+    --md-text-font-family: var(--bifrost-font);
+    --md-code-font-family: var(--bifrost-font-code);
+}
+
+/* The primary/accent palette. Material's palette.css declares these on `body`
+ * (via [data-md-color-primary=…]/[data-md-color-accent=…]), and a value on
+ * `body` beats one inherited from :root regardless of cascade layer, so we must
+ * redeclare at the same level. Otherwise Mermaid diagrams and links keep
+ * Material's palette colors instead of the Bifrost theme. */
+body {
+    --md-primary-fg-color: var(--bfc-theme);
+    --md-primary-fg-color--light: var(--bfc-theme);
+    --md-primary-fg-color--dark: var(--bfc-theme-2);
+    --md-primary-bg-color: var(--bfc-base);
+    --md-primary-bg-color--light: var(--bfc-base-c-2);
+
+    --md-accent-fg-color: var(--bfc-theme);
+    --md-accent-fg-color--transparent: var(--bfc-theme-fade);
+    --md-accent-bg-color: var(--bfc-theme-fade);
+    --md-accent-bg-color--light: var(--bfc-theme-fade);
+
+    --md-typeset-a-color: var(--bfc-theme);
+}
+
+/* Material core color variables -> Bifrost tokens. Replaces Material's blue
+ * accent everywhere it's used internally. These are set by Material at :root
+ * (main.css), so a :root override wins; the palette-driven ones above are set
+ * on `body` and handled there. */
+:root {
+    --md-default-bg-color: var(--bfc-base);
+    --md-default-fg-color: var(--bfc-base-c);
+
+    --md-default-fg-color--light: var(--bfc-base-c-2);
+    --md-default-fg-color--lighter: var(--bfc-base-dimmed);
+    --md-default-fg-color--lightest: var(--bfc-base-dimmed-2);
+    --md-default-fg-color--accent: var(--bfc-theme);
+
+    --md-typeset-color: var(--bfc-base-c);
+    --md-typeset-mark-color: var(--bfc-theme-fade);
+    --md-typeset-del-color: var(--bfc-alert);
+    --md-typeset-ins-color: var(--bfc-success);
+    --md-typeset-kbd-color: var(--bfc-base-c);
+    --md-typeset-kbd-accent-color: var(--bfc-theme);
+    --md-typeset-kbd-border-color: var(--bfc-base-dimmed);
+    /* Table borders (subtle) and the row-hover wash. base-c would draw a heavy
+     * full-strength grid; a dimmed token matches Material's intent and the
+     * --light hover stays visible in dark mode (Material froze it near-black). */
+    --md-typeset-table-color: var(--bfc-base-dimmed);
+    --md-typeset-table-color--light: var(--bfc-base-2);
+
+    --md-focus-color: var(--bfc-theme);
+    --md-selection-color: var(--bfc-theme-fade);
+
+    --md-code-bg-color: var(--bfc-base-2);
+    --md-code-fg-color: var(--bfc-base-c);
+    /* Code-block nav toolbar (line-select). Material freezes these as light
+     * grey, which leaves a pale bar on the dark-mode code surface. */
+    --md-code-bg-color--light: var(--bfc-base-3);
+    --md-code-bg-color--lighter: var(--bfc-base-2);
+
+    --md-footer-bg-color: var(--bfc-base-2);
+    --md-footer-fg-color: var(--bfc-base-c);
+    /* Material hardcodes these two as white tints (it assumes a dark footer),
+     * so the copyright and "made with" text go invisible on the light-mode
+     * footer. Map them to muted base tokens that switch with the scheme. */
+    --md-footer-fg-color--light: var(--bfc-base-c-2);
+    --md-footer-fg-color--lighter: var(--bfc-base-dimmed);
+    /* The lower meta band background (copyright row); Material freezes it as a
+     * translucent black overlay. */
+    --md-footer-bg-color--dark: var(--bfc-base-3);
+
+    --md-shadow-z1: var(--bf-shadow);
+    --md-shadow-z2: 0 0 12px var(--bfc-shadow);
+    --md-shadow-z3: 0 0 16px var(--bfc-shadow);
+}
+
+/* Syntax highlighting. Material maps every Pygments token to these 13
+ * variables internally, so pointing them at Bifrost tokens replaces what used
+ * to be ~600 lines of hand-written .highlight .* rules. Values mirror the
+ * Bifrost Highlighter's Prism theme (highlighter.css): fixed semantic colors,
+ * not the active palette. Each --bfc-base-c-* token already switches per mode,
+ * so one :root block covers light and dark. */
+:root {
+    /* Highlighted-line (.hll) wash; no Bifrost token equivalent. */
+    --md-code-hl-color: var(--bfc-theme-fade);
+    --md-code-hl-color--light: var(--bfc-theme-fade);
+
+    --md-code-hl-keyword-color: var(--bfc-base-c-chill);
+    --md-code-hl-function-color: var(--bfc-base-c-warning);
+    --md-code-hl-number-color: var(--bfc-base-c-success);
+    --md-code-hl-string-color: color-mix(in srgb, var(--bfc-base-c-alert), var(--bfc-base-c) 50%);
+    --md-code-hl-operator-color: var(--bfc-base-c-chill);
+    --md-code-hl-variable-color: var(--bfc-base-c-brand);
+    --md-code-hl-constant-color: var(--bfc-base-c-chill);
+    --md-code-hl-name-color: var(--bfc-base-c);
+    --md-code-hl-punctuation-color: var(--bfc-base-c-2);
+    --md-code-hl-comment-color: var(--bfc-base-c-2);
+    --md-code-hl-generic-color: var(--bfc-base-c);
+    --md-code-hl-special-color: color-mix(in srgb, var(--bfc-base-c-alert), var(--bfc-base-c) 20%);
+}

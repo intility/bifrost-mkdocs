@@ -11,7 +11,7 @@ Extension: `tables`
     | Dark mode | Supported | High | Auto-switches with OS preference |
     | Search | Supported | High | Full-text with suggestions |
     | Mermaid | Supported | Medium | Flowcharts, sequence, and more |
-    | MathJax | Supported | Low | Inline and block equations |
+    | Code copy | Supported | Low | One-click copy on code blocks |
 
 === "Markdown"
 
@@ -21,7 +21,7 @@ Extension: `tables`
     | Dark mode | Supported | High | Auto-switches ... |
     | Search | Supported | High | Full-text ... |
     | Mermaid | Supported | Medium | Flowcharts ... |
-    | MathJax | Supported | Low | Inline and block ... |
+    | Code copy | Supported | Low | One-click copy ... |
     ```
 
 ## Alignment Syntax

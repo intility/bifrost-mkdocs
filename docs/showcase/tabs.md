@@ -1,4 +1,4 @@
-# Content Tabs
+# Tabs
 
 Extension: `pymdownx.tabbed`
 
@@ -19,9 +19,9 @@ Feature: `content.tabs.link` (syncs tab selection across the page)
 === "Tab Three"
 
     Content for the third tab. You can nest any Markdown content inside tabs,
-    including code blocks, admonitions, and lists.
+    including code blocks, messages, and lists.
 
-**Syntax:**
+### Syntax
 
 ```markdown
 === "Tab One"
@@ -72,7 +72,7 @@ A common use case is showing the same example in multiple languages:
     }
     ```
 
-**Syntax:**
+### Syntax
 
 ````markdown
 === "Python"

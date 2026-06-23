@@ -1,0 +1,165 @@
+/* Typography, headings, and page-level layout. Colors come from tokens.css. */
+
+body {
+    font-size: var(--bf-font-size-m);
+    line-height: 1.6;
+}
+
+.md-typeset {
+    font-size: var(--bf-font-size-m);
+    line-height: 1.6;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+    font-weight: 700;
+    color: var(--bfc-base-c);
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+}
+
+.md-typeset h1 {
+    font-size: var(--bf-font-size-h2);
+    line-height: 1.2;
+    margin-top: 0;
+}
+
+.md-typeset h2 {
+    font-size: var(--bf-font-size-h3);
+    line-height: 1.3;
+}
+
+.md-typeset h3 {
+    font-size: var(--bf-font-size-h4);
+    line-height: 1.4;
+}
+
+.md-typeset h4 {
+    font-size: var(--bf-font-size-h5);
+    line-height: 1.4;
+}
+
+.md-typeset h5 {
+    font-size: var(--bf-font-size-l);
+    line-height: 1.5;
+}
+
+.md-typeset h6 {
+    font-size: var(--bf-font-size-m);
+    line-height: 1.5;
+}
+
+.md-typeset p,
+.md-typeset ul,
+.md-typeset ol,
+.md-typeset li {
+    font-size: var(--bf-font-size-m);
+    line-height: 1.6;
+}
+
+/* Theme-tinted list markers, matching Bifrost's .bf-ul/.bf-ol. Material forces
+ * disc at every level; Bifrost uses hollow circles for nested unordered lists. */
+.md-typeset :is(ul, ol) ::marker {
+    color: var(--bfc-base-c-theme);
+}
+
+.md-typeset ul ul {
+    list-style-type: circle;
+}
+
+.md-typeset ol ::marker {
+    font-weight: 600;
+}
+
+/* The Bifrost framework underlines every a[href], which wrongly underlines
+ * Material's chrome (nav, tabs, breadcrumbs). Restore the no-underline default;
+ * prose links re-enable underline on hover below. */
+a {
+    text-decoration: none;
+}
+
+.md-typeset a {
+    color: var(--bfc-theme);
+    text-decoration: none;
+}
+
+.md-typeset a:hover,
+.md-typeset a:focus {
+    color: var(--bfc-theme);
+    text-decoration: underline;
+}
+
+.md-typeset .headerlink {
+    color: var(--bfc-base-dimmed);
+}
+
+.md-typeset .headerlink:hover,
+.md-typeset .headerlink:focus,
+.md-typeset :target>.headerlink {
+    color: var(--bfc-theme);
+}
+
+.md-typeset hr {
+    border-bottom: 1px solid var(--bfc-base-dimmed);
+}
+
+.md-typeset blockquote {
+    border-left: 4px solid var(--bfc-base-dimmed);
+    color: var(--bfc-base-c-2);
+}
+
+:focus-visible {
+    outline: 2px solid var(--bfc-theme);
+    outline-offset: 2px;
+}
+
+.md-skip {
+    background-color: var(--bfc-theme);
+    color: var(--bfc-theme-c);
+}
+
+/* Sticky footer: flex column keeps the footer at the bottom on short pages. */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.md-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+}
+
+.md-main {
+    flex: 1 0 auto;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bfc-base);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bfc-base-dimmed);
+    border-radius: var(--bf-radius-xs);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--bfc-base-c-2);
+}
+
+@media print {
+    body {
+        background-color: white;
+        color: black;
+    }
+}
