@@ -7,29 +7,20 @@ See the [Feature Showcase](showcase/index.md) for a live demonstration of every 
 ## Quick Start
 
 1. **Create a new repo** from the [bifrost-mkdocs-template](https://github.com/intility/bifrost-mkdocs-template), or add the plugin to an existing project
-2. **Install the plugin** and add it to your `mkdocs.yml`:
+2. **Install the plugin** and add it to your `mkdocs.yml`. This is the complete minimum:
 
     ```yaml
+    site_name: My Docs
     theme:
-      name: material
-      palette:
-        - scheme: light
-          primary: &bifrost_theme teal  # Options: teal, purple, pink, yellow
-          toggle:
-            icon: material/brightness-7
-            name: Switch to dark mode
-        - scheme: dark
-          primary: *bifrost_theme
-          toggle:
-            icon: material/brightness-4
-            name: Switch to light mode
-
+      name: material      # required: the plugin overrides Material's theme
     plugins:
       - intility-bifrost
-      - search
+      - search            # re-add: defining a plugins: block drops MkDocs' default search
     ```
 
 3. **Start writing docs.** The plugin configures the markdown extensions, theme features, fonts, and icons for you.
+
+That's all you need. Everything else (markdown extensions, theme features, fonts, icons) is injected automatically and can be overridden by setting it yourself. Add a [color scheme and dark-mode toggle](#change-the-color-scheme) when you want them.
 
 ## Overriding Defaults
 
@@ -45,13 +36,25 @@ markdown_extensions:
 
 ### Change the Color Scheme
 
-Change the `primary` value in your palette config:
+Add a `palette` to your theme config. This sets the Bifrost theme color and enables the light/dark mode toggle:
 
 ```yaml
-primary: &bifrost_theme teal  # Options: teal, purple, pink, yellow
+theme:
+  name: material
+  palette:
+    - scheme: light
+      primary: &bifrost_theme teal  # Options: teal, purple, pink, yellow
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: dark
+      primary: *bifrost_theme
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
 ```
 
-The color is defined once and automatically applied to both light and dark modes.
+The `&bifrost_theme` anchor defines the color once and reuses it for both modes. Without a palette the site still works; it just uses the default color and has no mode toggle.
 
 ### Version Badge
 
@@ -86,6 +89,19 @@ nav:
 ```
 
 A `.nav.yml` inside a subdirectory (for example `docs/guide/.nav.yml`) orders that section. Without awesome-nav, list pages in a standard MkDocs `nav:` block instead.
+
+### Show Page Dates
+
+The bundled [git-revision-date-localized](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin) plugin adds "last updated" (and optionally creation) dates to pages from your git history. It's installed alongside the theme; opt in by adding it to your `plugins:` list:
+
+```yaml
+plugins:
+  - intility-bifrost
+  - search
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+```
 
 ## Resources
 
