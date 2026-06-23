@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/intility/bifrost-mkdocs/compare/v0.8.0...v0.9.0) (2026-06-23)
+
+
+### Features
+
+* **plugin:** inject default light/dark palette toggle ([#55](https://github.com/intility/bifrost-mkdocs/issues/55)) ([03fbf2b](https://github.com/intility/bifrost-mkdocs/commit/03fbf2b15731f6f755906a3fc12fc9c4d3b08d03))
+
 ## [0.8.0](https://github.com/intility/bifrost-mkdocs/compare/v0.7.2...v0.8.0) (2026-06-23)
 
 
