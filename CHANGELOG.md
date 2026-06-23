@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.8.0](https://github.com/intility/bifrost-mkdocs/compare/v0.7.2...v0.8.0) (2026-06-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **theme:** MathJax/arithmatex support is removed (mathjax.js, pymdownx.arithmatex, the unpkg MathJax script, and the Math showcase page).
+
+### Features
+
+* **theme:** rework theme onto cascade layers with vendored framework and fonts ([#51](https://github.com/intility/bifrost-mkdocs/issues/51)) ([dee710c](https://github.com/intility/bifrost-mkdocs/commit/dee710cc36d7764bbe89f9712cedabeea0f11384))
+
+
+### Documentation
+
+* update readme and quick start guide ([#54](https://github.com/intility/bifrost-mkdocs/issues/54)) ([9fe660c](https://github.com/intility/bifrost-mkdocs/commit/9fe660cbec17a22d0276b7a757e90ecd8142ca2f))
+
 ## [0.7.2](https://github.com/intility/bifrost-mkdocs/compare/v0.7.1...v0.7.2) (2026-06-17)
 
 
