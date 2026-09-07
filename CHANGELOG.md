@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.10.0](https://github.com/intility/bifrost-mkdocs/compare/v0.9.0...v0.10.0) (2026-09-07)
+
+
+### ⚠ BREAKING CHANGES
+
+* deprecate package ([#60](https://github.com/intility/bifrost-mkdocs/issues/60))
+
+### Features
+
+* deprecate package ([#60](https://github.com/intility/bifrost-mkdocs/issues/60)) ([a74115d](https://github.com/intility/bifrost-mkdocs/commit/a74115d32176034f9b86b184297655a7dcb12058))
+
 ## [0.9.0](https://github.com/intility/bifrost-mkdocs/compare/v0.8.0...v0.9.0) (2026-06-23)
 
 
