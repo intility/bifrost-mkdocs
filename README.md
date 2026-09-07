@@ -18,6 +18,13 @@
     </a>
 </p>
 
+> [!WARNING]
+> **This package is deprecated.** Material for MkDocs reaches end of life on
+> 2026-11-05. This repo does not receive further feature updates; it stays on
+> PyPI as a bridge for existing installs. Migrate to
+> [Bifrost Zensical](https://intility.github.io/bifrost-zensical/migrating/)
+> before then.
+
 ## Description
 
 A pip-installable MkDocs plugin that applies Intility's Bifrost design system to Material for MkDocs. The plugin is batteries-included: colors, typography, component styling, markdown extensions, theme features, and message icons are all configured automatically.

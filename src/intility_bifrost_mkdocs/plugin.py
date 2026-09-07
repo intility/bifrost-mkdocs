@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import warnings
 from pathlib import Path
 from typing import Any
 
@@ -8,6 +9,14 @@ from mkdocs.config.defaults import MkDocsConfig
 from mkdocs.exceptions import PluginError
 from mkdocs.plugins import BasePlugin
 from mkdocs.structure.files import File, Files
+
+# Shown once per build via `on_config`. `FutureWarning` is visible by default;
+# `DeprecationWarning` is hidden unless the caller opts in.
+DEPRECATION_MESSAGE = (
+    "intility-bifrost-mkdocs is deprecated. Material for MkDocs reaches end "
+    "of life on 2026-11-05. Migrate to intility-bifrost-zensical: "
+    "https://intility.github.io/bifrost-zensical/migrating/"
+)
 
 # Path (relative to the docs site root) of the generated cascade-layer
 # bootstrap stylesheet. See `_build_layer_bootstrap_css` and `main.html`.
@@ -342,6 +351,10 @@ class IntilityBifrostPlugin(BasePlugin):
     """
 
     def on_config(self, config: MkDocsConfig) -> MkDocsConfig:
+        # Use `warnings`, not the MkDocs logger: `--strict` counts logger
+        # warnings and would fail consumer builds on a notice, not a bug.
+        warnings.warn(DEPRECATION_MESSAGE, FutureWarning, stacklevel=2)
+
         overrides_dir = str((Path(__file__).parent / "overrides").resolve())
 
         # Insert our overrides as the highest-priority theme directory.

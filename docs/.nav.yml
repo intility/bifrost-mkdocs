@@ -1,4 +1,5 @@
 nav:
   - Home: index.md
   - Feature Showcase: showcase
+  - Migrating: migrating.md
   - Changelog: changelog.md

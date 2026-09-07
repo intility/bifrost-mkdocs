@@ -14,6 +14,7 @@ from intility_bifrost_mkdocs.plugin import (
     DEFAULT_FEATURES,
     DEFAULT_PALETTE,
     DEFAULT_TOP_ICON,
+    DEPRECATION_MESSAGE,
     IntilityBifrostPlugin,
     _build_layer_bootstrap_css,
     _discover_material_stylesheets,
@@ -43,6 +44,17 @@ def _minimal_config() -> MkDocsConfig:
 # ---------------------------------------------------------------------------
 # Original tests (preserved)
 # ---------------------------------------------------------------------------
+
+
+def test_on_config_emits_deprecation_warning():
+    """on_config must warn with FutureWarning, so consumer builds see it by
+    default but `--strict` (which only counts logger warnings) still passes.
+    """
+    plugin = IntilityBifrostPlugin()
+    config = _minimal_config()
+
+    with pytest.warns(FutureWarning, match=re.escape(DEPRECATION_MESSAGE)):
+        plugin.on_config(config)
 
 
 def test_plugin_injects_overrides_dir():
