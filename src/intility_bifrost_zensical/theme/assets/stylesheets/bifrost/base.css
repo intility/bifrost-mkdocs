@@ -1,0 +1,56 @@
+.md-typeset {
+    line-height: 1.6;
+}
+
+.md-main__inner{
+    margin-top: 0;
+}
+
+/* .bf-content puts 32px above every h1; the page title sits flush. */
+.md-typeset h1 {
+    margin-top: 0;
+}
+
+/* Remove .bf-content margins */
+.md-typeset li {
+    margin-left: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+}
+
+/* Use circle below fist list lvl */
+.md-typeset ul ul {
+    list-style-type: circle;
+}
+
+/* Remove Bifrost's <a> underline */
+a {
+    text-decoration: none;
+}
+
+/* Add it back on hover and focus */
+.md-typeset a:hover,
+.md-typeset a:focus {
+    text-decoration: underline;
+}
+
+/* Keep same styling on expandable adminitions */
+.md-typeset :is(.admonition, details, .footnote) {
+    font-size: inherit;
+}
+
+.md-skip {
+    background-color: var(--bfc-theme);
+    color: var(--bfc-theme-c);
+    font-weight: 600;
+}
+
+/* Prevent sticky footer */
+body {
+    display: flex;
+}
+
+/* Remove scrollbar track when page does not need scroll */
+html {
+    scrollbar-gutter: initial;
+}

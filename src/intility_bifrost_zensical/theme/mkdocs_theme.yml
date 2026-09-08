@@ -1,0 +1,42 @@
+extends: material
+variant: modern
+
+features:
+  - navigation.instant
+  - navigation.instant.progress
+  - navigation.instant.prefetch
+  - navigation.tabs
+  - navigation.sections
+  - navigation.path
+  - navigation.top
+  - navigation.tracking
+  - toc.follow
+  - search.highlight
+  - search.share
+  - content.code.copy
+  - content.code.annotate
+  - content.code.select
+  - content.tabs.link
+  - content.tooltips
+  - content.footnote.tooltips
+
+font: false
+
+palette:
+  - media: "(prefers-color-scheme)"
+    primary: &bifrost_theme teal
+    toggle:
+      icon: lucide/sun-moon
+      name: Switch to light mode
+  - media: "(prefers-color-scheme: light)"
+    scheme: default
+    primary: *bifrost_theme
+    toggle:
+      icon: lucide/moon-star
+      name: Switch to dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    primary: *bifrost_theme
+    toggle:
+      icon: lucide/sun
+      name: Switch to system preference

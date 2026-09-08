@@ -1,0 +1,70 @@
+/* Tokens layer: fonts + Material-variable -> Bifrost-token mapping */
+@font-face {
+    font-family: "Satoshi";
+    src: url("../../vendor/fonts/satoshi-intility-variable.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("../../vendor/fonts/jetbrains-mono-variable.woff2") format("woff2");
+}
+
+:root {
+    --font-satoshi: "Satoshi";
+    --font-open-sans: "Satoshi";
+    --bifrost-font-code: "JetBrains Mono", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+
+    --bf-font-size-s: 12px;
+    --bf-font-size-m: 14px;
+    --bf-font-size-l: 16px;
+    --bf-font-size-h5: 18px;
+    --bf-font-size-h4: 20px;
+    --bf-font-size-h3: 24px;
+    --bf-font-size-h2: 29px;
+    --bf-font-size-h1: 32px;
+}
+
+/* Material -> Bifrost mapping */
+body {
+    --md-code-font-family: var(--bifrost-font-code);
+
+    --md-primary-fg-color: var(--bfc-theme);
+    --md-primary-bg-color: var(--bfc-theme-c);
+    --md-accent-fg-color: var(--bfc-theme);
+    --md-accent-fg-color--transparent: var(--bfc-theme-fade);
+    --md-accent-bg-color: var(--bfc-theme-c);
+    --md-typeset-a-color: var(--bfc-theme);
+
+    --md-default-bg-color: var(--bfc-base);
+    --md-default-bg-color--light: var(--bfc-base-2);
+    --md-default-fg-color: var(--bfc-base-c);
+
+    --md-default-fg-color--light: var(--bfc-base-c-2);
+    --md-default-fg-color--lighter: var(--bfc-base-dimmed);
+    --md-default-fg-color--lightest: var(--bfc-base-dimmed-2);
+
+    --md-typeset-mark-color: var(--bfc-theme-fade);
+    --md-typeset-del-color: var(--bfc-alert-fade);
+    --md-typeset-ins-color: var(--bfc-success-fade);
+
+    --md-code-bg-color: var(--bfc-base-2);
+    --md-code-fg-color: var(--bfc-base-c);
+
+    --md-shadow-z2: 0 0 12px var(--bfc-shadow);
+    --md-shadow-z3: 0 0 16px var(--bfc-shadow);
+}
+
+/* Syntax highlighting */
+body {
+    --md-code-hl-color: var(--bfc-theme-fade);
+    --md-code-hl-color--light: var(--bfc-theme-fade);
+    --md-code-hl-keyword-color: var(--bfc-base-c-chill);
+    --md-code-hl-function-color: var(--bfc-base-c-warning);
+    --md-code-hl-number-color: var(--bfc-base-c-success);
+    --md-code-hl-string-color: color-mix(in srgb, var(--bfc-base-c-alert), var(--bfc-base-c) 50%);
+    --md-code-hl-operator-color: var(--bfc-base-c-chill);
+    --md-code-hl-variable-color: var(--bfc-base-c-brand);
+    --md-code-hl-constant-color: var(--bfc-base-c-chill);
+    --md-code-hl-generic-color: var(--bfc-base-c);
+    --md-code-hl-special-color: color-mix(in srgb, var(--bfc-base-c-alert), var(--bfc-base-c) 20%);
+}

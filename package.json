@@ -1,5 +1,5 @@
 {
-  "name": "intility-bifrost-mkdocs",
+  "name": "intility-bifrost-zensical",
   "version": "0.0.0",
   "private": true,
   "description": "Version pin for the vendored Bifrost CSS framework. Run `just sync-bifrost-css` after bumping the dependency below to refresh the committed copy.",
@@ -7,6 +7,6 @@
     "test": "node --test tests/javascripts/*.test.js"
   },
   "dependencies": {
-    "@intility/bifrost-css": "6.10.0"
+    "@intility/bifrost-css": "6.13.1"
   }
 }

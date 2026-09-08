@@ -28,12 +28,12 @@ hooks:
 # Serve the docs site locally with live reload
 [group('dev')]
 dev:
-    uv run --extra dev mkdocs serve
+    uv run --extra dev zensical serve
 
 # Build the static docs site into ./site
 [group('dev')]
 build:
-    uv run --extra dev mkdocs build
+    uv run --extra dev zensical build --strict
 
 # ---------------------------------------------------------------------------
 # Quality

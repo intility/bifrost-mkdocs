@@ -10,12 +10,12 @@ Add attributes like `target` and `title` to a link:
 
 === "Result"
 
-    [Open in a new tab](https://www.mkdocs.org/){ target=_blank rel=noopener title="MkDocs documentation" }
+    [Open in a new tab](https://zensical.org/){ target=_blank rel=noopener title="Zensical documentation" }
 
 === "Markdown"
 
     ```markdown
-    [Open in a new tab](https://www.mkdocs.org/){ target=_blank rel=noopener title="MkDocs documentation" }
+    [Open in a new tab](https://zensical.org/){ target=_blank rel=noopener title="Zensical documentation" }
     ```
 
 ## Icon Sizing and Alignment

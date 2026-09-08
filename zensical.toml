@@ -1,0 +1,67 @@
+[project]
+site_name = "Bifrost Zensical"
+site_description = "Intility Bifrost theme for Zensical"
+site_author = "Intility"
+site_url = "https://intility.github.io/bifrost-zensical"
+repo_url = "https://github.com/intility/bifrost-zensical"
+repo_name = "intility/bifrost-zensical"
+copyright = "Copyright &copy; 2026 Intility"
+
+[project.extra]
+version = "0.1.0" # x-release-please-version
+
+[project.theme]
+name = "intility-bifrost"
+logo = "assets/bifrost-logo.svg"
+favicon = "assets/bifrost-logo.svg"
+
+[project.theme.icon]
+repo = "fontawesome/brands/github"
+
+[project.plugins]
+search = {}
+awesome-nav = {}
+
+# Declaring this key at all replaces Zensical's own default list, it doesn't
+# extend it (a theme can't set this key for you). So most lines below just
+# mirror Zensical's `DEFAULT_MARKDOWN_EXTENSIONS` verbatim, to not silently
+# take features away from a bare Zensical setup. Real additions:
+# `github-callouts`, `pymdownx.snippets`, `table_ext`. Real Bifrost deltas
+# from Zensical's own defaults: `pymdownx.betterem.smart_enable` and the
+# mermaid `format`. `tables` is deliberately
+# absent: Zensical always includes it regardless of what's declared here.
+[project.markdown_extensions]
+abbr = {}
+admonition = {}
+github-callouts = {}
+attr_list = {}
+def_list = {}
+footnotes = {}
+md_in_html = {}
+toc.permalink = true
+pymdownx.arithmatex.generic = true
+pymdownx.betterem.smart_enable = "all"
+pymdownx.caret = {}
+pymdownx.details = {}
+pymdownx.emoji.emoji_generator = "zensical.extensions.emoji.to_svg"
+pymdownx.emoji.emoji_index = "zensical.extensions.emoji.twemoji"
+pymdownx.highlight.anchor_linenums = true
+pymdownx.highlight.line_spans = "__span"
+pymdownx.highlight.pygments_lang_class = true
+pymdownx.inlinehilite = {}
+pymdownx.keys = {}
+pymdownx.magiclink = {}
+pymdownx.mark = {}
+pymdownx.smartsymbols = {}
+pymdownx.snippets = {}
+pymdownx.superfences.custom_fences = [
+  { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
+]
+pymdownx.tabbed.alternate_style = true
+pymdownx.tabbed.combine_header_slug = true
+pymdownx.tasklist.custom_checkbox = true
+pymdownx.tilde = {}
+# Quoted: this is a single extension name, not a `[pymdownx]`/`[zensical]`
+# style dotted prefix that Zensical hoists, so an unquoted dotted key would
+# nest into {"intility_bifrost_zensical": {"table_ext": {}}} instead.
+"intility_bifrost_zensical.table_ext" = {}

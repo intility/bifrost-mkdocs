@@ -51,6 +51,6 @@ Extension: `pymdownx.emoji`
 :icon-set-icon-name:
 ```
 
-Icon sets: `material`, `fontawesome-brands`, `fontawesome-solid`, `fontawesome-regular`, `octicons`.
+Icon sets: `material`, `fontawesome-brands`, `fontawesome-solid`, `fontawesome-regular`, `octicons`, `lucide`, `simple`.
 
-Browse all available icons at the [Material for MkDocs icon search](https://squidfunk.github.io/mkdocs-material/reference/icons-emojis/#search).
+Browse icon names in the [Zensical icon reference](https://zensical.org/docs/authoring/icons-emojis/).

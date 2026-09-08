@@ -1,0 +1,88 @@
+.md-typeset code {
+    font-family: var(--md-code-font-family);
+    font-size: 1em;
+}
+.md-typeset pre {
+    margin: 0;
+    background-color: transparent;
+    border-radius: var(--bf-radius);
+}
+
+.md-typeset pre>code {
+    display: block;
+    background-color: transparent;
+    margin: 0;
+}
+
+/* JS/TS highlight */
+.md-typeset .language-javascript.highlight .k,
+.md-typeset .language-typescript.highlight .k,
+.md-typeset .language-jsx.highlight .k,
+.md-typeset .language-tsx.highlight .k {
+    color: var(--bfc-base-c-attn);
+}
+
+.md-typeset .highlight pre>code {
+    padding: var(--bfs8);
+}
+
+/* Material shrinks the gutter to .85em while our code stays 1em; the gutter
+ * must match the code font-size or the rows drift apart. */
+.md-typeset .highlight .linenos {
+    font-size: inherit;
+    padding: var(--bfs8) 0 var(--bfs8) var(--bfs8);
+    border-radius: var(--bf-radius);
+}
+
+.md-typeset .highlight .hll {
+    margin: 0 calc(-1 * var(--bfs8));
+    padding: 0 var(--bfs8);
+}
+
+.md-typeset .highlight  {
+    background-color: var(--bfc-base-3);
+    border: var(--bf-border);
+    border-radius: var(--bf-radius);
+    margin-block: 1em;
+}
+
+/* Header bar, mirroring .bf-section-header. */
+.md-typeset .highlight span.filename {
+    border-top-left-radius: var(--bf-radius);
+    border-top-right-radius: var(--bf-radius);
+    font-size: var(--bf-font-size-m);
+    background-color: var(--bfc-base-3);
+}
+
+/* Drop Material's inset shadow so the gutter blends into the body. */
+.md-typeset .highlight .linenodiv {
+    box-shadow: none;
+}
+
+.md-code__nav {
+    background: transparent;
+}
+
+/* Copy confirmation toast */
+.md-dialog {
+    background-color: var(--bfc-theme-fade);
+    border-radius: var(--bf-radius-m);
+    padding: var(--bfs16);
+    box-shadow: var(--bf-shadow);
+}
+
+.md-dialog__inner {
+    color: var(--bfc-theme-fade-c);
+    font-size: var(--bf-font-size-m);
+}
+
+.md-tooltip {
+    border-radius: var(--bf-radius);
+    box-shadow: var(--bf-shadow);
+    width: fit-content;
+}
+
+.md-tooltip__inner {
+    padding: var(--bfs8) var(--bfs12);
+    font-size: var(--bf-font-size-m);
+}

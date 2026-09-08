@@ -1,4 +1,4 @@
-/* @intility/bifrost-css 6.10.0 — vendored, do not edit. Run scripts/sync-bifrost-css.sh. */
+/* @intility/bifrost-css 6.13.1 — vendored, do not edit. Run scripts/sync-bifrost-css.sh. */
 @charset "UTF-8";
 /* global bifrost css, bundled in @intility/bifrost-css package */
 /* font imports needs to at the top of output bundle */
@@ -472,7 +472,7 @@ a .bf-code {
 /* #endregion */
 /* todo: remove in 7.0 */
 .bf-intility-logo > a {
-  height: var(--bfs56);
+  height: var(--bfs48);
   border-bottom: var(--bf-border);
   display: block;
   line-height: 1;
@@ -3223,25 +3223,25 @@ avoids input hover effect when hovering right next to button */
 /* #endregion */
 /* #region spacing and positioning for icons
 32 px wide icon + 4px margin each side = 40px */
-.bf-input-small .bf-input-icon-right .bf-input,
-.bf-input-small .bf-input-icon-state .bf-input,
-.bf-input-small .bf-input-clearable .bf-input:enabled {
+:is(.bf-input-small.bf-input-icon-right, .bf-input-small .bf-input-icon-right, .bf-input-small.bf-input-icon-state, .bf-input-small .bf-input-icon-state) .bf-input, :is(.bf-input-small.bf-input-clearable, .bf-input-small .bf-input-clearable) .bf-input:enabled {
   padding-right: 1.875rem; /* 30px */
 }
-
-.bf-input-small .bf-input-icon-left .bf-input {
+.bf-input-small .bf-input-icon-left .bf-input, .bf-input-small.bf-input-icon-left .bf-input {
   padding-left: 1.875rem; /* 30px */
 }
-
-/* two icons on right-hand side */
-.bf-input-small .bf-input-icon-right.bf-input-clearable .bf-input:enabled,
-.bf-input-small .bf-input-icon-state.bf-input-clearable .bf-input:enabled {
+.bf-input-small {
+  /* two icons on right-hand side */
+}
+.bf-input-small .bf-input-icon-right.bf-input-clearable .bf-input:enabled, .bf-input-small.bf-input-icon-right.bf-input-clearable .bf-input:enabled,
+.bf-input-small .bf-input-icon-state.bf-input-clearable .bf-input:enabled, .bf-input-small.bf-input-icon-state.bf-input-clearable .bf-input:enabled {
   padding-right: 3.25rem; /* 52px */
 }
-
-/* move clear icon when there is also another icon on right-hand side */
-.bf-input-small .bf-input-icon-right .bf-input-clear-icon,
-.bf-input-small .bf-input-icon-state .bf-input-clear-icon {
+.bf-input-small .bf-input-icon-right, .bf-input-small.bf-input-icon-right,
+.bf-input-small .bf-input-icon-state, .bf-input-small.bf-input-icon-state {
+  /* move clear icon when there is also another icon on right-hand side */
+}
+.bf-input-small .bf-input-icon-right .bf-input-clear-icon, .bf-input-small.bf-input-icon-right .bf-input-clear-icon,
+.bf-input-small .bf-input-icon-state .bf-input-clear-icon, .bf-input-small.bf-input-icon-state .bf-input-clear-icon {
   right: 1.69rem; /* 27px */
 }
 
@@ -4248,12 +4248,13 @@ button:is(.bf-pagination-button-arrow,
 
 /* #region main table styles */
 .bf-table {
+  --bf-table-radius: var(--bf-radius-xs);
   border-collapse: inherit;
   border-spacing: 0;
   color: var(--bfc-base-c);
   font-size: var(--bf-font-size-m);
   width: 100%;
-  border-radius: var(--bf-radius-xs);
+  border-radius: var(--bf-table-radius);
 }
 
 /* table header */
@@ -4271,7 +4272,6 @@ button:is(.bf-pagination-button-arrow,
 /* first table header cell border */
 .bf-table > thead > tr > th:first-child {
   border-left: 6px solid var(--bfc-base-c-2);
-  border-top-left-radius: var(--bf-radius-xs);
 }
 
 /* table row vertical separator line */
@@ -4406,10 +4406,6 @@ therefore we have put shadow on table cells */
   border-top: var(--bf-border);
 }
 
-.bf-table tr:last-child .bf-table-expandable-cell {
-  border-bottom-left-radius: var(--bf-radius-xs);
-}
-
 .bf-table-expand-icon-cell {
   width: 1%;
   line-height: 150%;
@@ -4451,20 +4447,34 @@ therefore we have put shadow on table cells */
   border-right: var(--bf-border);
 }
 
-.bf-table > tbody > tr:last-child > td:first-child,
-.bf-table-expand-closed:nth-last-child(2) > *:first-child {
-  border-bottom-left-radius: var(--bf-radius-xs);
+.bf-table > :first-child > tr:first-child > :first-child {
+  border-top-left-radius: var(--bf-table-radius);
+}
+
+.bf-table > :first-child > tr:first-child > :last-child {
+  border-top-right-radius: var(--bf-table-radius);
+}
+
+.bf-table > :last-child > tr:last-child > :first-child,
+.bf-table-expand-closed:nth-last-child(2) > :first-child {
+  border-bottom-left-radius: var(--bf-table-radius);
+}
+
+.bf-table > :last-child > tr:last-child > :last-child,
+.bf-table-expand-closed:nth-last-child(2) > :last-child {
+  border-bottom-right-radius: var(--bf-table-radius);
 }
 
 /* border-radius on content where exandable row is last child */
 .bf-table > tbody > tr:last-child .bf-table-expanded-content {
-  border-bottom-left-radius: var(--bf-radius-xs);
-  border-bottom-right-radius: var(--bf-radius-xs);
+  border-bottom-left-radius: var(--bf-table-radius);
+  border-bottom-right-radius: var(--bf-table-radius);
 }
 
 /* delay border-radius when collapsing expandable row */
-.bf-table .bf-table-expand-closed > td:first-child {
-  transition: border-radius 0s 0.25s;
+.bf-table .bf-table-expand-closed > td:first-child,
+.bf-table .bf-table-expand-closed > td:last-child {
+  transition: border-radius 0.05s ease-out var(--bf-animation-duration);
 }
 
 /* #endregion */
@@ -4537,7 +4547,7 @@ therefore we have put shadow on table cells */
   font-size: var(--bf-font-size-m);
   font-family: inherit;
   cursor: pointer;
-  color: var(--bfc-base-c-2);
+  color: var(--bfc-base-c);
   background: transparent;
   padding: var(--rem8) 0;
   min-height: calc(3.3125rem - 1px); /* 53px - border */
@@ -4924,10 +4934,11 @@ therefore we have put shadow on table cells */
   font-size: var(--bf-font-size-m);
 }
 
-/* top nav with .to-xl is the mobile-only nav */
+/* top nav with .to-xl is the mobile-only nav
+49px total: 48px nav.item height + 1px bottom border (--bf-border) */
 :root:where(:has(.bf-nav-top:not(.to-xl))),
 .bf-nav-top {
-  --bf-nav-top-height: var(--bfs56);
+  --bf-nav-top-height: 49px;
 }
 
 .bf-nav-side,
@@ -4935,9 +4946,10 @@ therefore we have put shadow on table cells */
   --bf-nav-side-width: 230px;
 }
 
+/* 49px total: 48px nav.item width + 1px right border (--bf-border) */
 .bf-nav-side-collapsed,
 .bf-nav-side-collapsed ~ * {
-  --bf-nav-side-width: 56px;
+  --bf-nav-side-width: 49px;
 }
 
 /* when nav-side is hidden with .from-medium, .from-large, or .from-xl,
@@ -5126,7 +5138,7 @@ make sure nav-top and content goes all the way to the left */
 
 .bf-nav-side:has(~ .bf-nav-top:not(.to-xl)),
 .bf-nav-top:not(.to-xl) ~ .bf-nav-side {
-  top: var(--bfs56);
+  top: 49px;
 }
 
 .bf-nav-side .bf-nav-side-collapse-button {
@@ -5161,12 +5173,12 @@ make sure nav-top and content goes all the way to the left */
 it's always present in DOM when using <Nav> for small screens (<1600px) */
 @media (max-width: 1599.9px) {
   .bf-nav-top ~ :where(main, .bf-nav-main) {
-    padding-top: var(--bfs56);
+    padding-top: 49px;
   }
 }
 @media (min-width: 1600px) {
   .bf-nav-top:not(.to-xl) ~ :where(main, .bf-nav-main) {
-    padding-top: var(--bfs56);
+    padding-top: 49px;
   }
 }
 /* reset default link styling when used as navigation wrappers */
@@ -5224,7 +5236,7 @@ button:has(> .bf-nav-item) {
   }
   /* 1600+ always has top nav (with mobile nav toggle hamburger button) */
   :root:where(:has(.bf-nav-top.to-xl)) {
-    --bf-nav-top-height: var(--bfs56);
+    --bf-nav-top-height: 49px;
   }
   /* when top nav is hidden, pretend its height is 0px to let other components and css position itself correctly */
   :root:where(:has(.bf-nav-top.bf-nav-top-hide-for-mobile:not(:focus-within))) {
@@ -5235,7 +5247,7 @@ button:has(> .bf-nav-item) {
   visible or not). since the worst case is to obscure it behind the nav, we
   simply assume it's always visible */
   html:where(:has(.bf-nav-top)) {
-    scroll-padding-top: var(--bfs56);
+    scroll-padding-top: 49px;
   }
 }
 .bf-hide-until-focus {
@@ -5330,7 +5342,7 @@ todo: remove in 7.0 */
 .bf-nav-group-dropout-title {
   background-color: var(--bfc-base-2);
   color: var(--bfc-base-c-2);
-  padding-inline: 24px;
+  padding-inline: 20px;
   min-height: 40px;
   border-top-left-radius: var(--bf-radius);
   border-top-right-radius: var(--bf-radius);
@@ -5342,7 +5354,7 @@ todo: remove in 7.0 */
 .bf-nav-group-dropout hr,
 .bf-nav-group-content hr {
   padding: 0;
-  margin: 8px -8px;
+  margin: 4px -4px;
   border: var(--bf-border);
   border-bottom: none;
 }
@@ -5354,7 +5366,7 @@ todo: remove in 7.0 */
 
 .bf-nav-group-dropout-content,
 .bf-nav-group-content {
-  padding: 8px;
+  padding: 4px;
 }
 
 :where(.bf-nav-mobile, .bf-nav-side) .bf-nav-group-content {
@@ -5364,10 +5376,10 @@ todo: remove in 7.0 */
 
 .bf-nav-side .bf-nav-group-dropout {
   /* adjust collapsed sidebar nav.group dropout position to acommodate for the
-  fact that the dropout title has 16px smaller height than its nav.group button, */
-  margin-top: 8px;
+  fact that the dropout title has 8px smaller height than its nav.group button, */
+  margin-top: 4px;
   /* make space for top bar + a few px top and bot */
-  max-height: calc(100dvh - 56px);
+  max-height: calc(100dvh - 48px);
 }
 
 .bf-nav-top .bf-nav-group-dropout-content > section {
@@ -5386,8 +5398,8 @@ using :where() to match (0, 2, 1) specificity of active and focus styling of Nav
 .bf-nav-side-collapsed .bf-nav-group-button .bf-nav-item::after {
   content: "";
   position: absolute;
-  top: 2.0625rem; /* 33px */
-  left: 31px;
+  top: 1.8125rem; /* 29px */
+  left: 27px;
   border: 3px solid transparent;
   border-right-color: var(--bfc-base-c);
   border-bottom-color: var(--bfc-base-c);
@@ -5396,7 +5408,7 @@ using :where() to match (0, 2, 1) specificity of active and focus styling of Nav
 
 /* nav.group button in top bar */
 .bf-nav-top-content > .bf-nav-group > button {
-  height: 56px;
+  height: 48px;
 }
 
 /* Nav.Item */
@@ -5419,10 +5431,11 @@ using :where() to match (0, 2, 1) specificity of active and focus styling of Nav
 .bf-nav-item-icon {
   color: var(--bf-nav-item-icon-color);
   flex: 0 0 40px;
-  margin-right: 8px;
+  margin-right: 4px;
 }
 :where(.bf-nav-top, .bf-nav-group-content, .bf-nav-group-dropout) .bf-nav-item-icon {
   flex-basis: auto;
+  margin-right: 8px;
 }
 :where(.bf-nav-item-icon-only) .bf-nav-item-icon {
   margin-right: 0;
@@ -5471,13 +5484,14 @@ button:has(> .bf-nav-item) {
   overflow: hidden;
 }
 
-/* top bar Nav.Item */
-.bf-nav-top .bf-nav-item {
+/* top bar Nav.Item
+48px nav.item: 4px inset keeps the 40px hit area
+(top bar itself is 49px: 48px + 1px bottom border).
+:where() keeps specificity below Nav.Group.css rules so items inside
+group content/dropouts keep their own margin and padding */
+:where(.bf-nav-top) .bf-nav-item {
   padding-inline: 8px;
-}
-
-.bf-nav .bf-nav-mobile-toggle {
-  border-right: var(--bf-border);
+  margin: 4px;
 }
 
 .bf-nav-top-content > * > .bf-nav-item,
@@ -5486,6 +5500,12 @@ button:has(> .bf-nav-item) {
   min-height: 40px;
   min-width: 40px;
   justify-content: center;
+}
+
+/* the profile picture is wider (28px) than a Font Awesome icon, so the
+regular 8px inline padding would push it past the 40x40 square */
+:where(.bf-nav-top) .bf-nav-item:has(.bf-nav-profile) {
+  padding-inline: 0;
 }
 
 /* top bar nav.item icon color should be same as text
@@ -5497,23 +5517,14 @@ match (0, 1, 0) specificity of .bf-nav-item (when not focused or .active) */
   --bf-nav-item-icon-color: inherit;
 }
 
-.bf-nav-top-content > :has(> .bf-nav-item),
-.bf-nav-top-content > :where(.bf-nav-item, .bf-nav-group) {
-  border-left: var(--bf-border);
-}
-
 .bf-nav-top-content > .bf-nav-item {
-  height: var(--bf-nav-top-height);
+  height: var(--bfs48);
   border-radius: 0;
   padding: var(--bfs8) var(--bfs16);
   margin: 0;
-  min-width: 56px;
-  line-height: 39px;
+  min-width: 48px;
+  line-height: 31px;
   background-color: transparent;
-}
-
-.bf-nav-group-dropout-content :where(a, button):has(> .bf-nav-item) {
-  border-left: none;
 }
 
 /* .active = "current page" */
@@ -5534,12 +5545,20 @@ match (0, 1, 0) specificity of .bf-nav-item (when not focused or .active) */
   outline-offset: -1px;
 }
 
+/* 48px sidebar/mobile rows (230x48 expanded, 48x48 collapsed):
+4px inset keeps the 40px item height and icon area.
+:where() keeps specificity below Nav.Group.css rules so items inside
+group content/dropouts keep their own margin and padding */
+:where(.bf-nav-side, .bf-nav-mobile) .bf-nav-item {
+  margin: 4px;
+}
+
 /* #region external link in collapsed sidebar */
 .bf-nav-side-collapsed .bf-nav-item:has(.bf-nav-item-arrow)::after {
   content: "";
   position: absolute;
-  top: 16px;
-  left: 31px;
+  top: 12px;
+  left: 27px;
   border: 3px solid transparent;
   border-right-color: var(--bfc-base-c);
   border-top-color: var(--bfc-base-c);
@@ -5611,7 +5630,7 @@ match (0, 1, 0) specificity of .bf-nav-item (when not focused or .active) */
 }
 @media (min-width: 600px) {
   .bf-nav-logo {
-    --bf-nav-logo-container-width: 56px;
+    --bf-nav-logo-container-width: 48px;
     --bf-nav-logo-graphic-size: 32px;
   }
   .bf-nav-logo-name {
@@ -5627,7 +5646,7 @@ match (0, 1, 0) specificity of .bf-nav-item (when not focused or .active) */
 }
 
 .bf-nav-side .bf-nav-logo {
-  min-height: var(--bfs56);
+  min-height: var(--bfs48);
   width: 14.375rem; /* keep width static to avoid text wrap while transitioning to collapsed sidebar */
   border-bottom: var(--bf-border);
 }
@@ -5635,18 +5654,19 @@ match (0, 1, 0) specificity of .bf-nav-item (when not focused or .active) */
 /* #endregion logo in sidebar */
 .bf-nav-side-content .bf-nav-search-item,
 .bf-nav-mobile .bf-nav-search-item {
-  padding: 0;
+  /* 4px item margin + 4px padding = 8px input inset in the sidebar/mobile nav */
+  padding: 0 4px;
   border-radius: 0;
   line-height: normal;
 }
 
 .bf-nav-search-group .bf-nav-group-dropout-content {
-  padding: var(--bfs8);
+  padding: var(--bfs4);
 }
 
 /* #region top bar */
 .bf-nav-top .bf-nav-search-input {
-  height: 56px;
+  height: 48px;
   display: grid;
   place-content: center;
 }
@@ -5662,6 +5682,12 @@ match (0, 1, 0) specificity of .bf-nav-item (when not focused or .active) */
 
 .bf-nav-top .bf-nav-search-input .bf-input-icon {
   transition-property: right;
+  /* center the 24px icon (+4px margin) in the 48px top bar */
+  top: var(--bfs8);
+  /* center the svg exactly, instead of letting it baseline-align inside the
+  text-centering line-height inherited from the top bar item */
+  display: grid;
+  place-content: center;
   /* before search input is expanded (focused)
   we don't want the button to perform a search when clicked,
   instead let the click fall through to the input behind */
@@ -5671,6 +5697,7 @@ match (0, 1, 0) specificity of .bf-nav-item (when not focused or .active) */
 /* remove default nav.item padding to allow
 invisible input to be full width (and clickable) */
 .bf-nav-top .bf-nav-search-item {
+  margin: 0;
   padding: 0;
 }
 
@@ -6345,8 +6372,9 @@ button.bf-banner:active::after {
   background-color: transparent;
 }
 
+/* todo: remove file in 7.0 */
 :root {
-  --bf-card-padding: var(--bfs12);
+  --bf-card-padding: 16px;
 }
 
 .bf-card {
@@ -6355,7 +6383,7 @@ button.bf-banner:active::after {
   position: relative;
   min-height: 0;
   display: flow-root;
-  border-radius: var(--bf-radius-xs);
+  border-radius: var(--bf-radius);
 }
 
 .bf-card > a,
@@ -6406,8 +6434,8 @@ stretch it to full height to make sure whole area is clickable */
 }
 
 .bf-card-image:first-child {
-  border-top-left-radius: var(--bf-radius-xs);
-  border-top-right-radius: var(--bf-radius-xs);
+  border-top-left-radius: var(--bf-radius);
+  border-top-right-radius: var(--bf-radius);
 }
 
 .bf-card-logo {
@@ -6436,9 +6464,10 @@ stretch it to full height to make sure whole area is clickable */
 
 .bf-card-title {
   margin: var(--bf-card-padding);
-  margin-bottom: var(--bfs4);
+  margin-bottom: 8px;
   color: var(--bfc-base-c);
-  font-size: var(--bf-font-size-l);
+  font-size: var(--bf-font-size-h5);
+  font-weight: 740;
 }
 
 .bf-card-title:last-child {
@@ -6447,7 +6476,6 @@ stretch it to full height to make sure whole area is clickable */
 
 a .bf-card-title,
 button .bf-card-title {
-  color: var(--bfc-base-c-theme);
   text-underline-offset: var(--bf-underline-offset);
 }
 
@@ -6491,6 +6519,7 @@ button.bf-card-button {
   font-weight: 600;
   text-align: center;
   margin-top: var(--bf-card-padding);
+  background-color: transparent;
 }
 
 /* responsive padding */
@@ -6682,8 +6711,8 @@ button.bf-card-button {
 
 /* avoid cutting off focus outline */
 .bf-ellipsis-padded {
-  padding: 3px;
-  margin: -3px;
+  padding: 4px;
+  margin: -4px;
 }
 
 /* for single-line cut-off, try to include as much content as possible on a line

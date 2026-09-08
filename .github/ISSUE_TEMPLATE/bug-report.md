@@ -23,5 +23,5 @@ Steps to reproduce the behavior:
 
 **Environment**
 - Python version:
-- MkDocs Material version:
-- Plugin version:
+- Zensical version:
+- Theme version:

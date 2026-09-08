@@ -6,7 +6,7 @@ Extension: `abbr`
 
 === "Result"
 
-    The HTML specification is maintained by the W3C. You can write CSS to style your pages and use JS for interactivity. This template uses the MkDocs SSG with the Material theme.
+    The HTML specification is maintained by the W3C. You can write CSS to style your pages and use JS for interactivity. This site is built with the Zensical SSG.
 
     *[HTML]: Hyper Text Markup Language
     *[W3C]: World Wide Web Consortium
@@ -19,8 +19,8 @@ Extension: `abbr`
     ```markdown
     The HTML specification is maintained by the W3C.
     You can write CSS to style your pages and use JS
-    for interactivity. This template uses the MkDocs
-    SSG with the Material theme.
+    for interactivity. This site is built with the
+    Zensical SSG.
 
     *[HTML]: Hyper Text Markup Language
     *[W3C]: World Wide Web Consortium

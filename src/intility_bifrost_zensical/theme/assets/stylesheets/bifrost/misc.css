@@ -1,0 +1,28 @@
+/* Restore centering Bifrost removes */
+.md-top {
+    margin-inline-start: 50%;
+    border-radius: var(--bf-radius-full);
+    box-shadow: var(--bf-shadow);
+    font-size: var(--bf-font-size-m);
+    font-weight: 600;
+}
+
+
+kbd {
+    background-color: var(--bfc-base-2);
+    border: var(--bf-border);
+    box-shadow: var(--bf-shadow-bottom);
+}
+
+.md-tag {
+    background-color: var(--bfc-theme-fade);
+    color: var(--bfc-theme-fade-c);
+    border-radius: var(--bf-radius-xs);
+}
+
+/* Version badge */
+.bf-header-version {
+    align-self: center;
+    margin-left: 0.5rem;
+    line-height: 1.3;
+}

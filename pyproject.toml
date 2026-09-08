@@ -1,14 +1,13 @@
 [project]
-name = "intility-bifrost-mkdocs"
-version = "0.10.0"
-description = "Intility Bifrost theme plugin for MkDocs Material"
+name = "intility-bifrost-zensical"
+version = "0.1.0"
+description = "Intility Bifrost theme for Zensical"
 authors = [
     { name = "Erlend Ellefsen", email = "erlend.ellefsen@intility.no" },
 ]
 keywords = [
-    "mkdocs",
-    "mkdocs-material",
-    "mkdocs-plugin",
+    "zensical",
+    "zensical-theme",
     "documentation",
     "bifrost",
     "intility",
@@ -18,8 +17,7 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 classifiers = [
-    "Development Status :: 7 - Inactive",
-    "Framework :: MkDocs",
+    "Development Status :: 4 - Beta",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -28,30 +26,26 @@ classifiers = [
     "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-    "mkdocs>=1.6.1,<2",
-    "mkdocs-material>=9.7.5,<10",
-    "mkdocs-git-revision-date-localized-plugin>=1.5.0",
-    "mkdocs-awesome-nav>=3.1,<4",
+    "zensical==0.0.59",
     "markdown-callouts>=0.4",
 ]
 
 [project.optional-dependencies]
 dev = [
-    "livereload>=2.7.1",
     "ruff>=0.15.0",
     "pytest>=9.0.0",
 ]
 
 [project.urls]
-Homepage = "https://intility.github.io/bifrost-mkdocs"
-Documentation = "https://intility.github.io/bifrost-mkdocs"
-Repository = "https://github.com/intility/bifrost-mkdocs"
-Issues = "https://github.com/intility/bifrost-mkdocs/issues"
-Changelog = "https://github.com/intility/bifrost-mkdocs/blob/main/CHANGELOG.md"
-"Migration guide" = "https://intility.github.io/bifrost-zensical/migrating/"
+Homepage = "https://intility.github.io/bifrost-zensical"
+Documentation = "https://intility.github.io/bifrost-zensical"
+Repository = "https://github.com/intility/bifrost-zensical"
+Issues = "https://github.com/intility/bifrost-zensical/issues"
+Changelog = "https://github.com/intility/bifrost-zensical/blob/main/CHANGELOG.md"
+"Migrating from bifrost-mkdocs" = "https://intility.github.io/bifrost-zensical/migrating/"
 
-[project.entry-points."mkdocs.plugins"]
-intility-bifrost = "intility_bifrost_mkdocs.plugin:IntilityBifrostPlugin"
+[project.entry-points."mkdocs.themes"]
+intility-bifrost = "intility_bifrost_zensical.theme"
 
 [build-system]
 requires = ["setuptools>=75"]
@@ -61,13 +55,14 @@ build-backend = "setuptools.build_meta"
 where = ["src"]
 
 [tool.setuptools.package-data]
-intility_bifrost_mkdocs = [
-    "overrides/**/*.html",
-    "overrides/**/*.css",
-    "overrides/**/*.js",
-    "overrides/**/*.woff2",
+intility_bifrost_zensical = [
+    "theme/*.yml",
+    "theme/**/*.html",
+    "theme/**/*.css",
+    "theme/**/*.js",
+    "theme/**/*.woff2",
     # Bundled-font licenses must ship alongside the woff2 (SIL OFL requirement).
-    "overrides/**/fonts/*.txt",
+    "theme/**/fonts/*.txt",
 ]
 
 [tool.ruff]
@@ -78,7 +73,7 @@ line-length = 88
 select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["intility_bifrost_mkdocs"]
+known-first-party = ["intility_bifrost_zensical"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

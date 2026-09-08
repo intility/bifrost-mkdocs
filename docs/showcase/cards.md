@@ -12,13 +12,13 @@ Extension: `md_in_html`
 
         ---
 
-        Install the plugin with pip and add it to your `mkdocs.yml`.
+        Install the theme with pip and set `theme.name` in your `zensical.toml`.
 
     - :material-cog:{ .lg .middle } **Configuration**
 
         ---
 
-        Override any injected default by setting it explicitly in your config.
+        Override any theme default by setting it explicitly in your config.
 
     - :material-file-document:{ .lg .middle } **Writing Content**
 
@@ -43,13 +43,13 @@ Extension: `md_in_html`
 
         ---
 
-        Install the plugin with pip and add it to your `mkdocs.yml`.
+        Install the theme with pip and set `theme.name` in your `zensical.toml`.
 
     - :material-cog:{ .lg .middle } **Configuration**
 
         ---
 
-        Override any injected default by setting it
+        Override any theme default by setting it
         explicitly in your config.
 
     - :material-file-document:{ .lg .middle } **Writing Content**
@@ -70,8 +70,8 @@ Extension: `md_in_html`
 
 ## Link cards
 
-Make the header a link and the whole card becomes clickable, like a Bifrost
-link-section. Add a trailing arrow icon for the affordance: it slides on hover.
+Make the header a link, like a Bifrost link-section. Add a trailing arrow icon
+for the affordance; it is pushed to the right edge of the header.
 
 === "Result"
 
@@ -120,5 +120,4 @@ The key parts:
 - Use `{ .lg .middle }` on icons to size and align them
 
 For a **link card**, wrap the whole header in a link (`[ ... ](url)`) and add a
-trailing `:material-arrow-right:`. The entire card becomes clickable and the
-arrow slides on hover. Cards without a header link stay static.
+trailing `:material-arrow-right:`. The header band becomes the click target.
