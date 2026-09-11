@@ -5,6 +5,7 @@ site_author = "Intility"
 site_url = "https://intility.github.io/bifrost-zensical"
 repo_url = "https://github.com/intility/bifrost-zensical"
 repo_name = "intility/bifrost-zensical"
+edit_uri = "edit/main/docs/"
 copyright = "Copyright &copy; 2026 Intility"
 
 [project.extra]

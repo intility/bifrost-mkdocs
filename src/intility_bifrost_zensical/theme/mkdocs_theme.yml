@@ -19,6 +19,7 @@ features:
   - content.tabs.link
   - content.tooltips
   - content.footnote.tooltips
+  - content.action.edit
 
 font: false
 
