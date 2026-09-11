@@ -52,6 +52,9 @@
   {%- if config.extra.version -%}
   <meta name="bifrost-version" content="{{ config.extra.version }}">
   {%- endif -%}
+  {%- if config.extra.primary -%}
+  <meta name="bifrost-primary" content="{{ config.extra.primary }}">
+  {%- endif -%}
 {% endblock %}
 
 {% block scripts %}

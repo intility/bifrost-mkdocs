@@ -34,33 +34,9 @@ life on 2026-11-05. `intility-bifrost-zensical` is the replacement.
 3. **Copy the `markdown_extensions` block** from the [Quick Start](index.md#quick-start).
 
 4. **Build with `zensical`** instead of `mkdocs`. If you use the reusable
-   workflow, the caller sets `permissions` and `concurrency` itself:
-
-    ```yaml
-    # .github/workflows/docs.yml
-    name: Documentation
-
-    on:
-      push:
-        branches: [main]
-      workflow_dispatch:
-
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-
-    concurrency:
-      group: pages
-      cancel-in-progress: false
-
-    jobs:
-      docs:
-        uses: intility/bifrost-zensical/.github/workflows/docs.yml@intility-bifrost-zensical-v0.1.0 # x-release-please-version
-        # with:
-        #   config-file: zensical.toml   # default: mkdocs.yml
-        #   install: -r requirements.txt # default: intility-bifrost-zensical
-    ```
+   workflow, follow the [deploy step](index.md#existing-repo) in the Quick Start.
+   Pin to an `intility-bifrost-zensical-v*` tag. The plain `v*` tags in this
+   repo belong to the deprecated `intility-bifrost-mkdocs` package.
 
     Remember to pin the workflow to a SHA ;)
 

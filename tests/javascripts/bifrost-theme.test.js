@@ -101,6 +101,13 @@ test('missing primary defaults to bf-theme-teal', () => {
   assert.ok(html.classList.contains('bf-theme-teal'));
 });
 
+test('extra.primary meta tag wins over the palette primary', () => {
+  const html = makeHtml();
+  syncBifrostTheme(html, makeBody('default', 'teal'), makeDoc({ primary: 'purple' }));
+  assert.ok(html.classList.contains('bf-theme-purple'));
+  assert.ok(!html.classList.contains('bf-theme-teal'));
+});
+
 test('switching theme removes the previous bf-theme-* class', () => {
   const html = makeHtml();
   syncBifrostTheme(html, makeBody('default', 'purple'));
@@ -115,18 +122,17 @@ test('switching theme removes the previous bf-theme-* class', () => {
 // readVersion / insertVersionBadge
 // ---------------------------------------------------------------------------
 
-function makeDoc({ version = null } = {}) {
+function makeDoc({ version = null, primary = null } = {}) {
+  const metas = { 'meta[name="bifrost-version"]': version, 'meta[name="bifrost-primary"]': primary };
   return {
     querySelector(selector) {
-      if (selector === 'meta[name="bifrost-version"]') {
-        if (version === null) return null;
-        return {
-          getAttribute(name) {
-            return name === 'content' ? version : null;
-          },
-        };
-      }
-      return null;
+      const content = metas[selector];
+      if (content === undefined || content === null) return null;
+      return {
+        getAttribute(name) {
+          return name === 'content' ? content : null;
+        },
+      };
     },
     createElement(_tag) {
       return {

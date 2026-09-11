@@ -21,7 +21,7 @@
       "release-as": "0.1.0",
       "extra-files": [
         "zensical.toml",
-        "docs/migrating.md",
+        "docs/index.md",
         ".github/workflows/docs.yml"
       ]
     }
