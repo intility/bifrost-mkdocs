@@ -79,8 +79,8 @@
 .md-typeset .admonition-title::before,
 .md-typeset details>summary::before {
     flex: 0 0 auto;
-    width: 1em;
-    height: 1em;
+    width: 1.25em;
+    height: 1.25em;
     background-color: currentColor;
     position: static;
 }
