@@ -48,7 +48,7 @@ complete block plus color, version badge, and navigation options.
 ## What it provides
 
 - **Bifrost design system** - Colors and component styling, with light/dark mode that follows the system preference
-- **Theme colors** - green (default), teal, purple, pink, yellow (set via `primary` in your palette)
+- **Theme colors** - teal (default), green, purple, pink, yellow (set `extra.primary`)
 - **Typography** - Satoshi for all text, JetBrains Mono for code (both self-hosted, no Google Fonts)
 - **Version badge** - Set `extra.version` to show a Bifrost-styled version badge in the header
 - **A Bifrost table extension** - `intility_bifrost_zensical.table_ext`, add to `markdown_extensions` for `.bf-table` styling

@@ -6,7 +6,7 @@ name: Documentation (reusable)
 #
 #   jobs:
 #     docs:
-#       uses: intility/bifrost-zensical/.github/workflows/docs.yml@intility-bifrost-zensical-v0.1.0
+#       uses: intility/bifrost-zensical/.github/workflows/docs.yml@intility-bifrost-zensical-v0.1.0 # x-release-please-version
 
 on:
   workflow_call:

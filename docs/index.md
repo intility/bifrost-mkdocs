@@ -6,14 +6,24 @@ See the [Feature Showcase](showcase/index.md) for a live demonstration of every 
 
 ## Quick Start
 
-1. **Create a new repo** from the [bifrost-zensical-template](https://github.com/intility/bifrost-zensical-template), or add the theme to an existing project.
-2. **Install the theme.** Zensical is a dependency of the package, so this is the only install step:
+### New repo
+
+Create the repo from the [bifrost-zensical-template](https://github.com/intility/bifrost-zensical-template).
+It ships the config from the next section, a `requirements.txt`, and the deploy workflow. Then:
+
+1. Set `site_name` and `site_url` in `zensical.toml`.
+2. Enable GitHub Pages: Settings > Pages > Source: GitHub Actions.
+3. Write docs in `docs/`.
+
+### Existing repo
+
+1. **Install the theme.** Zensical is a dependency of the package, so this is the only install step:
 
     ```bash
     uv pip install intility-bifrost-zensical
     ```
 
-3. **Set `theme.name` and the markdown extensions** in your config file. Zensical reads `zensical.toml` (its native format) or `mkdocs.yml`. A theme cannot inject markdown extensions for you, so this block is the complete list (it replaces Zensical's own defaults, it doesn't add to them):
+2. **Set `theme.name` and the markdown extensions** in your config file. Zensical reads `zensical.toml` (its native format) or `mkdocs.yml`. A theme cannot inject markdown extensions for you, so this block is the complete list (it replaces Zensical's own defaults, it doesn't add to them):
 
     === "zensical.toml"
 
@@ -118,53 +128,69 @@ See the [Feature Showcase](showcase/index.md) for a live demonstration of every 
           - intility_bifrost_zensical.table_ext
         ```
 
-4. **Serve the site** and start writing docs:
+3. **Serve the site** and start writing docs:
 
     ```bash
     zensical serve
     ```
 
-Theme features, fonts, and a green palette that follows the system light/dark preference are set by the theme. Override any of them by setting `theme.*` yourself.
+4. **Deploy with the reusable workflow.** Add the file below, then enable GitHub
+   Pages: Settings > Pages > Source: GitHub Actions. The caller sets
+   `permissions` and `concurrency` itself:
+
+    ```yaml
+    # .github/workflows/deploy-docs.yml
+    name: Documentation
+
+    on:
+      push:
+        branches: [main]
+      workflow_dispatch:
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+
+    jobs:
+      docs:
+        uses: intility/bifrost-zensical/.github/workflows/docs.yml@intility-bifrost-zensical-v0.1.0 # x-release-please-version
+        with:
+          config-file: zensical.toml   # default: mkdocs.yml
+          # install: -r requirements.txt   # default: intility-bifrost-zensical
+    ```
+
+    Pin to an `intility-bifrost-zensical-v*` tag. If your org requires SHA
+    pinning, use the commit SHA of the tag and keep the tag as a trailing
+    comment; Dependabot bumps both together.
+
+Theme features, fonts, and a teal palette that follows the system light/dark preference are set by the theme. Override any of them by setting `theme.*` yourself.
 
 ## Customization
 
 ### Change the Color Scheme
 
-To use a different color, set your own `palette`. This also lets you customize the toggle icons and labels. `primary` accepts `green`, `teal`, `purple`, `pink`, or `yellow`:
+Set `extra.primary` to `green`, `teal`, `purple`, `pink`, or `yellow`. The theme's palette and the light/dark toggle stay as they are:
 
 === "zensical.toml"
 
     ```toml
-    [[project.theme.palette]]
-    scheme = "default"
-    primary = "teal"
-    toggle = { icon = "lucide/moon-star", name = "Switch to dark mode" }
-
-    [[project.theme.palette]]
-    scheme = "slate"
-    primary = "teal"
-    toggle = { icon = "lucide/sun", name = "Switch to light mode" }
+    [project.extra]
+    primary = "purple"
     ```
 
 === "mkdocs.yml"
 
     ```yaml
-    theme:
-      name: intility-bifrost
-      palette:
-        - scheme: default
-          primary: teal
-          toggle:
-            icon: lucide/moon-star
-            name: Switch to dark mode
-        - scheme: slate
-          primary: teal
-          toggle:
-            icon: lucide/sun
-            name: Switch to light mode
+    extra:
+      primary: purple
     ```
 
-Use `scheme: default` for light mode and `scheme: slate` for dark mode; the theme maps them onto Bifrost's light and dark modes. A user-defined `palette` replaces the theme's default entirely, so include both modes if you want to keep the toggle. To also offer a "follow system" option, see the [Zensical palette docs](https://zensical.org/docs/setup/colors/).
+To change the toggle icons or labels, or to drop the "follow system" option, set your own `palette` instead. A user-defined `palette` replaces the theme's default entirely, so include both modes if you want to keep the toggle. Use `scheme: default` for light mode and `scheme: slate` for dark mode; the theme maps them onto Bifrost's light and dark modes. See the [Zensical palette docs](https://zensical.org/docs/setup/colors/) for the full syntax.
 
 ### Version Badge
 
