@@ -158,7 +158,7 @@ It ships the config from the next section, a `requirements.txt`, and the deploy 
 
     jobs:
       docs:
-        uses: intility/bifrost-zensical/.github/workflows/docs.yml@intility-bifrost-zensical-v0.1.0 # x-release-please-version
+        uses: intility/bifrost-zensical/.github/workflows/docs.yml@intility-bifrost-zensical-v0.1.1 # x-release-please-version
         with:
           config-file: zensical.toml   # default: mkdocs.yml
           # install: -r requirements.txt   # default: intility-bifrost-zensical

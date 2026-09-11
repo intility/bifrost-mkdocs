@@ -9,7 +9,7 @@ edit_uri = "edit/main/docs/"
 copyright = "Copyright &copy; 2026 Intility"
 
 [project.extra]
-version = "0.1.0" # x-release-please-version
+version = "0.1.1" # x-release-please-version
 
 [project.theme]
 name = "intility-bifrost"
