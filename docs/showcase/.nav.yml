@@ -1,5 +1,5 @@
 nav:
-  - index.md
+  - Overview: index.md
   - Typography: typography.md
   - Smart Symbols: smart-symbols.md
   - Keyboard Keys: keyboard-keys.md

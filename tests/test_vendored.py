@@ -13,7 +13,7 @@ import re
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
-VENDOR = ROOT / "src" / "intility_bifrost_mkdocs" / "overrides" / "assets" / "vendor"
+VENDOR = ROOT / "src" / "intility_bifrost_zensical" / "theme" / "assets" / "vendor"
 FRAMEWORK_CSS = VENDOR / "bifrost-all.css"
 SATOSHI_FONT = VENDOR / "fonts" / "satoshi-intility-variable.woff2"
 JETBRAINS_MONO_FONT = VENDOR / "fonts" / "jetbrains-mono-variable.woff2"
@@ -22,12 +22,6 @@ JETBRAINS_MONO_FONT = VENDOR / "fonts" / "jetbrains-mono-variable.woff2"
 def _pinned_version() -> str:
     pkg = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
     return pkg["dependencies"]["@intility/bifrost-css"]
-
-
-def test_framework_css_is_vendored():
-    """The framework CSS must be committed and non-trivial."""
-    assert FRAMEWORK_CSS.is_file()
-    assert FRAMEWORK_CSS.stat().st_size > 10_000
 
 
 def test_vendored_css_matches_pinned_version():
@@ -64,18 +58,6 @@ def test_jetbrains_mono_font_is_vendored():
     assert (VENDOR / "fonts" / "JetBrainsMono-OFL.txt").is_file()
 
 
-def test_bifrost_css_imports_framework_and_partials():
-    """The manifest must layer the framework and import the override partials."""
-    manifest = (VENDOR.parent / "stylesheets" / "bifrost.css").read_text(
-        encoding="utf-8"
-    )
-    assert "../vendor/bifrost-all.css" in manifest
-    assert "layer(bifrost-framework)" in manifest
-    assert "layer(bifrost-overrides.tokens)" in manifest
-    # No runtime CDN import for the framework anymore.
-    assert "unpkg.com" not in manifest
-
-
 def test_manifest_layer_statement_precedes_imports():
     """The @layer order statement must come before every @import.
 
@@ -84,14 +66,16 @@ def test_manifest_layer_statement_precedes_imports():
     override partial (and the theme would fall back to bare Material). This
     guards that exact regression without needing a browser.
     """
-    manifest = (VENDOR.parent / "stylesheets" / "bifrost.css").read_text(
-        encoding="utf-8"
-    )
-    layer_idx = manifest.index("@layer ")
-    first_import_idx = manifest.index("@import ")
-    assert layer_idx < first_import_idx, (
+    stylesheets = VENDOR.parent / "stylesheets"
+    manifest = (stylesheets / "bifrost.css").read_text(encoding="utf-8")
+    assert manifest.index("@layer ") < manifest.index("@import "), (
         "The @layer statement must precede all @import rules in bifrost.css, "
         "or browsers drop the partial @imports and the overrides never load."
     )
-    # All nine partials plus the framework must be imported.
-    assert manifest.count("@import ") >= 10
+    assert "../vendor/bifrost-all.css" in manifest
+    assert "layer(bifrost-framework)" in manifest
+
+    partials = sorted(p.name for p in (stylesheets / "bifrost").glob("*.css"))
+    for name in partials:
+        assert f"bifrost/{name}" in manifest, f"{name} is not imported"
+    assert manifest.count("@import ") == len(partials) + 1

@@ -1,78 +1,57 @@
 <h1 align="center">
   <img src="https://avatars.githubusercontent.com/u/35199565" width="124px"/><br/>
-  Bifrost MkDocs
+  Bifrost Zensical
 </h1>
 
 <p align="center">
-    <em>Intility's Bifrost design system as a Material for MkDocs plugin.</em>
+    <em>Intility's Bifrost design system as a Zensical theme.</em>
 </p>
 <p align="center">
     <a href="https://python.org">
         <img src="https://img.shields.io/badge/python-v3.10+-blue.svg?logo=python&logoColor=white&label=python" alt="Python version">
     </a>
-    <a href="https://squidfunk.github.io/mkdocs-material/">
-        <img src="https://img.shields.io/badge/mkdocs--material-9.7.5+-blue.svg?logo=materialformkdocs&logoColor=white&label=mkdocs-material" alt="MkDocs Material version">
+    <a href="https://zensical.org/">
+        <img src="https://img.shields.io/badge/zensical-0.0.59-blue.svg?label=zensical" alt="Zensical version">
     </a>
-    <a href="https://github.com/intility/bifrost-mkdocs/blob/main/LICENSE">
+    <a href="https://github.com/intility/bifrost-zensical/blob/main/LICENSE">
         <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License">
     </a>
 </p>
 
-> [!WARNING]
-> **This package is deprecated.** Material for MkDocs reaches end of life on
-> 2026-11-05. This repo does not receive further feature updates; it stays on
-> PyPI as a bridge for existing installs. Migrate to
-> [Bifrost Zensical](https://intility.github.io/bifrost-zensical/migrating/)
-> before then.
-
 ## Description
 
-A pip-installable MkDocs plugin that applies Intility's Bifrost design system to Material for MkDocs. The plugin is batteries-included: colors, typography, component styling, markdown extensions, theme features, and message icons are all configured automatically.
+A pip-installable [Zensical](https://zensical.org/) theme that applies Intility's Bifrost design system.
+
+Migrating from `intility-bifrost-mkdocs`? See the [migration guide](https://intility.github.io/bifrost-zensical/migrating/).
 
 ## Installation
 
-Start from the [bifrost-mkdocs-template](https://github.com/intility/bifrost-mkdocs-template) for a preconfigured project, or add the plugin to an existing one:
+Start from the [bifrost-zensical-template](https://github.com/intility/bifrost-zensical-template) for a preconfigured project, or add the theme to an existing one:
 
 ```bash
-uv pip install intility-bifrost-mkdocs
+uv pip install intility-bifrost-zensical
 ```
 
 ## Usage
 
-Set the theme to `material` and add `intility-bifrost` to your `mkdocs.yml` plugins:
+Set `theme.name` to `intility-bifrost` in `zensical.toml` (or `mkdocs.yml`):
 
-```yaml
-theme:
-  name: material
-
-plugins:
-  - intility-bifrost
-  - search
+```toml
+[project.theme]
+name = "intility-bifrost"
 ```
 
-That's the whole setup. The plugin configures the markdown extensions, theme
-features, fonts, icons, and a light/dark palette toggle for you.
-
-To pick a different theme color, set a version badge, or build navigation from
-`.nav.yml` files, see the
-**[Quick Start](https://intility.github.io/bifrost-mkdocs/)** in the docs.
+A theme cannot inject markdown extensions, so add those yourself. The
+**[Quick Start](https://intility.github.io/bifrost-zensical/)** has the
+complete block plus color, version badge, and navigation options.
 
 ## What it provides
 
-Adding `intility-bifrost` to your plugins list gives you:
-
-- **Bifrost design system** - Colors, typography, and component styling matching the Intility design system
-- **Light/dark mode** - Automatic theme switching with Bifrost color variables
-- **Theme colors** - teal, purple, pink, yellow (set via `primary` in your palette config)
+- **Bifrost design system** - Colors and component styling, with light/dark mode that follows the system preference
+- **Theme colors** - green (default), teal, purple, pink, yellow (set via `primary` in your palette)
 - **Typography** - Satoshi for all text, JetBrains Mono for code (both self-hosted, no Google Fonts)
-- **Markdown extensions** - Messages, code highlighting, tabs, mermaid diagrams, emoji, task lists, and more
-- **Theme features** - Instant navigation, search suggestions (with a `⌘ K` / `Ctrl K` hotkey), code copy buttons, and more
-- **Message icons** - Custom FontAwesome icons for all message types
-- **Version badge** - Set `extra.version` in `mkdocs.yml` to show a Bifrost-styled version badge in the header
-- **Bundled plugins** - `mkdocs-awesome-nav` and `mkdocs-git-revision-date-localized-plugin` are installed alongside; opt in by adding them to your `plugins:` list
-- **GitHub-style alerts** - `markdown-callouts` is bundled and auto-enabled, so `> [!NOTE]` blocks render as Bifrost Messages
-
-All defaults are injected only when the user hasn't provided their own config, so you can override anything by setting it explicitly in your `mkdocs.yml`.
+- **Version badge** - Set `extra.version` to show a Bifrost-styled version badge in the header
+- **A Bifrost table extension** - `intility_bifrost_zensical.table_ext`, add to `markdown_extensions` for `.bf-table` styling
 
 ## Local development
 
@@ -86,5 +65,5 @@ just dev       # serve the docs site locally
 ```
 
 Run `just` to see all available recipes. The demo site at `docs/index.md` uses
-the plugin directly. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full
+the theme directly. See [CONTRIBUTING.md](CONTRIBUTING.md) for the full
 workflow.

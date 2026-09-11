@@ -49,7 +49,7 @@ Extensions: `pymdownx.tasklist`, `def_list`
 === "Result"
 
     - [x] Create the project structure
-    - [x] Configure MkDocs with Material theme
+    - [x] Configure Zensical with the Bifrost theme
     - [x] Add Bifrost styling
     - [ ] Write all documentation
     - [ ] Deploy to production
@@ -58,7 +58,7 @@ Extensions: `pymdownx.tasklist`, `def_list`
 
     ```markdown
     - [x] Create the project structure
-    - [x] Configure MkDocs with Material theme
+    - [x] Configure Zensical with the Bifrost theme
     - [x] Add Bifrost styling
     - [ ] Write all documentation
     - [ ] Deploy to production
@@ -68,11 +68,11 @@ Extensions: `pymdownx.tasklist`, `def_list`
 
 === "Result"
 
-    **MkDocs**
-    :   A static site generator for project documentation, written in Python.
+    **Zensical**
+    :   A static site generator for project documentation, the successor to MkDocs and Material for MkDocs.
 
-    **Material for MkDocs**
-    :   A theme for MkDocs that provides a modern, responsive design with many built-in features.
+    **Bifrost Zensical**
+    :   A packaged Zensical theme applying Intility's Bifrost design system.
 
     **Bifrost**
     :   Intility's design system, providing consistent colors, typography, and component styling.
@@ -80,12 +80,13 @@ Extensions: `pymdownx.tasklist`, `def_list`
 === "Markdown"
 
     ```markdown
-    **MkDocs**
-    :   A static site generator for project documentation, written in Python.
+    **Zensical**
+    :   A static site generator for project documentation, the
+        successor to MkDocs and Material for MkDocs.
 
-    **Material for MkDocs**
-    :   A theme for MkDocs that provides a modern, responsive design
-        with many built-in features.
+    **Bifrost Zensical**
+    :   A packaged Zensical theme applying Intility's Bifrost
+        design system.
 
     **Bifrost**
     :   Intility's design system, providing consistent colors,

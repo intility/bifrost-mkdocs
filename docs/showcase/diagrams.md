@@ -42,7 +42,7 @@ Extension: `pymdownx.superfences` with custom mermaid fence
     sequenceDiagram
         participant U as User
         participant B as Browser
-        participant S as MkDocs Server
+        participant S as Zensical Server
         participant T as Theme Engine
 
         U->>B: Navigate to page
@@ -61,7 +61,7 @@ Extension: `pymdownx.superfences` with custom mermaid fence
     sequenceDiagram
         participant U as User
         participant B as Browser
-        participant S as MkDocs Server
+        participant S as Zensical Server
         participant T as Theme Engine
 
         U->>B: Navigate to page

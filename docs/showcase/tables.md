@@ -1,6 +1,8 @@
 # Tables
 
-Extension: `tables`
+Extensions: `tables`, `intility_bifrost_zensical.table_ext`
+
+The `table_ext` extension gives every table the Bifrost `bf-table` look. Tables you give a class yourself are left alone.
 
 ## Column Alignment
 

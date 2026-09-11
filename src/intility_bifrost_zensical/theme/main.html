@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{#
+  Bifrost Zensical Theme
+
+  A packaged Zensical theme that extends Zensical's built-in (Material-derived)
+  theme and applies Intility's Bifrost design system. Theme-sync behaviour
+  lives in `javascripts/bifrost-theme.js`, loaded via the `scripts` block
+  below since a theme cannot set `extra_javascript` itself.
+#}
+
+{% block htmltitle %}
+  <title>{% if page.title and not page.is_homepage %}{{ page.title | striptags }} - {% endif %}{{ config.site_name }}</title>
+{% endblock %}
+
+{#
+  Demote Zensical's built-in stylesheet into a low-priority cascade layer.
+  bifrost-layers.css declares the layer order (material < bifrost-framework <
+  bifrost-overrides) and re-imports the built-in main/palette stylesheets into
+  the `material` layer, so our overrides win without a specificity war. It is
+  a static file (not generated) because the hashed filenames are hardcoded in
+  Zensical's own `base.html`, not discovered at build time; a pinned Zensical
+  version keeps them in sync (see tests/test_theme.py). It is served as a real
+  <link> so it survives instant navigation, and must precede bifrost.css so
+  the layer order is declared first.
+#}
+{% block styles %}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/bifrost-layers.css' | url }}">
+  {% include "partials/icons.html" %}
+  <link rel="stylesheet" href="{{ 'assets/stylesheets/bifrost.css' | url }}">
+{% endblock %}
+
+{#
+  Stamp Bifrost's .bf-content on the article so the framework styles Markdown
+  output (headings, paragraphs, lists, links) directly. Zensical hardcodes the
+  article's class list, so the whole container block is copied from base.html.
+#}
+{% block container %}
+  <div class="md-content" data-md-component="content">
+    {% if "navigation.path" in features %}
+      {% include "partials/path.html" %}
+    {% endif %}
+    <article class="md-content__inner md-typeset bf-content">
+      {% block content %}
+        {% include "partials/content.html" %}
+      {% endblock %}
+    </article>
+  </div>
+{% endblock %}
+
+{% block extrahead %}
+  {%- if config.extra.version -%}
+  <meta name="bifrost-version" content="{{ config.extra.version }}">
+  {%- endif -%}
+{% endblock %}
+
+{% block scripts %}
+  {{ super() }}
+  <script src="{{ 'javascripts/bifrost-theme.js' | url }}"></script>
+{% endblock %}

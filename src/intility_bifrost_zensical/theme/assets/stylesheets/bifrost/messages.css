@@ -1,0 +1,134 @@
+.md-typeset .admonition {
+    --adm-fade: var(--bfc-theme-fade);
+    --adm-fade-c: var(--bfc-theme-fade-c);
+    background-color: var(--adm-fade);
+    color: var(--adm-fade-c);
+    border-radius: var(--bf-radius-m);
+    padding: var(--bfs16);
+}
+
+.md-typeset .admonition-title {
+    display: flex;
+    align-items: center;
+    gap: var(--bfs8);
+    line-height: 1.2;
+    font-weight: 600;
+    margin: 0 0 var(--bfs8);
+    padding: 0;
+}
+
+.md-typeset .admonition>.admonition-title+* {
+    margin-top: 0;
+}
+
+.md-typeset .admonition>*:last-child {
+    margin-bottom: 0;
+}
+
+.md-typeset details {
+    --adm-fade: var(--bfc-theme-fade);
+    --adm-fade-c: var(--bfc-theme-fade-c);
+    border: var(--bf-border);
+    border-radius: var(--bf-radius-m);
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--bfc-base-3);
+}
+
+.md-typeset details>summary {
+    display: flex;
+    align-items: center;
+    gap: var(--bfs8);
+    background-color: var(--adm-fade);
+    color: var(--adm-fade-c);
+    font-weight: 600;
+    margin: 0;
+    padding: var(--bfs16) var(--bfs12);
+    cursor: pointer;
+}
+
+
+.md-typeset details>summary:focus-visible {
+    outline: 2px dotted var(--bfc-base-c);
+    outline-offset: -2px;
+    border-radius: var(--bf-radius);
+}
+
+.md-typeset details:has(> summary:hover) {
+    box-shadow: var(--bf-shadow);
+}
+
+.md-typeset details>*:not(summary) {
+    margin: var(--bfs16) var(--bfs16) 0;
+}
+
+.md-typeset details>*:last-child:not(summary) {
+    margin-bottom: var(--bfs16);
+}
+
+/* Move the chevron to the left of the header */
+.md-typeset details>summary::after {
+    position: static;
+    order: -1;
+    margin: 0;
+    width: 1.25em;
+    height: 1.25em;
+    background-color: var(--adm-fade-c);
+}
+
+.md-typeset .admonition-title::before,
+.md-typeset details>summary::before {
+    flex: 0 0 auto;
+    width: 1em;
+    height: 1em;
+    background-color: currentColor;
+    position: static;
+}
+
+.md-typeset .abstract,
+.md-typeset .example,
+.md-typeset .important {
+    --adm-fade: var(--bfc-chill-fade);
+    --adm-fade-c: var(--bfc-chill-fade-c);
+}
+
+.md-typeset .tip,
+.md-typeset .success {
+    --adm-fade: var(--bfc-success-fade);
+    --adm-fade-c: var(--bfc-success-fade-c);
+}
+
+.md-typeset .warning {
+    --adm-fade: var(--bfc-warning-fade);
+    --adm-fade-c: var(--bfc-warning-fade-c);
+}
+
+.md-typeset .question {
+    --adm-fade: var(--bfc-attn-fade);
+    --adm-fade-c: var(--bfc-attn-fade-c);
+}
+
+.md-typeset .failure,
+.md-typeset .danger,
+.md-typeset .error,
+.md-typeset .bug,
+.md-typeset .caution {
+    --adm-fade: var(--bfc-alert-fade);
+    --adm-fade-c: var(--bfc-alert-fade-c);
+}
+
+.md-typeset .quote {
+    --adm-fade: var(--bfc-neutral-fade);
+    --adm-fade-c: var(--bfc-neutral-fade-c);
+}
+
+/* Github alert "important" does not have a default icon */
+:root {
+    --md-admonition-icon--important: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%3E%3Cpath%20d%3D%22M11%2015h2v2h-2zm0-8h2v6h-2zm1-5C6.47%202%202%206.5%202%2012a10%2010%200%200%200%2010%2010%2010%2010%200%200%200%2010-10A10%2010%200%200%200%2012%202m0%2018a8%208%200%200%201-8-8%208%208%200%200%201%208-8%208%208%200%200%201%208%208%208%208%200%200%201-8%208%22%2F%3E%3C%2Fsvg%3E');
+}
+
+.md-typeset .important>.admonition-title::before,
+.md-typeset .important>summary::before {
+    mask-image: var(--md-admonition-icon--important);
+    -webkit-mask-image: var(--md-admonition-icon--important);
+}

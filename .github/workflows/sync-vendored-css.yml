@@ -37,10 +37,10 @@ jobs:
 
       - name: Commit if changed
         run: |
-          if [ -n "$(git status --porcelain src/intility_bifrost_mkdocs/overrides/assets/vendor)" ]; then
+          if [ -n "$(git status --porcelain src/intility_bifrost_zensical/theme/assets/vendor)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add src/intility_bifrost_mkdocs/overrides/assets/vendor
+            git add src/intility_bifrost_zensical/theme/assets/vendor
             git commit -m "chore: sync vendored bifrost-css to match package.json"
             git push
           else

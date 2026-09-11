@@ -1,0 +1,72 @@
+.md-header {
+    background-color: var(--bfc-base-3);
+}
+.md-header__button:hover {
+    color: var(--bfc-theme);
+}
+
+.md-tabs__link {
+    color: var(--bfc-base-c-2);
+    font-weight: 500;
+}
+
+.md-tabs__link--active,
+.md-tabs__item--active .md-tabs__link,
+.md-tabs__link:hover,
+.md-tabs__link:focus {
+    color: var(--bfc-theme);
+}
+
+.md-nav__link:hover,
+.md-nav__link:focus,
+.md-nav__link--active,
+.md-nav__item--active>.md-nav__link {
+    color: var(--bfc-theme);
+}
+
+a.md-nav__link:hover{
+    background-color: var(--bfc-theme-fade);
+}
+
+.md-nav__link--active {
+    font-weight: 600;
+}
+
+.md-nav--secondary .md-nav__link,
+.md-nav--secondary .md-nav__link:hover,
+.md-nav--secondary .md-nav__link:focus,
+.md-nav--secondary .md-nav__link--active,
+.md-nav--secondary .md-nav__item--active>.md-nav__link {
+    color: var(--bfc-theme);
+    font-weight: 400;
+}
+
+.md-nav--secondary .md-nav .md-nav__link {
+    align-items: center;
+}
+
+.md-nav--secondary .md-nav .md-nav__link::before {
+    content: "¬";
+    color: var(--bfc-theme);
+    rotate: 180deg;
+}
+
+.md-nav--secondary .md-nav .md-nav .md-nav__link::before {
+    content: "−";
+}
+
+.md-search__button {
+    font-size: var(--bf-font-size-l);
+}
+
+.md-tabs{
+    background-color: var(--bfc-base-3);
+}
+
+
+@media screen and (max-width: 76.1875em) {
+    .md-sidebar--primary > .md-sidebar__scrollwrap {
+        background-color: var(--bfc-base-3);
+        border-radius: var(--bf-radius-m);
+    }
+}

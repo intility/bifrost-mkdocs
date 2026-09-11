@@ -1,0 +1,11 @@
+.md-footer-meta {
+    background-color: var(--bfc-base-3);
+}
+
+.md-footer-meta.md-typeset a {
+    color: var(--bfc-theme);
+}
+
+.md-copyright {
+    color: var(--bfc-base-c);
+}

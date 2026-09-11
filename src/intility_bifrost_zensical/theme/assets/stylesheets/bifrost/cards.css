@@ -1,0 +1,43 @@
+.md-typeset .grid {
+    gap: var(--bfs16);
+}
+
+/* overflow:hidden clips the header band's background and border to the radius. */
+.md-typeset .grid.cards> :is(ol, ul)>li {
+    background-color: var(--bfc-base-3);
+    border: none;
+    border-radius: var(--bf-radius);
+    box-shadow: var(--bf-shadow);
+    padding: 0;
+    overflow: hidden;
+    margin-top: 0;
+}
+
+
+/* Header band = the first child, mirroring .bf-section-header. */
+.md-typeset .grid.cards> :is(ol, ul)>li> :first-child {
+    display: flex;
+    align-items: center;
+    gap: var(--bfs8);
+    margin: 0;
+    padding: var(--bfs16) var(--bfs16) 0 var(--bfs16);
+}
+
+
+.md-typeset .grid.cards> :is(ol, ul)>li> :not(:first-child):not(hr) {
+    padding-inline: var(--bfs16);
+}
+
+.md-typeset .grid.cards> :is(ol, ul)>li> :first-child>a {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: var(--bfs8);
+    color: var(--bfc-base-c);
+    cursor: pointer;
+}
+
+/* Trailing arrow, pushed right */
+.md-typeset .grid.cards> :is(ol, ul)>li> :first-child>a> :last-child {
+    margin-left: auto;
+}

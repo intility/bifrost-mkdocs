@@ -1,6 +1,6 @@
 # Feature Showcase
 
-This section demonstrates every enabled Markdown extension and Material for MkDocs feature configured in this plugin. Each page shows the rendered output alongside the source Markdown so you can copy and adapt the syntax.
+This section demonstrates every Markdown extension from the [Quick Start](../index.md#quick-start) block. Each page shows the rendered output alongside the source Markdown so you can copy and adapt the syntax.
 
 ## Available Features
 
@@ -10,7 +10,7 @@ This section demonstrates every enabled Markdown extension and Material for MkDo
 | [Smart Symbols](smart-symbols.md) | `smartsymbols` |
 | [Keyboard Keys](keyboard-keys.md) | `keys` |
 | [Lists](lists.md) | `tasklist`, `def_list` |
-| [Tables](tables.md) | `tables` |
+| [Tables](tables.md) | `tables`, `table_ext` |
 | [Messages](messages.md) | `admonition`, `details`, `github-callouts` |
 | [Highlighter](highlighter.md) | `highlight`, `superfences`, `inlinehilite` |
 | [Tabs](tabs.md) | `tabbed` |

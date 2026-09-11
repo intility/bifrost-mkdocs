@@ -1,5 +1,6 @@
 nav:
-  - Home: index.md
+  - Home:
+      - Getting Started: index.md
+      - Migrating: migrating.md
   - Feature Showcase: showcase
-  - Migrating: migrating.md
   - Changelog: changelog.md

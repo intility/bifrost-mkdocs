@@ -12,7 +12,7 @@ This site's [Changelog](../changelog.md) is the repository's root `CHANGELOG.md`
 ;--8<-- "CHANGELOG.md"
 ```
 
-The marker must be on its own line. Paths are resolved relative to the directory MkDocs runs from (the project root), so `CHANGELOG.md` refers to the file next to `mkdocs.yml`.
+The marker must be on its own line. Paths are resolved relative to the directory Zensical runs from (the project root), so `CHANGELOG.md` refers to the file next to your config file.
 
 ## Including Part of a File Into a Block
 

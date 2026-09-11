@@ -6,22 +6,21 @@ Extension: `footnotes`
 
 === "Result"
 
-    MkDocs[^1] is a static site generator built with Python. Combined with Material for MkDocs[^2], it provides a feature-rich documentation platform.
+    Zensical[^1] is a static site generator from the Material for MkDocs team. It replaces Material for MkDocs[^2], which reaches end of life on 2026-11-05.
 
-    [^1]: MkDocs was created by Tom Christie and is released under the BSD license. See [mkdocs.org](https://www.mkdocs.org/) for more.
-    [^2]: Material for MkDocs is maintained by Martin Donath. It supports over 60 languages and dozens of plugins.
+    [^1]: Zensical is the successor to Material for MkDocs. See [zensical.org](https://zensical.org/) for more.
+    [^2]: Material for MkDocs was maintained by Martin Donath. It supported over 60 languages and dozens of plugins.
 
 === "Markdown"
 
     ```markdown
-    MkDocs[^1] is a static site generator built with Python.
-    Combined with Material for MkDocs[^2], it provides a
-    feature-rich documentation platform.
+    Zensical[^1] is a static site generator from the Material
+    for MkDocs team. It replaces Material for MkDocs[^2], which
+    reaches end of life on 2026-11-05.
 
-    [^1]: MkDocs was created by Tom Christie and is released
-        under the BSD license.
-    [^2]: Material for MkDocs is maintained by Martin Donath.
-        It supports over 60 languages and dozens of plugins.
+    [^1]: Zensical is the successor to Material for MkDocs.
+    [^2]: Material for MkDocs was maintained by Martin Donath.
+        It supported over 60 languages and dozens of plugins.
     ```
 
 ## Syntax

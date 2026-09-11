@@ -109,14 +109,14 @@ copy button, matching the Bifrost Highlighter's `header` prop.
     ```yaml
     site_name: My Documentation # (1)!
     theme:
-      name: material # (2)!
+      name: intility-bifrost # (2)!
       palette:
         primary: teal # (3)!
     ```
 
     1. The name displayed in the browser tab and header.
-    2. Material for MkDocs provides the theme engine.
-    3. Bifrost supports `teal`, `purple`, `pink`, and `yellow`.
+    2. This site's Bifrost theme provides the theme engine.
+    3. Bifrost supports `green`, `teal`, `purple`, `pink`, and `yellow`.
 
 === "Markdown"
 
@@ -124,14 +124,14 @@ copy button, matching the Bifrost Highlighter's `header` prop.
     ```yaml
     site_name: My Documentation # (1)!
     theme:
-      name: material # (2)!
+      name: intility-bifrost # (2)!
       palette:
         primary: teal # (3)!
     ```
 
     1. The name displayed in the browser tab and header.
-    2. Material for MkDocs provides the theme engine.
-    3. Bifrost supports `teal`, `purple`, `pink`, and `yellow`.
+    2. This site's Bifrost theme provides the theme engine.
+    3. Bifrost supports `green`, `teal`, `purple`, `pink`, and `yellow`.
     ````
 
 ## Inline Code Highlighting
