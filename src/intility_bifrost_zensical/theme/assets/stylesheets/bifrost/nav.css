@@ -14,7 +14,7 @@
 .md-tabs__item--active .md-tabs__link,
 .md-tabs__link:hover,
 .md-tabs__link:focus {
-    color: var(--bfc-theme);
+    color: var(--bfc-base-c);
 }
 
 .md-nav__link:hover,
@@ -25,6 +25,10 @@
 }
 
 a.md-nav__link:hover{
+    background-color: var(--bfc-theme-fade);
+}
+
+label.md-nav__link:hover{
     background-color: var(--bfc-theme-fade);
 }
 

@@ -12,7 +12,6 @@
 @import url("bifrost/checkbox.css") layer(bifrost-overrides.components);
 @import url("bifrost/highlighter.css") layer(bifrost-overrides.components);
 @import url("bifrost/nav.css") layer(bifrost-overrides.components);
-@import url("bifrost/tabs.css") layer(bifrost-overrides.components);
 @import url("bifrost/table.css") layer(bifrost-overrides.components);
 @import url("bifrost/footer.css") layer(bifrost-overrides.components);
 @import url("bifrost/misc.css") layer(bifrost-overrides.components);
