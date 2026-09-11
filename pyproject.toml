@@ -1,6 +1,6 @@
 [project]
 name = "intility-bifrost-zensical"
-version = "0.1.1"
+version = "0.1.2"
 description = "Intility Bifrost theme for Zensical"
 authors = [
     { name = "Erlend Ellefsen", email = "erlend.ellefsen@intility.no" },

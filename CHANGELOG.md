@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/intility/bifrost-zensical/compare/intility-bifrost-zensical-v0.1.1...intility-bifrost-zensical-v0.1.2) (2026-09-11)
+
+
+### Fixes
+
+* remove margin on highlight component titles ([61ba441](https://github.com/intility/bifrost-zensical/commit/61ba4419eea639e49e5cf15c636582e53812ecd5))
+
 ## [0.1.1](https://github.com/intility/bifrost-zensical/compare/intility-bifrost-zensical-v0.1.0...intility-bifrost-zensical-v0.1.1) (2026-09-11)
 
 
