@@ -20,7 +20,9 @@
       "include-component-in-tag": true,
       "release-as": "0.1.0",
       "extra-files": [
-        "zensical.toml"
+        "zensical.toml",
+        "docs/migrating.md",
+        ".github/workflows/docs.yml"
       ]
     }
   }

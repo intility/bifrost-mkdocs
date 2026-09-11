@@ -56,31 +56,27 @@ life on 2026-11-05. `intility-bifrost-zensical` is the replacement.
 
     jobs:
       docs:
-        uses: intility/bifrost-zensical/.github/workflows/docs.yml@intility-bifrost-zensical-v0.1.0
+        uses: intility/bifrost-zensical/.github/workflows/docs.yml@intility-bifrost-zensical-v0.1.0 # x-release-please-version
         # with:
         #   config-file: zensical.toml   # default: mkdocs.yml
         #   install: -r requirements.txt # default: intility-bifrost-zensical
     ```
 
-    Pin to an `intility-bifrost-zensical-v*` tag. The plain `v*` tags in this
-    repo belong to the deprecated `intility-bifrost-mkdocs` package.
+    Remember to pin the workflow to a SHA ;)
 
-!!! note "Styling covers the Quick Start setup only"
-
-    The theme styles the plugins and markdown extensions from the
-    [Quick Start](index.md#quick-start), nothing more. If another plugin or
-    extension needs Bifrost styling, [open an issue](https://github.com/intility/bifrost-zensical/issues)
-    or see the [contribution guide](https://github.com/intility/bifrost-zensical/blob/main/CONTRIBUTING.md).
+    > [!IMPORTANT]
+    > Styling covers the Quick Start setup only
+    > The theme styles the plugins and markdown extensions from the [Quick Start](index.md#quick-start), nothing more. If another plugin or extension needs Bifrost styling, [open an issue](https://github.com/intility/bifrost-zensical/issues) or see the [contribution guide](https://github.com/intility/bifrost-zensical/blob/main/CONTRIBUTING.md).
 
 ## Edge cases
 
 Skip anything here that does not match your setup.
 
+- A custom `palette` must use `scheme: default` / `slate` instead of `light` / `dark`.
+- Custom `hooks` do not run.
 - A fence with a bare option superfences does not know, such as
   `yaml file="x"`, renders as inline code. Use the brace form:
   `{.yaml file="x"}`.
-- A custom `palette` must use `scheme: default` / `slate` instead of `light` / `dark`.
-- Custom `hooks` do not run.
 - The theme enables `content.action.edit`, so the edit link renders when
   `repo_url` is set. Zensical defaults `edit_uri` to `edit/master/docs/`; set
   it yourself if your branch is `main`. A custom `theme.features` list
@@ -88,3 +84,6 @@ Skip anything here that does not match your setup.
 - You can convert `mkdocs.yml` to `zensical.toml` later; both work. A deep
   central `nav:` becomes hard to read as nested TOML inline tables. Keep
   `mkdocs.yml` or switch to `awesome-nav` in that case.
+
+> [!NOTE]
+> If you find any other edge cases, or things that do now work, [please let us know.](https://github.com/intility/bifrost-zensical/issues)
