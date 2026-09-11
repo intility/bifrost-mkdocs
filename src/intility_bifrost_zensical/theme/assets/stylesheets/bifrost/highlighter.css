@@ -52,6 +52,7 @@
     border-top-right-radius: var(--bf-radius);
     font-size: var(--bf-font-size-m);
     background-color: var(--bfc-base-3);
+    margin-top: 0;
 }
 
 /* Drop Material's inset shadow so the gutter blends into the body. */
